@@ -1,0 +1,10 @@
+.tableOptions{
+    width: 45%;
+    border: 10px;
+    background-color: green
+}
+
+.databaseTable{
+    width: 45%;
+    border: 2px
+}
