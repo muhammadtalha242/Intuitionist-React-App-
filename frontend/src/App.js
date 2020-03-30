@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import Modules from './components/Modules';
+import Modules from './components/modules/Modules';
 import Login from './components/Login';
 import Register from './components/Register';
 import { Route } from 'react-router-dom';
 import Landing from "./components/landing";
 import Database from "./components/database";
+
 function App() {
   return (
     <div className="App">

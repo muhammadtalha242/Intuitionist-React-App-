@@ -271,7 +271,6 @@ routerr.post('/', (req, res) => {
         var rate_dollar = ['NonEscalableComponentForeign', 'FOMForeign', 'RepaymentRMB', , 'FixedCostJetty', 'VariableCostJetty', 'ROE', 'ROEDC', 'AnnualSecurityCost']
 
 
-
         if (commercial_parameter == 'VOM_Local') {
             console.log("rate_local_cpi")
             query += reference_rate + ";" + reference_local_cpi  //1

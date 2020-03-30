@@ -1,0 +1,4 @@
+.database tr:first-child {
+    display: none;
+}
+

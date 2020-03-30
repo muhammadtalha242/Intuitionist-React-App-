@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import InputTable from './InputTable'
+import InputTable from './Old_InputTable'
 class Modules extends Component {
 
     constructor() {
@@ -71,6 +71,8 @@ class Modules extends Component {
             })
         axios.get("/commercialparameters")
             .then(response => {
+            console.log("Inside axios.get('//commercialparameters')")
+
                 this.setState({
                     commercialparameters: response.data.results
                 })
@@ -86,7 +88,7 @@ class Modules extends Component {
         this.setState({
             [e.target.name]: e.target.value,
             todate: e.target.value,
-        })
+        }) 
     }
     changeHandlerParameter = (e) => {
         this.setState({ [e.target.name]: e.target.value })

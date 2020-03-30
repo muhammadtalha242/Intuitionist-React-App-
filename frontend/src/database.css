@@ -1,10 +1,19 @@
 .tableOptions{
-    width: 45%;
-    border: 10px;
-    background-color: green
-}
+    width: 15%;
+    /* border: 10px; */
+    background-color:#add8e6;
+    float: left;
+    margin: 1px}
 
 .databaseTable{
-    width: 45%;
-    border: 2px
+    width: 75%;
+    margin-left: 1%;
+    float: left;
+}
+.databaseTable tr th td {
+    border:1px solid black;
+    background-color: #565a5ca4; }
+
+th{
+    font-weight: 200W;
 }

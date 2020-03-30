@@ -22,7 +22,7 @@ function getCommercialParameterName(array) {
 
 	for (i = 0; i < array.length; i++) {
 
-		commercialParameter = array[i]['COLUMN_NAME']
+		commercialParameter = array[i]['column_name']
 		console.log(commercialParameter)
 		if (commercialParameter == 'commercial_id') {
 
