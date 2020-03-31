@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import './database.css';
-import { Table } from 'react-bootstrap';
+
 import axios from "axios";
+
+
+
 import DatabaseTable from './databaseTable'
 class Database extends Component {
     constructor(props) {
         super(props);
+        this.goTo= this.goTo.bind(this)
         this.state = {
             // tables: this.props.tables  // * DOESNOT WORK ??*
             table: [],
@@ -24,23 +28,7 @@ class Database extends Component {
     // }
 
 
-    goTo = (ite, event) => {
-        //Call query from backend to generate the database table on clicking a particular row
-        axios.post('/data/link', {
-            item: ite
-        })
-            .then(response =>
-                this.setState({
-                    table: response.data,
-                    componentShow: true,
-                    tableName: ite
-                })
-            )
-            .catch(error => {
-                console.log('bbello')
-                console.log(error)
-            })
-    }
+    
 
     //Generate rows of the particular table to render
     renderItems = (item, index) => {
@@ -57,17 +45,18 @@ class Database extends Component {
 
         return (
             <div>
-                <div className='tableOptions'>
-                    <Table striped bordered hover variant="dark">
+                <div>
+                    {/* <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
                                 <th>Table Names</th>
                             </tr>
-                        </thead>
+                        </thead>    
                         <tbody>
-                            {(this.props.tables).map((item, index) => this.renderItems(item, index))}
-                        </tbody>
-                    </Table>
+                            {(this.props.tables).map((item, index) => this.renderItems(item, index))} */}
+                           
+                        {/* </tbody>
+                    </Table> */}
                 </div>
                 <div className='databaseTable'>
                     {this.state.componentShow ? <DatabaseTable tableData={this.state.table} tableName={this.state.tableName} /> : null}

@@ -5,7 +5,7 @@ export class Error extends Component {
         return (
             <div>
                 <h1>
-                    {this.props.error}
+                    Database not connected : {this.props.error}
                 </h1>
             </div>
         )

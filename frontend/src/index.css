@@ -107,7 +107,7 @@ nav ul li a{
 
 /*------------- HEADER -------------------*/
 
-header {
+header .image {
   background: url("./images/photo-1525184648845-66cbe3b6c59c.jpg");
   background-size: 100%;
   height: 1000px;

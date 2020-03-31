@@ -1,21 +1,26 @@
 import React, { Component } from 'react'
-import Database from './Database'
+import PersistentDrawerLeft from './PersistentDrawerLeft'
+import TableTrying from './TableTrying'
+
 import DatabaseTable from './databaseTable'
 import Error from './Error'
 import './database.css';
-import { Table } from 'react-bootstrap';
+// import Header from '../header'
+// import Footer from '../footer'
 import axios from "axios";
 
 export class DataBaseModule extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.testVarible= "null";
         this.state = {
             tables: [],
             table: [],
             componentShow: false,
             showError: false,
             item: '',
-            errorMessage:'',
+            errorMessage: '',
+            tableName:''
         }
 
     };
@@ -23,33 +28,59 @@ export class DataBaseModule extends Component {
         axios.get('/data', this.state)
             .then(response => {
                 this.setState({
-                    componentShow:true,
+                    componentShow: false,
                     tables: response.data
                 })
             })
             .catch(error => {
-                console.log('ERROR');
+                console.log('API-> ERROR');
                 console.log(error);
+
+
                 // How can we show it here?
                 // {<Error error={error}/>}
 
 
                 this.setState({
-                    showError:true,
-                    errorMessage: error
+                    showError: true,
+                    errorMessage: 'Status Code :500'
                 })
             })
     }
+
+
+    goTo = (tableName) => {
+        //Call query from backend to generate the database table on clicking a particular row
+        axios.post('/data/link', {
+            item: tableName
+        })
+            .then(response =>
+                this.setState({
+                    table:response.data,
+                    componentShow: true,
+                    tableName
+                })
+            )
+            .catch(error => {
+                console.log('bbello')
+                console.log(error)
+            })
+    }
     render() {
-        const errorPage = (this.state.showError?<Error error={this.state.errorMessage}/>:null)
+        const errorPage = (this.state.showError ? <Error error={this.state.errorMessage} /> : null)
+        this.testVarible = (this.state.componentShow ? <DatabaseTable tableData={this.state.table} tableName={this.state.tableName} /> : null)
 
         return (
             <div>
-                
-                <Database tables={this.state.tables}/>
-                
+                {/* <Header/> */}
+
+                <PersistentDrawerLeft tables={this.state.tables} goTo={this.goTo} databasetable={this.testVarible}/>
+
                 {/* Display error page */}
                 {errorPage}
+
+
+                {/* <Footer/> */}
             </div>
         )
     }

@@ -6,6 +6,10 @@ import axios from "axios";
 import Insert from './insert';
 import './databasetable.css';
 class databaseTable extends Component {
+
+
+
+    
     constructor() {
         super();
         this.state = {
@@ -68,7 +72,7 @@ class databaseTable extends Component {
 
         if ((this.state.showEditForm === false) && (this.state.showInsertForm === false)) {
             return (
-                <div >
+                < >
                     <Table striped bordered hover>
                         <thead>
                             <tr>
@@ -83,7 +87,7 @@ class databaseTable extends Component {
                         </tbody>
                     </Table>
 
-                </div >
+                </ >
             );
         }
         else if (this.state.showEditForm === true) {
