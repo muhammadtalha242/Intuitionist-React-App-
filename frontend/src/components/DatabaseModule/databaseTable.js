@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import '../database.css';
+import './database.css';
 import { Table } from 'react-bootstrap';
 import Edit from "./edit";
 import axios from "axios";
 import Insert from './insert';
-import '../databasetable.css';
+import './databasetable.css';
 class databaseTable extends Component {
     constructor() {
         super();

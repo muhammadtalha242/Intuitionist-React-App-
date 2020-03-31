@@ -1,8 +1,8 @@
-var input = require('./input');
+var input = require('../CPP&EPP/input');
 var express = require('express');
 var app = express();
 var routerr = express.Router();
-var db = require('../config');
+var db = require('./config');
 
 function edit(arr) {
     var tableValues = []

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../database.css';
+import './database.css';
 import axios from "axios";
 class Edit extends Component {
     constructor() {

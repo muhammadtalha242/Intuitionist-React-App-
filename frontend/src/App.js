@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import { Route } from 'react-router-dom';
 import Landing from "./components/landing";
-import Database from "./components/database";
+import DatabaseModule from "./components/DatabaseModule/DataBaseModule";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <Route exact path="/login" component={Login} />
       <Route exact path="/modules" component={Modules} />
       <Route exact path="/register" component={Register} />
-      <Route exact path="/database" component={Database} />
+      <Route exact path="/database" component={DatabaseModule} />
     </div>
   );
 }

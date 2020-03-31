@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import '../database.css';
+import './database.css';
 import { Table } from 'react-bootstrap';
 import axios from "axios";
 import DatabaseTable from './databaseTable'
 class Database extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            tables: [],
+            // tables: this.props.tables  // * DOESNOT WORK ??*
             table: [],
             componentShow: false,
             item: ''
@@ -15,21 +15,13 @@ class Database extends Component {
 
     };
 
-    componentDidMount = () => {
-        axios.get('/data', this.state)
-            .then(response => {
-                this.setState({
-                    tables: response.data
-                },
-                    // console.log(response.data),
-                    // console.log(this.state.tables)
-                )
-            })
-            .catch(error => {
-                console.log('bbello')
-                console.log(error)
-            })
-    }
+    // componentDidMount = () => {
+    //     console.log("inside component did mount")
+    //     this.setState({
+    //         
+    //     })
+
+    // }
 
 
     goTo = (ite, event) => {
@@ -73,7 +65,7 @@ class Database extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {(this.state.tables).map((item, index) => this.renderItems(item, index))}
+                            {(this.props.tables).map((item, index) => this.renderItems(item, index))}
                         </tbody>
                     </Table>
                 </div>

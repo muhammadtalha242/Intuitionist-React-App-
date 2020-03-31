@@ -1,9 +1,9 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var db = require('../config')
-const bus = require('../models/bus')
-const User = require('../models/User')
+var db = require('./config')
+// const bus = require('../../models/bus')
+const User = require('../../models/User')
 
 
 router.post('/edit', (req, res, next) => {

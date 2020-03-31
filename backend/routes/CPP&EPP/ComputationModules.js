@@ -5,7 +5,7 @@ const router = express.Router();
 const indexFunctions = require("./IndexFormulas")
 const Excel = require("./GenrateExcel")
 const Helper = require("./Helper")
-const connection = require('../../config');        //Data connection
+const connection = require('../DataBaseModule/config');        //Data connection
 const commercialParameters = require("./CommercialParameters").commercialParameters
 
 
