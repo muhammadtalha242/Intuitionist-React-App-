@@ -2,6 +2,7 @@ import React from 'react'
 import DataInput from "./DateInput"
 import InputTable from './InputTable'
 import axios from "axios"
+import {endpoints} from '../Api/Endpoints'
 
 class Modules extends React.Component {
     constructor() {
@@ -28,7 +29,7 @@ class Modules extends React.Component {
     }
     sendAssumption(assumptions){
         console.log("sending Query: ",assumptions)
-        axios.post('/submit', assumptions )
+        axios.post(endpoints.EPPComputations.POSTassumptions, assumptions )
             .then(response => {
 
                 console.log("this is response: ",response)

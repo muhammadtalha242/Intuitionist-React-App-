@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './database.css';
+import {endpoints} from '../Api/Endpoints'
 import { Table } from 'react-bootstrap';
 import Edit from "./edit";
 import axios from "axios";
@@ -40,7 +41,7 @@ class databaseTable extends Component {
         }
 
         console.log(this.state.deleterow)
-        axios.post("/update/delete", this.state.deleterow)
+        axios.delete(endpoints.database.DELETETableRow, this.state.deleterow)
             .then(response =>
                 console.log(response)
             )

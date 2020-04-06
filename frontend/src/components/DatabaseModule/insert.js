@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import {endpoints} from '../Api/Endpoints'
 import './database.css';
 import axios from "axios";
 class Insert extends Component {
@@ -61,7 +62,7 @@ class Insert extends Component {
         )
         console.log(this.state.obj)
 
-        axios.post("/update/insert", this.state.obj)
+        axios.post(endpoints.database.POSTinsertRow, this.state.obj)
             .then(response =>
                 console.log(response)
             )

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './database.css';
+import {endpionts} from '../Api/Endpoints'
 import axios from "axios";
 class Edit extends Component {
     constructor() {
@@ -74,7 +75,7 @@ class Edit extends Component {
             this.state.obj[arr[i]] = document.getElementById(arr[i]).value
         }
 
-        axios.post("/update/edit", this.state.obj)
+        axios.put(endpionts.database.PUTupdateTable, this.state.obj)
             .then(response =>
                 console.log(response)
             )

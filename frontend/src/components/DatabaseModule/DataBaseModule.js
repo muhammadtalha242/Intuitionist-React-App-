@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PersistentDrawerLeft from './PersistentDrawerLeft'
 import TableTrying from './TableTrying'
-
+import { endpoints } from "../Api/Endpoints"
 import DatabaseTable from './databaseTable'
 import Error from './Error'
 import './database.css';
@@ -25,7 +25,7 @@ export class DataBaseModule extends Component {
 
     };
     componentDidMount = () => {
-        axios.get('/data', this.state)
+        axios.get(endpoints.database.GETtablesName, this.state)
             .then(response => {
                 this.setState({
                     componentShow: false,
@@ -51,8 +51,8 @@ export class DataBaseModule extends Component {
 
     goTo = (tableName) => {
         //Call query from backend to generate the database table on clicking a particular row
-        axios.post('/data/link', {
-            item: tableName
+        axios.get(endpoints.database.GETtableValue, {
+            params: {item: tableName}        
         })
             .then(response =>
                 this.setState({

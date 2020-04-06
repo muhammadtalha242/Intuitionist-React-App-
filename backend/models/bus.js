@@ -1,6 +1,6 @@
 
 const Sequelize = require('sequelize')
-const db = require("../config")
+const db = require("../routes/DataBaseModule/config")
 
 module.exports = db.define(
   'bus',

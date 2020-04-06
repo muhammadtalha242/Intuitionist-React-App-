@@ -2,15 +2,15 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var db = require('./config')
-// const bus = require('../../models/bus')
+const bus = require('../../models/bus')
 const User = require('../../models/User')
 
 
-router.post('/edit', (req, res, next) => {
-    const model = require('../models/' + Object.values(req.body)[0])
+router.put('/edit', (req, res, next) => {
+    const model = require('../../models/' + Object.values(req.body)[0])
     set = {}
     where = {}
-
+    console.log(req.body)
     for (var i = 1; i < Object.keys(req.body).length; i++) {
         if (!(Object.keys(req.body)[i].includes('id'))) {
             set[Object.keys(req.body)[i]] = Object.values(req.body)[i]
@@ -26,14 +26,16 @@ router.post('/edit', (req, res, next) => {
         .then(response => {
             console.log('done')
             console.log(response)
+            res.send(response)
         })
         .catch(next)
 
 })
 
-router.post('/delete', (req, res, next) => {
+router.delete('/delete', (req, res, next) => {
     var tableName = Object.values(req.body)[0];
-    const model = require('../models/' + Object.values(req.body)[0])
+    console.log(req.body)
+    const model = require('../../models/' + Object.values(req.body)[0])
     where = {}
     for (var i = 1; i < Object.keys(req.body).length; i++) {
         if (Object.keys(req.body)[i].includes('id')) {
@@ -61,6 +63,7 @@ router.post('/delete', (req, res, next) => {
             db.query(autoincrement, { replacements: [tableName, a] })
                 .then(results => {
                     console.log(results)
+                    res.send(results)
                 })
                 .catch(err => {
                     res.send(err)
@@ -69,14 +72,19 @@ router.post('/delete', (req, res, next) => {
         .catch(err => {
             res.send(err)
         })
+
 })
 
 
 router.post('/insert', (req, res, next) => {
-
-    const model = require('../models/' + Object.values(req.body)[0])
+    console.log(req.body)
+    const model = require('../../models/' + Object.values(req.body)[0])
     delete req.body['table_name']
-    return model.create(req.body).then(console.log('done'));
+    return model.create(req.body).then(response =>{
+        
+        console.log('done')
+        res.send(response)
+    });
 })
 
 module.exports = router

@@ -7,11 +7,11 @@ exports.getIndexValue = (commercialParameter, assumption, powerplant, rate) => {
     // indexValues_5=(assumption_1, assumption_2, ref_eco_1, ref_eco_2, ref_rate)
     // indexValues_1=(ref_rate)
 
-    if (commercialParameter == 'interestforeignannual') {
+    if (commercialParameter == 'InterestForeignAnnual') {
 
         return InterestForeignAnnual(assumption, powerplant, rate)
     }
-    else if (commercialParameter == 'interestlocalannual') {
+    else if (commercialParameter == 'InterestLocalAnnual') {
         return InterestLocalAnnual(assumption, powerplant, rate)
     }
     console.log("ref_rate = rate[0][]")
@@ -21,7 +21,7 @@ exports.getIndexValue = (commercialParameter, assumption, powerplant, rate) => {
         return indexValues_3(assumption.dollar_parity, powerplant.local_cpi, ref_rate)
     }
     else if (commercialParameter == 'VOM_Foreign') {
-        return indexValues_5(assumption.dollar_parity, us_cpi, powerplant.dollar_parity, powerplant.us_cpi, ref_rate)
+        return indexValues_5(assumption.dollar_parity, powerplant.us_cpi, powerplant.dollar_parity, powerplant.us_cpi, ref_rate)
     }
     else if (commercialParameter == 'WaterCharges') {
         return indexValues_3(assumption.local_cpi, powerplant.local_cpi, ref_rate)
@@ -33,7 +33,7 @@ exports.getIndexValue = (commercialParameter, assumption, powerplant, rate) => {
         return indexValues_3(assumption.local_cpi, powerplant.local_cpi, ref_rate)
     }
     else if (commercialParameter == 'EscalableComponent') {
-        return indexValues_5(assumption.dollar_parity, us_cpi, powerplant.dollar_parity, powerplant.us_cpi, ref_rate)
+        return indexValues_5(assumption.dollar_parity, assumption.us_cpi, powerplant.dollar_parity, powerplant.us_cpi, ref_rate)
     }
     else if (commercialParameter == 'NonEscalableComponentForeign') {
         return indexValues_3(assumption.dollar_parity, powerplant.dollar_parity, ref_rate)
@@ -121,28 +121,22 @@ exports.getIndexValue = (commercialParameter, assumption, powerplant, rate) => {
 
 //Formula for variables with 3 parameters
 indexValues_3 = (assumption, ref_eco, ref_rate) => {
-    console.log("(assumption, ref_eco, ref_rate): ",assumption, ref_eco, ref_rate)
     const value = (assumption / ref_eco) * ref_rate;
-    console.log("(value): ",value)
 
     return value
 }
 
 //Formula for variables with 5 parameters
 indexValues_5 = (assumption_1, assumption_2, ref_eco_1, ref_eco_2, ref_rate) => {
-    console.log(" (assumption_1, assumption_2, ref_eco_1, ref_eco_2, ref_rate) : ", assumption_1, assumption_2, ref_eco_1, ref_eco_2, ref_rate )
 
     const value = ((assumption_1 / ref_eco_1) * (assumption_2 / ref_eco_2) * (ref_rate));
-    console.log("(value): ",value)
     
     return value
 }
 
 //Formula for variables with 1 parameters
 indexValues_1 = (ref_rate) => {
-    console.log("(ref_rate): ",ref_rate)
     const value = ref_rate
-    console.log("(value): ",value)
 
     return value
 }
@@ -169,14 +163,11 @@ InterestForeignAnnual =(assumption, powerplant, ref_rate)=>{
     }
     var sum = 0
     ref_rate.forEach(rate=>{
-        console.log("sum: ", sum)
        const interest= rate.interestforeignquarter_rate * (assumption.dollar_parity/powerplant.dollar_parity)
        const outstanding = rate.OutstandingPrincipleForeignQuarter_rate * assumption.dollar_parity
        const installed  =  (assumption.libor - powerplant.libor)/(powerplant.installed_capacity * powerplant.derated_capacity *8670*1000)
         sum = interest + (outstanding * installed)
-        console.log("interest,outstanding,installed,sum",interest,outstanding,installed,sum)
     })
-    console.log("InterestForeignAnnual:_________>>>>>> :", sum/4)
 
     return sum/4
 }
@@ -187,21 +178,14 @@ InterestLocalAnnual=(assumption, powerplant, ref_rate)=>{
     }
     var sum = 0
     ref_rate.forEach(rate=>{
-        console.log("sum: ", sum)
-        console.log("rate: ",rate)
        const interest= rate.InterestLocalQuarter_rate
-       console.log("interest: ",rate. InterestLocalQuarter_rate)
        const outstanding = rate.OutstandingPrincipleLocalQuarter_rate * assumption.dollar_parity
-       console.log("outstanding: ",outstanding)
        
        /// CONFORM IT 
        const installed  =  (assumption.libor - powerplant.libor)/(powerplant.installed_capacity * powerplant.derated_capacity *8670*1000)
-       console.log("installed: ",installed)
         /// GET IT CHECKED
        sum = interest + (outstanding * installed)
-        console.log("interest,outstanding,installed,sum",interest,outstanding,installed,sum)
 
     })
-    console.log("InterestLocalAnnual:_________>>>>>> :", sum/4)
     return sum/4
 }

@@ -6,7 +6,7 @@ const indexFunctions = require("./IndexFormulas")
 const Excel = require("./GenrateExcel")
 const Helper = require("./Helper")
 const connection = require('../DataBaseModule/config');        //Data connection
-const commercialParametersFile = require("./CommercialParameters")
+const FuelType = require("./FuelTypes").fuelType;
 
 
 
@@ -18,7 +18,7 @@ const commercialParametersFile = require("./CommercialParameters")
 
 const powerPlants = [
     {
-        plant_name: 'Mix(Captive)',
+        plant_name: 'HUBCO_CPIH_1',
         power_plant_code: 19001,
         fca_code: '704',
         sddp_code: '299.0000',
@@ -61,7 +61,7 @@ const powerPlants = [
         reserve_tertiary: '1.0000',
         min_time_up: '3.0000',
         min_time_down: '0.5000',
-        fuel_type: null,
+        fuel_type: 'Imp Coal',
         heat_reat_MSL: '0.5000',
         heat_rate_50: '0.6000',
         heat_rate_75: '0.7000',
@@ -72,7 +72,7 @@ const powerPlants = [
         repair_time_mean: '4.0000',
         repair_time_min: '1.0000',
         repair_time_max: '6.0000',
-        ref_fuel_cost: null,
+        ref_fuel_cost: '12532.0000',
         startup_cost: null,
         availability_for_cp: null,
         fuel_calorific_value: null,
@@ -142,7 +142,7 @@ const powerPlants = [
 ]
 
 const output = {}
-async function addingRefYear(powerPlants, assumptions, commercialParameters) {
+async function addingRefYear(powerPlants, assumptions, FuelType) {
     console.log("Inside printit---------------------")
 
     console.log("powerPlants.length: ", powerPlants.length)
@@ -152,11 +152,11 @@ async function addingRefYear(powerPlants, assumptions, commercialParameters) {
 
     //loop over and find cod and calculate ref year and add it back in that powerplant object
     var x = {}
-    // var commercialParametersNameArray = Object.keys(commercialParameters)
-    for (var _ = 0; _ < commercialParameters.length; _++) {
-        const commercialParameter = commercialParameters[_]
+    // var FuelTypeNameArray = Object.keys(FuelType)
+    for (var _ = 0; _ < FuelType.length; _++) {
+        const fuelType = FuelType[_]
 
-        x = await getDataBaseValue(commercialParameter, assumptions, powerPlants)
+        x = await getDataBaseValue(fuelType, assumptions, powerPlants)
 
 
         console.log("after-3")
@@ -166,7 +166,7 @@ async function addingRefYear(powerPlants, assumptions, commercialParameters) {
 
 }
 
-async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
+async function getDataBaseValue(fuelType, assumptions, powerPlants) {
 
     for (var x = 0; x < assumptions.length; x++) {
 
@@ -188,20 +188,18 @@ async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
             powerplant['year'] = Helper.getRefYear(assumptionDate, cod)
 
 
-            if ((commercialParameter == 'interestforeignannual' || commercialParameter == 'interestlocalannual') && (powerplant.year <= 30)) {
-                if (commercialParameter == 'interestlocalannual') {
-                    var rate_query = "SELECT ilq.rate  as InterestLocalQuarter_rate , olq.rate as OutstandingPrincipleLocalQuarter_rate from InterestLocalQuarter as ilq join OutstandingPrincipleLocalQuarter as olq on (ilq.id= olq.id )  where ilq.year = :year and ilq.id in(SELECT InterestLocalQuarter_id from commercialparameters cp where cp.power_plant_name =:powerplant_name);"
-                }
-                else if (commercialParameter == 'interestforeignannual') {
-                    var rate_query = "SELECT ifq.rate  as interestforeignquarter_rate , opq.rate as OutstandingPrincipleForeignQuarter_rate from interestforeignquarter as ifq join OutstandingPrincipleForeignQuarter as opq on (ifq.id= opq.id )  where ifq.year = :year and ifq.id in(SELECT interestforeignquarter_id from commercialparameters cp where cp.power_plant_name =:powerplant_name);"
-                }
+            if (powerplant == 'PORT_QASIM' || powerplant == 'HUANENG_ENRG' || powerplant == 'HUBCO_CPIH_1')  {
+                const refRate=0
+                const indexValue =indexFunctions.getIndexValueByPlant(fuelType, allAssumptions, powerplant)
+                return creatingOutputObject(fuelType,assumptionDate, allAssumptions, powerplant, indexValue, refRate)
             }
             else {
 
-                var rate_query = `SELECT rate from ${commercialParameter} where year =:year and id in(SELECT ${commercialParameter + "_id"} from commercialparameters  where  power_plant_name =:powerplant_name);`
+                var rate_query = `SELECT rate from fcc where year =:year and id in(SELECT FCC_id from commercialparameters  where  power_plant_name =:powerplant_name);`
+                out = await databaseComm(fuelType, rate_query, powerplant, assumptionDate, allAssumptions)
+
             }
 
-            out = await databaseComm(commercialParameter, rate_query, powerplant, assumptionDate, allAssumptions)
         }
 
     }
@@ -210,12 +208,17 @@ async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
 
 }
 
-async function databaseComm(commercialParameter, rate_query, powerplant, assumptionDate, allAssumptions) {
+async function databaseComm(fuelType, rate_query, powerplant, assumptionDate, allAssumptions) {
     var refRate = await connection.query(rate_query, { replacements: { year: powerplant.year, numberOfPowerPlants: 261 + 1, powerplant_name: powerplant.plant_name }, type: connection.QueryTypes.SELECT })
+    const indexValue = calculateIndexValue(fuelType, allAssumptions, powerplant, refRate)
+    return creatingOutputObject(fuelType,assumptionDate, allAssumptions, powerplant, indexValue, refRate)
+}
 
+calculateIndexValue=(fuelType, allAssumptions, powerplant, refRate)=>{
     console.log("refRate:-------------------->>>>", refRate)
-    const indexValue = indexFunctions.getIndexValue(commercialParameter, allAssumptions, powerplant, refRate)
-
+    return indexFunctions.getIndexValue(fuelType, allAssumptions, powerplant, refRate)
+}
+creatingOutputObject=(fuelType,assumptionDate, allAssumptions, powerplant, indexValue, refRate)=>{
     const outputPowerPlant={...powerplant}
     // outputPowerPlant['name']= powerplant.plant_name
     outputPowerPlant['assumption_date']= assumptionDate
@@ -225,15 +228,15 @@ async function databaseComm(commercialParameter, rate_query, powerplant, assumpt
     outputPowerPlant["index"] = indexValue
     console.log("outputPowerPlant:  .........................", outputPowerPlant)
 
-    if (commercialParameter in output) {
+    if (fuelType in output) {
 
-        if (assumptionDate in output[commercialParameter]) {
-            output[commercialParameter][assumptionDate].push(outputPowerPlant)
+        if (assumptionDate in output[fuelType]) {
+            output[fuelType][assumptionDate].push(outputPowerPlant)
         }
         else {
             var y = []
             y.push(outputPowerPlant)
-            output[commercialParameter][assumptionDate] = y
+            output[fuelType][assumptionDate] = y
         }
     }
     else {
@@ -241,11 +244,15 @@ async function databaseComm(commercialParameter, rate_query, powerplant, assumpt
         var y = []
         y.push(outputPowerPlant)
         obj[assumptionDate] = y
-        output[commercialParameter] = obj
+        output[fuelType] = obj
     }
     
-     return output
+    return output
+
 }
+ 
+
+
 
 // ------IMPORTANT-------
 const query = 'select * from powerplant join economicparameters on (powerplant.economic_parameters_id=economicparameters.economic_parameters_id) join technicalparameters on(powerplant.technical_parameter_id =technicalparameters.technical_parameter_id);'
@@ -257,12 +264,12 @@ router.post("/", (req, res) => {
     console.log("assumptions.length: ",assumptions.length)
     // console.log(assumptions)
     var out = {}
-    connection.query(query, { type: connection.QueryTypes.SELECT }).then(async stopx => {
+    connection.query(query, { type: connection.QueryTypes.SELECT }).then(async powerPlants => {
         console.log("before-1")
-        const commercialParameters = await commercialParametersFile.getCommercialParameters()
-        console.log("using: ",commercialParameters)
+        // const FuelType = await FuelTypeFile.getFuelType()
+        console.log("using: ",FuelType)
 
-        out = await addingRefYear(powerPlants, assumptions, commercialParameters)
+        out = await addingRefYear(powerPlants, assumptions, FuelType)
         console.log("after-1")
 
     }).then(() => {

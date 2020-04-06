@@ -4,10 +4,15 @@ const app = express();
 const mysql = require('mysql');
 const inputForm = require('./routes/CPP&EPP/input')
 const ComputationModules = require('./routes/CPP&EPP/ComputationModules')
+const FccComputationModules = require('./routes/FCC/FccComputationModules')
 const login = require('./routes/RegistrationLoginModule/login')
 const database = require('./routes/DataBaseModule/data')
 const updateDatabase = require('./routes/DataBaseModule/updateTable')
 var bodyParser = require('body-parser')
+//
+// const tryingRoute = require("./routes/CPP&EPP/UsingRefactored")
+
+
 
 const db = require('./routes/DataBaseModule/config');
 db.authenticate()
@@ -25,6 +30,7 @@ app.use(
 )
 // app.use('/', inputForm.router);
 app.use('/submit', ComputationModules)
+app.use('/submitFCC', FccComputationModules)
 app.use('/', login)
 app.use('/data', database)
 app.use('/update', updateDatabase)

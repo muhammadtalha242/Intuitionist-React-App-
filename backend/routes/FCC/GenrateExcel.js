@@ -11,17 +11,17 @@ getObject = (obj) => {
     var workbook = new excel.Workbook();
 
 
-    const commercialAndPowerPlants = Object.entries(obj)
-    commercialAndPowerPlants.forEach(commercial => {
+    const fuelTypeAndPowerPlant = Object.entries(obj)
+    fuelTypeAndPowerPlant.forEach(fuel => {
         const date_row_assumption = 3 //0-99
-        const date_row_value = 11 //0-99
+        const date_row_value = 24 //0-99
         var date_col = 2 //A-z
     
-        const commercialParamter = commercial[0]
-        console.log("COMMERCIAL PARAMETER------------------>>>", commercialParamter)
-        var worksheet = workbook.addWorksheet(`${commercialParamter}`);
+        const fuelParamter = fuel[0]
+        console.log("fuel PARAMETER------------------>>>", fuelParamter)
+        var worksheet = workbook.addWorksheet(`${fuelParamter}`);
 
-        const dateAndPowerPlants = Object.entries(commercial[1])
+        const dateAndPowerPlants = Object.entries(fuel[1])
         
 
         dateAndPowerPlants.forEach(dateAndPlant => {
@@ -45,7 +45,7 @@ getObject = (obj) => {
             allPowerPlants.forEach(plant => {
                 
                 const powerPlantName = plant.plant_name
-                console.log("indexedValue, powerplant name, commercial: ",plant.index, powerPlantName,commercialParamter )
+                console.log("indexedValue, powerplant name, fuel: ",plant.index, powerPlantName,fuelParamter )
 
                 const indexedValue = plant.index.toString()
 

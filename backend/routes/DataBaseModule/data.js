@@ -40,8 +40,9 @@ routerr.get('/', (req, res) => {
 })
 
 
-routerr.post('/link', (req, res) => {
-    var tableLink = (req.body.item).replace(/'/, "");
+routerr.get('/link', (req, res) => {
+    console.log(req)
+    var tableLink = (req.query.item).replace(/'/, "");
     console.log(tableLink)
     table = "SELECT * from tablename".replace(/tablename/, tableLink)
 
