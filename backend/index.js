@@ -30,7 +30,7 @@ app.use(
 )
 // app.use('/', inputForm.router);
 app.use('/submit', ComputationModules)
-app.use('/submitFCC', FccComputationModules)
+// app.use('/submitFCC', FccComputationModules)
 app.use('/', login)
 app.use('/data', database)
 app.use('/update', updateDatabase)

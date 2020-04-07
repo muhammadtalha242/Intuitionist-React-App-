@@ -2,11 +2,11 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
-const indexFunctions = require("./IndexFormulas")
-const Excel = require("./GenrateExcel")
-const Helper = require("./Helper")
+const indexFunctions = require("./IndexFormulas");
+const Excel = require("./GenrateExcel");
+const Helper = require("./Helper");
 const connection = require('../DataBaseModule/config');        //Data connection
-const commercialParametersFile = require("./CommercialParameters")
+const commercialParametersFile = require("./CommercialParameters");
 
 
 
@@ -169,8 +169,8 @@ async function addingRefYear(powerPlants, assumptions, commercialParameters) {
 async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
 
     for (var x = 0; x < assumptions.length; x++) {
-
         const assumption = assumptions[x]
+
 
         const assumptionDate = new Date(assumption[0])
         const allAssumptions = assumption[1]
@@ -223,7 +223,7 @@ async function databaseComm(commercialParameter, rate_query, powerplant, assumpt
 
     outputPowerPlant["refvalue"] = refRate,
     outputPowerPlant["index"] = indexValue
-    console.log("outputPowerPlant:  .........................", outputPowerPlant)
+    // console.log("outputPowerPlant:  .........................", outputPowerPlant)
 
     if (commercialParameter in output) {
 
@@ -253,26 +253,26 @@ const query = 'select * from powerplant join economicparameters on (powerplant.e
 router.post("/", (req, res) => {
 
     const assumptions = req.body["assumption"]
-    console.log(req.body)
+    // console.log(req.body)
     console.log("assumptions.length: ",assumptions.length)
     // console.log(assumptions)
     var out = {}
     connection.query(query, { type: connection.QueryTypes.SELECT }).then(async stopx => {
         console.log("before-1")
         const commercialParameters = await commercialParametersFile.getCommercialParameters()
-        console.log("using: ",commercialParameters)
+        // console.log("using: ",commercialParameters)
 
         out = await addingRefYear(powerPlants, assumptions, commercialParameters)
         console.log("after-1")
 
     }).then(() => {
         console.log("At the end")
+        res.json(out)
         
         Excel.createExcel(out)
-        res.json(out)
 
     }).then(()=>{
-        // out = {}
+        out = {}
     })
 })
 
