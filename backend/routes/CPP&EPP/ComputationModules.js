@@ -7,7 +7,8 @@ const Excel = require("./GenrateExcel");
 const Helper = require("./Helper");
 const connection = require('../DataBaseModule/config');        //Data connection
 const commercialParametersFile = require("./CommercialParameters");
-
+const Sequelize = require("sequelize");
+const StoreResults = require("../../models/results")(connection,Sequelize)
 
 
 
