@@ -6,10 +6,19 @@ const fileName = 'Thermal Input'
 
 const Excel = require('./Excel')
 const excel = new Excel()
-var output = {};
-exports.genrateThermalInput=(obj)=>{
-    output = obj
+var output= require('./output.json')
+
+const extractThermalPlants= (output)=>{
+    let thermalPlantArray = Object.values(output.AnnualSecurityCost)[0]
+    thermalPlantArray = thermalPlantArray.map(plant =>{
+        if(plant.fuel_category==="Thermal") return plant.plant_name
+    })  
+    console.log(thermalPlantArray)
 }
+extractThermalPlants(output)
+// exports.genrateThermalInput=(obj)=>{
+//     output = obj
+// }
 
 
 //find all the plants where plant fuel type = thermal
