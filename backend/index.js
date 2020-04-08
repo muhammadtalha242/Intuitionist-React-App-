@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const mysql = require('mysql');
-const inputForm = require('./routes/CPP&EPP/input')
+
+const SDDP = require('./routes/SDDP/getResults')
 const ComputationModules = require('./routes/CPP&EPP/ComputationModules')
 const FccComputationModules = require('./routes/FCC/FccComputationModules')
 const login = require('./routes/RegistrationLoginModule/login')
@@ -28,9 +28,10 @@ app.use(
 		{ extended: false }
 	)
 )
-// app.use('/', inputForm.router);
+
 app.use('/submit', ComputationModules)
-// app.use('/submitFCC', FccComputationModules)
+app.use('/submitFCC', FccComputationModules)
+app.use('/results', SDDP)
 app.use('/', login)
 app.use('/data', database)
 app.use('/update', updateDatabase)
