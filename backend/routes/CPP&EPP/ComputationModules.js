@@ -8,7 +8,7 @@ const Helper = require("./Helper");
 const connection = require('../DataBaseModule/config');        //Data connection
 const commercialParametersFile = require("./CommercialParameters");
 const Sequelize = require("sequelize");
-const StoreResults = require("../../models/results")(connection,Sequelize)
+const StoreResults = require("../../models/simulation")(connection,Sequelize)
 
 
 
@@ -268,9 +268,13 @@ router.post("/", (req, res) => {
 
     }).then(() => {
         console.log("At the end")
+        
+        StoreResults.create({user_id: 1,results:out}).then(response=>{
+            console.log('database updated')
+        })
         res.json(out)
         
-        Excel.createExcel(out)
+        // Excel.createExcel(out)
 
     }).then(()=>{
         out = {}
