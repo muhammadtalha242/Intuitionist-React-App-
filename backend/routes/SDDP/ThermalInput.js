@@ -1,22 +1,21 @@
-const ExcelJS = require('exceljs');
+// IMPORTANT -->> dont not alter
+const thermalInputCols = '!Num	...Nombre...	#Uni	Tipo	.PotIns	.GerMin	.GerMax	..Teif.	..Ih...	.CVaria	.MR.	Comb	...G1..	.CEsp.1	...G2..	.CEsp.2	...G3..	.CEsp.3	NAdF	...1	...2	...3	ComT	CTransp	StartUp	sfal	NGas	NuCC	..NombreCC..	CoefE.'.split("\t")
+// IMPORTANT -->> dont not alter
+const fileName = 'Thermal Input'
 
 
-var workbook = new ExcelJS.Workbook();
+const Excel = require('./Excel')
+const excel = new Excel()
+var output = {};
+exports.genrateThermalInput=(obj)=>{
+    output = obj
+}
 
-var sheet = workbook.addWorksheet('My Sheet');
 
-var worksheet = workbook.getWorksheet('My Sheet');
+//find all the plants where plant fuel type = thermal
 
-worksheet.columns = [
-    { header: 'Id', key: 'id', width: 10 },
-    { header: 'Name', key: 'name', width: 32 },
-    { header: 'D.O.B.', key: 'DOB', width: 10, outlineLevel: 1 }
-  ];
-
-worksheet.addRow({id: 1, name: 'John Doe', dob: new Date(1970,1,1)});
-worksheet.addRow({id: 2, name: 'Jane Doe', dob: new Date(1965,1,7)});
-
-workbook.csv.writeFile("My Sheet.csv")
-  .then(() => {
-    console.log("done")
-  });
+// console.log("THERMAL")
+// const workbook =excel.workbook()
+// const workSheet = excel.createSheet(workbook,fileName)
+// excel.worksheetColumns(workSheet,thermalInputCols)
+// excel.writeFile(workbook, fileName)

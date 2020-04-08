@@ -108,6 +108,10 @@ exports.getIndexValue = (commercialParameter, assumption, powerplant, rate) => {
     else if (commercialParameter == 'DSRACost') {
         return indexValues_1(ref_rate)
     }
+    else if (commercialParameter == 'InterestChargesKibor') {
+        return indexValues_3(assumption.kibor, powerplant.kibor, ref_rate)
+
+    }
     else {
         console.log("NO match")
     }

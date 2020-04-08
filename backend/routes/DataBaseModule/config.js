@@ -6,10 +6,10 @@ module.exports = new Sequelize("development_database", "root", "root", {
 	operatorsAliases: false,
 
 	pool: {
-		max: 5,
+		max: 36,
 		min: 0,
-		require: 3,
-		acquire: 30000,
-		idle: 10000
+		// require: 3,
+		acquire: 300000,
+		idle: 100000
 	}
 })
