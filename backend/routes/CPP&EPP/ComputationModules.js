@@ -8,7 +8,7 @@ const Helper = require("./Helper");
 const connection = require('../DataBaseModule/config');        //Data connection
 const commercialParametersFile = require("./CommercialParameters");
 const Sequelize = require("sequelize");
-const StoreResults = require("../../models/simulation")(connection,Sequelize)
+const StoreResults = require("../../models/simulation")(connection, Sequelize)
 
 
 
@@ -17,130 +17,130 @@ const StoreResults = require("../../models/simulation")(connection,Sequelize)
 
 //++++++++++Dummy data to test+++++////////////
 
-// const powerPlants = [
-//     {
-//         plant_name: 'Mix(Captive)',
-//         power_plant_code: 19001,
-//         fca_code: '704',
-//         sddp_code: '299.0000',
-//         company: null,
-//         address: 'abcecfghijk',
-//         longitude: '69.466',
-//         latitude: '35.48',
-//         project_nature: 'Private',
-//         policy_reference: null,
-//         agreement_type: 'PPA',
-//         contract_type: 'Take and Pay',
-//         units: '1.0000',
-//         technical_parameter_id: 261,
-//         disco_id: 4,
-//         economic_parameters_id: 261,
-//         dollar_parity: '1.0000',
-//         us_cpi: '1.0000',
-//         local_cpi: '1.0000',
-//         cod: '2019-01-01',
-//         term: 30,
-//         end_year: 2045,
-//         kibor: '0.0000',
-//         libor: '0.0000',
-//         sinsoure_fee: '0.0100',
-//         rmb_rate: '0.0200',
-//         technology: 'CCGT',
-//         fuel_category: 'Thermal',
-//         fuel_code: 19,
-//         installed_capacity: '200.0000',
-//         derated_capacity: null,
-//         msl: '0.0000',
-//         scheduled_outages: '720.0000',
-//         forced_outages: '550.0000',
-//         auxilary_consumption: '20.0000',
-//         rate_emission_CO2: '1.9000',
-//         rate_emission_NOx: '1.9000',
-//         rate_emission_SOx: '1.7000',
-//         reserve_primary: '0.0000',
-//         reserve_secondary: '1.0000',
-//         reserve_tertiary: '1.0000',
-//         min_time_up: '3.0000',
-//         min_time_down: '0.5000',
-//         fuel_type: null,
-//         heat_reat_MSL: '0.5000',
-//         heat_rate_50: '0.6000',
-//         heat_rate_75: '0.7000',
-//         heat_rate_90: '0.8000',
-//         heat_rate_FL: '0.9000',
-//         ramp_up_rate: '0.0000',
-//         ramp_down_rate: null,
-//         repair_time_mean: '4.0000',
-//         repair_time_min: '1.0000',
-//         repair_time_max: '6.0000',
-//         ref_fuel_cost: null,
-//         startup_cost: null,
-//         availability_for_cp: null,
-//         fuel_calorific_value: null,
-//         synchronization_time: '2.0000',
-//     },
-//     {
-//         plant_name: 'Kashmir',
-//         power_plant_code: 7031,
-//         fca_code: null,
-//         sddp_code: '262.0000',
-//         company: null,
-//         address: 'abcecfghijk',
-//         longitude: '69.466',
-//         latitude: '35.48',
-//         project_nature: 'Private',
-//         policy_reference: null,
-//         agreement_type: 'PPA',
-//         contract_type: 'Take and Pay',
-//         units: '1.0000',
-//         technical_parameter_id: 228,
-//         disco_id: 4,
-//         economic_parameters_id: 228,
-//         dollar_parity: '105.0000',
-//         us_cpi: '245.5190',
-//         local_cpi: '216.6100',
-//         cod: '2020-07-01',
-//         term: 0,
-//         end_year: 2051,
-//         kibor: '0.0600',
-//         libor: '0.0000',
-//         sinsoure_fee: '0.0000',
-//         rmb_rate: '0.0200',
-//         technology: 'CCGT',
-//         fuel_category: 'Thermal',
-//         fuel_code: 7,
-//         installed_capacity: '40.0000',
-//         derated_capacity: '40.0000',
-//         msl: '0.0000',
-//         scheduled_outages: '720.0000',
-//         forced_outages: '550.0000',
-//         auxilary_consumption: '20.0000',
-//         rate_emission_CO2: '1.9000',
-//         rate_emission_NOx: '1.9000',
-//         rate_emission_SOx: '1.7000',
-//         reserve_primary: '0.0000',
-//         reserve_secondary: '1.0000',
-//         reserve_tertiary: '1.0000',
-//         min_time_up: '3.0000',
-//         min_time_down: '0.5000',
-//         fuel_type: null,
-//         heat_reat_MSL: '0.5000',
-//         heat_rate_50: '0.6000',
-//         heat_rate_75: '0.7000',
-//         heat_rate_90: '0.8000',
-//         heat_rate_FL: '0.9000',
-//         ramp_up_rate: '0.0000',
-//         ramp_down_rate: null,
-//         repair_time_mean: '4.0000',
-//         repair_time_min: '1.0000',
-//         repair_time_max: '6.0000',
-//         ref_fuel_cost: null,
-//         startup_cost: null,
-//         availability_for_cp: null,
-//         fuel_calorific_value: null,
-//         synchronization_time: '2.0000',
-//     }
-// ]
+const powerPlants = [
+    {
+        plant_name: 'Mix(Captive)',
+        power_plant_code: 19001,
+        fca_code: '704',
+        sddp_code: '299.0000',
+        company: null,
+        address: 'abcecfghijk',
+        longitude: '69.466',
+        latitude: '35.48',
+        project_nature: 'Private',
+        policy_reference: null,
+        agreement_type: 'PPA',
+        contract_type: 'Take and Pay',
+        units: '1.0000',
+        technical_parameter_id: 261,
+        disco_id: 4,
+        economic_parameters_id: 261,
+        dollar_parity: '1.0000',
+        us_cpi: '1.0000',
+        local_cpi: '1.0000',
+        cod: '2019-01-01',
+        term: 30,
+        end_year: 2045,
+        kibor: '0.0000',
+        libor: '0.0000',
+        sinsoure_fee: '0.0100',
+        rmb_rate: '0.0200',
+        technology: 'CCGT',
+        fuel_category: 'Thermal',
+        fuel_code: 19,
+        installed_capacity: '200.0000',
+        derated_capacity: null,
+        msl: '0.0000',
+        scheduled_outages: '720.0000',
+        forced_outages: '550.0000',
+        auxilary_consumption: '20.0000',
+        rate_emission_CO2: '1.9000',
+        rate_emission_NOx: '1.9000',
+        rate_emission_SOx: '1.7000',
+        reserve_primary: '0.0000',
+        reserve_secondary: '1.0000',
+        reserve_tertiary: '1.0000',
+        min_time_up: '3.0000',
+        min_time_down: '0.5000',
+        fuel_type: null,
+        heat_reat_MSL: '0.5000',
+        heat_rate_50: '0.6000',
+        heat_rate_75: '0.7000',
+        heat_rate_90: '0.8000',
+        heat_rate_FL: '0.9000',
+        ramp_up_rate: '0.0000',
+        ramp_down_rate: null,
+        repair_time_mean: '4.0000',
+        repair_time_min: '1.0000',
+        repair_time_max: '6.0000',
+        ref_fuel_cost: null,
+        startup_cost: null,
+        availability_for_cp: null,
+        fuel_calorific_value: null,
+        synchronization_time: '2.0000',
+    },
+    {
+        plant_name: 'Kashmir',
+        power_plant_code: 7031,
+        fca_code: null,
+        sddp_code: '262.0000',
+        company: null,
+        address: 'abcecfghijk',
+        longitude: '69.466',
+        latitude: '35.48',
+        project_nature: 'Private',
+        policy_reference: null,
+        agreement_type: 'PPA',
+        contract_type: 'Take and Pay',
+        units: '1.0000',
+        technical_parameter_id: 228,
+        disco_id: 4,
+        economic_parameters_id: 228,
+        dollar_parity: '105.0000',
+        us_cpi: '245.5190',
+        local_cpi: '216.6100',
+        cod: '2020-07-01',
+        term: 0,
+        end_year: 2051,
+        kibor: '0.0600',
+        libor: '0.0000',
+        sinsoure_fee: '0.0000',
+        rmb_rate: '0.0200',
+        technology: 'CCGT',
+        fuel_category: 'Thermal',
+        fuel_code: 7,
+        installed_capacity: '40.0000',
+        derated_capacity: '40.0000',
+        msl: '0.0000',
+        scheduled_outages: '720.0000',
+        forced_outages: '550.0000',
+        auxilary_consumption: '20.0000',
+        rate_emission_CO2: '1.9000',
+        rate_emission_NOx: '1.9000',
+        rate_emission_SOx: '1.7000',
+        reserve_primary: '0.0000',
+        reserve_secondary: '1.0000',
+        reserve_tertiary: '1.0000',
+        min_time_up: '3.0000',
+        min_time_down: '0.5000',
+        fuel_type: null,
+        heat_reat_MSL: '0.5000',
+        heat_rate_50: '0.6000',
+        heat_rate_75: '0.7000',
+        heat_rate_90: '0.8000',
+        heat_rate_FL: '0.9000',
+        ramp_up_rate: '0.0000',
+        ramp_down_rate: null,
+        repair_time_mean: '4.0000',
+        repair_time_min: '1.0000',
+        repair_time_max: '6.0000',
+        ref_fuel_cost: null,
+        startup_cost: null,
+        availability_for_cp: null,
+        fuel_calorific_value: null,
+        synchronization_time: '2.0000',
+    }
+]
 
 const output = {}
 async function addingRefYear(powerPlants, assumptions, commercialParameters) {
@@ -185,8 +185,8 @@ async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
             //powerplant to display
 
             const cod = new Date(powerplant.cod)
-
-            powerplant['year'] = Helper.getRefYear(assumptionDate, cod)
+            const refyear = Helper.getRefYear(cod, assumptionDate)
+            powerplant['year'] = refyear
 
 
             if ((commercialParameter == 'interestforeignannual' || commercialParameter == 'interestlocalannual') && (powerplant.year <= 30)) {
@@ -203,7 +203,7 @@ async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
             }
             var fcc_query = `SELECT rate from fcc where year =1 and id in(SELECT fcc_id from commercialparameters  where  power_plant_name =:powerplant_name);`
 
-            out = await databaseComm(commercialParameter,fcc_query, rate_query, powerplant, assumptionDate, allAssumptions)
+            out = await databaseComm(commercialParameter, fcc_query, rate_query, powerplant, assumptionDate, allAssumptions)
         }
 
     }
@@ -212,24 +212,29 @@ async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
 
 }
 
-async function databaseComm(commercialParameter,fcc_query, rate_query, powerplant, assumptionDate, allAssumptions) {
-    const refRate = await connection.query(rate_query, { replacements: { year: powerplant.year,  powerplant_name: powerplant.plant_name }, type: connection.QueryTypes.SELECT })
-    const fccRate = await connection.query(fcc_query, { replacements: { powerplant_name: powerplant.plant_name }, type: connection.QueryTypes.SELECT })
-    
+async function databaseComm(commercialParameter, fcc_query, rate_query, powerplant, assumptionDate, allAssumptions) {
+    var refRate = 0
+    var indexValue = 0
+    var fccRate = 0
+    if (powerplant.year > 0) {
+        refRate = await connection.query(rate_query, { replacements: { year: powerplant.year, powerplant_name: powerplant.plant_name }, type: connection.QueryTypes.SELECT })
+        fccRate = await connection.query(fcc_query, { replacements: { powerplant_name: powerplant.plant_name }, type: connection.QueryTypes.SELECT })
+        indexValue = indexFunctions.getIndexValue(commercialParameter, allAssumptions, powerplant, refRate)
+    }
+
     console.log("refRate:-------------------->>>>", refRate)
     console.log("fccRate:-------------------->>>>", fccRate)
-    
-    const indexValue = indexFunctions.getIndexValue(commercialParameter, allAssumptions, powerplant, refRate)
 
-    const outputPowerPlant={...powerplant}
+
+    const outputPowerPlant = { ...powerplant }
     // outputPowerPlant['name']= powerplant.plant_name
-    outputPowerPlant['assumption_date']= assumptionDate
-    outputPowerPlant['assumptions']= allAssumptions
+    outputPowerPlant['assumption_date'] = assumptionDate
+    outputPowerPlant['assumptions'] = allAssumptions
 
     outputPowerPlant["refvalue"] = refRate,
-    outputPowerPlant["fccvalue"] = fccRate,
-    
-    outputPowerPlant["index"] = indexValue
+        outputPowerPlant["fccvalue"] = fccRate,
+
+        outputPowerPlant["index"] = indexValue
     // console.log("outputPowerPlant:  .........................", outputPowerPlant)
 
     if (commercialParameter in output) {
@@ -250,8 +255,8 @@ async function databaseComm(commercialParameter,fcc_query, rate_query, powerplan
         obj[assumptionDate] = y
         output[commercialParameter] = obj
     }
-    
-     return output
+
+    return output
 }
 
 // ------IMPORTANT-------
@@ -261,10 +266,10 @@ router.post("/", (req, res) => {
 
     const assumptions = req.body["assumption"]
     // console.log(req.body)
-    console.log("assumptions.length: ",assumptions.length)
+    console.log("assumptions.length: ", assumptions.length)
     // console.log(assumptions)
     var out = {}
-    connection.query(query, { type: connection.QueryTypes.SELECT }).then(async powerPlants => {
+    connection.query(query, { type: connection.QueryTypes.SELECT }).then(async stopx => {
         console.log("before-1")
         const commercialParameters = await commercialParametersFile.getCommercialParameters()
         // console.log("using: ",commercialParameters)
@@ -274,15 +279,15 @@ router.post("/", (req, res) => {
 
     }).then(() => {
         console.log("At the end")
-        
-        StoreResults.create({user_id: 1,results:out}).then(response=>{
+
+        StoreResults.create({ user_id: 1, results: out }).then(response => {
             console.log('database updated')
-        }).catch(error=>console.log('ERROR: ', error))
-       
-        
+        }).catch(error => console.log('ERROR: ', error))
+
+
         // Excel.createExcel(out)
 
-    }).then(()=>{
+    }).then(() => {
         res.json(out)
         out = {}
     })

@@ -186,20 +186,31 @@ async function getDataBaseValue(fuelType, assumptions, powerPlants) {
             const cod = new Date(powerplant.cod)
 
             powerplant['year'] = Helper.getRefYear(assumptionDate, cod)
-
-
-            if (powerplant == 'PORT_QASIM' || powerplant == 'HUANENG_ENRG' || powerplant == 'HUBCO_CPIH_1')  {
-                const refRate=0
-                const indexValue =indexFunctions.getIndexValueByPlant(fuelType, allAssumptions, powerplant)
+            var refRate =[{rate:0}]
+            var indexValue =[{rate:0}]
+            if(powerplant.year<=0){
+                
                 return creatingOutputObject(fuelType,assumptionDate, allAssumptions, powerplant, indexValue, refRate)
+
+
+            }else{
+                if (powerplant == 'PORT_QASIM' || powerplant == 'HUANENG_ENRG' || powerplant == 'HUBCO_CPIH_1')  {
+                    refRate=[{rate:0}]
+                    console.log("refRate: ", refRate)
+                    indexValue =indexFunctions.getIndexValueByPlant(fuelType, allAssumptions, powerplant)
+                    return creatingOutputObject(fuelType,assumptionDate, allAssumptions, powerplant, indexValue, refRate)
+
+                }
+                else {
+                    console.log("HERER")
+    
+                    var rate_query = `SELECT rate from fcc where year =:year and id in(SELECT FCC_id from commercialparameters  where  power_plant_name =:powerplant_name);`
+                    out = await databaseComm(fuelType, rate_query, powerplant, assumptionDate, allAssumptions)
+    
+                }
+    
             }
-            else {
-
-                var rate_query = `SELECT rate from fcc where year =:year and id in(SELECT FCC_id from commercialparameters  where  power_plant_name =:powerplant_name);`
-                out = await databaseComm(fuelType, rate_query, powerplant, assumptionDate, allAssumptions)
-
-            }
-
+            
         }
 
     }
@@ -264,7 +275,7 @@ router.post("/", (req, res) => {
     console.log("assumptions.length: ",assumptions.length)
     // console.log(assumptions)
     var out = {}
-    connection.query(query, { type: connection.QueryTypes.SELECT }).then(async powerPlants => {
+    connection.query(query, { type: connection.QueryTypes.SELECT }).then(async pxx => {
         console.log("before-1")
         // const FuelType = await FuelTypeFile.getFuelType()
         console.log("using: ",FuelType)
