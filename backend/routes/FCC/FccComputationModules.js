@@ -78,6 +78,68 @@ const powerPlants = [
         fuel_calorific_value: null,
         synchronization_time: '2.0000',
     },
+    
+    {
+        plant_name: "Mix(Captive)",
+        power_plant_code: 7031,
+        fca_code: null,
+        sddp_code: '262.0000',
+        company: null,
+        address: 'abcecfghijk',
+        longitude: '69.466',
+        latitude: '35.48',
+        project_nature: 'Private',
+        policy_reference: null,
+        agreement_type: 'PPA',
+        contract_type: 'Take and Pay',
+        units: '1.0000',
+        technical_parameter_id: 228,
+        disco_id: 4,
+        economic_parameters_id: 228,
+        dollar_parity: '105.0000',
+        us_cpi: '245.5190',
+        local_cpi: '216.6100',
+        cod: '2019-07-01',
+        term: 0,
+        end_year: 2051,
+        kibor: '0.0600',
+        libor: '0.0000',
+        sinsoure_fee: '0.0000',
+        rmb_rate: '0.0200',
+        technology: 'CCGT',
+        fuel_category: 'Thermal',
+        fuel_code: 7,
+        installed_capacity: '40.0000',
+        derated_capacity: '40.0000',
+        msl: '0.0000',
+        scheduled_outages: '720.0000',
+        forced_outages: '550.0000',
+        auxilary_consumption: '20.0000',
+        rate_emission_CO2: '1.9000',
+        rate_emission_NOx: '1.9000',
+        rate_emission_SOx: '1.7000',
+        reserve_primary: '0.0000',
+        reserve_secondary: '1.0000',
+        reserve_tertiary: '1.0000',
+        min_time_up: '3.0000',
+        min_time_down: '0.5000',
+        fuel_type: null,
+        heat_reat_MSL: '0.5000',
+        heat_rate_50: '0.6000',
+        heat_rate_75: '0.7000',
+        heat_rate_90: '0.8000',
+        heat_rate_FL: '0.9000',
+        ramp_up_rate: '0.0000',
+        ramp_down_rate: null,
+        repair_time_mean: '4.0000',
+        repair_time_min: '1.0000',
+        repair_time_max: '6.0000',
+        ref_fuel_cost: null,
+        startup_cost: null,
+        availability_for_cp: null,
+        fuel_calorific_value: null,
+        synchronization_time: '2.0000',
+    },
     {
         plant_name: 'Kashmir',
         power_plant_code: 7031,
@@ -182,15 +244,15 @@ async function getDataBaseValue(fuelType, assumptions, powerPlants) {
             var powerplant = powerPlants[i]
 
             //powerplant to display
-
+            console.log("powerplant",powerplant)
             const cod = new Date(powerplant.cod)
-
-            powerplant['year'] = Helper.getRefYear(assumptionDate, cod)
+            console.log("COD", cod)
+            powerplant['year'] = Helper.getRefYear(cod,assumptionDate)
             var refRate =[{rate:0}]
             var indexValue =[{rate:0}]
             if(powerplant.year<=0){
                 
-                return creatingOutputObject(fuelType,assumptionDate, allAssumptions, powerplant, indexValue, refRate)
+                creatingOutputObject(fuelType,assumptionDate, allAssumptions, powerplant, indexValue, refRate)
 
 
             }else{
@@ -198,7 +260,7 @@ async function getDataBaseValue(fuelType, assumptions, powerPlants) {
                     refRate=[{rate:0}]
                     console.log("refRate: ", refRate)
                     indexValue =indexFunctions.getIndexValueByPlant(fuelType, allAssumptions, powerplant)
-                    return creatingOutputObject(fuelType,assumptionDate, allAssumptions, powerplant, indexValue, refRate)
+                    creatingOutputObject(fuelType,assumptionDate, allAssumptions, powerplant, indexValue, refRate)
 
                 }
                 else {
@@ -214,6 +276,7 @@ async function getDataBaseValue(fuelType, assumptions, powerPlants) {
         }
 
     }
+    console.log("OUT: ", out)
     return out
 
 
@@ -290,7 +353,7 @@ router.post("/", (req, res) => {
         res.json(out)
 
     }).then(()=>{
-        // out = {}
+        out = {}
     })
 })
 

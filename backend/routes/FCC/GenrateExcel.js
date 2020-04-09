@@ -85,7 +85,7 @@ getObject = (obj) => {
     })
 
     console.log("EXCEL GENRATED??")
-    workbook.write('CPP&EPP.xlsx');
+    workbook.write('FCC.xlsx');
 
 }
 
