@@ -218,7 +218,7 @@ async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
 
 async function databaseComm(commercialParameter, fcc_query, rate_query, powerplant, assumptionDate, allAssumptions) {
     var refRate = [{ rate: 0 }]
-    var indexValue = [{ rate: 0 }]
+    var indexValue = 0
     var fccRate = [{ rate: 0 }]
     if (powerplant.year > 0) {
         refRate = await connection.query(rate_query, { replacements: { year: powerplant.year, powerplant_name: powerplant.plant_name }, type: connection.QueryTypes.SELECT })

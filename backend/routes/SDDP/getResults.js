@@ -5,15 +5,16 @@ const express = require('express');
 const router = express.Router();
 const ThermInput = require('./ThermalInput')
 
-router.get("/", (req,res)=>{
+const query = 'select * from powerplant join economicparameters on (powerplant.economic_parameters_id=economicparameters.economic_parameters_id) join technicalparameters on(powerplant.technical_parameter_id =technicalparameters.technical_parameter_id);'
+
+router.get("/", async (req,res)=>{
     const simulation_id=req.query.id
     console.log(simulation_id)
-    StoreResults.findByPk(simulation_id).then(response=>{
-        const result= response.dataValues.results
-        console.log(result)
-        res.send(result)
-        ThermInput.genrateThermalInput(result)
-    })
+    const response = await StoreResults.findByPk(simulation_id)
+    const result= response.dataValues.results
+    const powerPlants = await connection.query(query, { type: connection.QueryTypes.SELECT }) 
+    res.send([result,powerPlants])
+    ThermInput.genrateThermalInput(result,powerPlants)
 
 })
 
