@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-const SDDP = require('./routes/SDDP/getResults')
+// const SDDP = require('./routes/SDDP/getResults')  ROUTE UNDERCONSTRUCTION
 const ComputationModules = require('./routes/CPP&EPP/ComputationModules')
 const FccComputationModules = require('./routes/FCC/FccComputationModules')
 const login = require('./routes/RegistrationLoginModule/login')
@@ -31,12 +31,12 @@ app.use(
 
 app.use('/submit', ComputationModules)
 app.use('/submitFCC', FccComputationModules)
-app.use('/results', SDDP)
+// app.use('/results', SDDP) ROUTE UNDERCONSTRUCTION
 app.use('/', login)
 app.use('/data', database)
 app.use('/update', updateDatabase)
 
 
 app.listen(4000, () => {
-	console.log("Products listening")
+	console.log("Server working at port 4000")
 });
