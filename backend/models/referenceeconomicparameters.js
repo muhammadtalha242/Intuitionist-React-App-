@@ -37,6 +37,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'referenceeconomicparameters'
+    createdAt:false,
+updatedAt:false,tableName: 'referenceeconomicparameters'
   });
 };

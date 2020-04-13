@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'sinosure'
+    createdAt:false,
+updatedAt:false,tableName: 'sinosure'
   });
 };

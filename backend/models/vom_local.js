@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'vom_local'
+    createdAt:false,
+updatedAt:false,tableName: 'vom_local'
   });
 };

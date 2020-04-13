@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'referencecosts'
+    createdAt:false,
+updatedAt:false,tableName: 'referencecosts'
   });
 };

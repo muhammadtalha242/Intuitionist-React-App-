@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'fixedfcc'
+    createdAt:false,
+updatedAt:false,tableName: 'fixedfcc'
   });
 };

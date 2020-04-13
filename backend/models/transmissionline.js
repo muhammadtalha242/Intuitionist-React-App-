@@ -41,6 +41,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'transmissionline'
+    createdAt:false,
+updatedAt:false,tableName: 'transmissionline'
   });
 };

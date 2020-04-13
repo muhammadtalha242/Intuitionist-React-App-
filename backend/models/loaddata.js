@@ -25,6 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'loaddata'
+    createdAt:false,
+updatedAt:false,tableName: 'loaddata'
   });
 };

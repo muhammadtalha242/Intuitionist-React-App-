@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'vom_foreign'
+    createdAt:false,
+updatedAt:false,tableName: 'vom_foreign'
   });
 };

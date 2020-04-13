@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'escalablecomponent'
+    createdAt:false,
+updatedAt:false,tableName: 'escalablecomponent'
   });
 };

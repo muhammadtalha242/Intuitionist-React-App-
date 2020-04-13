@@ -145,6 +145,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'technicalparameters'
+    createdAt:false,
+updatedAt:false,tableName: 'technicalparameters'
   });
 };

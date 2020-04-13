@@ -25,6 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   }, {
-    tableName: 'generation'
+    createdAt:false,
+updatedAt:false,tableName: 'generation'
   });
 };
