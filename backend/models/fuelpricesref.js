@@ -25,7 +25,6 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    createdAt:false,
-updatedAt:false,tableName: 'fuelpricesref'
+    tableName: 'fuelpricesref'
   });
 };

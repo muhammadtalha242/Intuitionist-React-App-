@@ -20,8 +20,7 @@ export class DataBaseModule extends Component {
             showError: false,
             item: '',
             errorMessage: '',
-            createdAt:false,
-updatedAt:false,tableName:''
+            tableName:''
         }
 
     };

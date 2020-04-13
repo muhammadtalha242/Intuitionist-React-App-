@@ -17,7 +17,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    createdAt:false,
-updatedAt:false,tableName: 'variablecostjetty'
+    tableName: 'variablecostjetty'
   });
 };
