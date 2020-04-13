@@ -3,168 +3,31 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const indexFunctions = require("./IndexFormulas");
-const Excel = require("./GenrateExcel");
 const Helper = require("./Helper");
 const connection = require('../DataBaseModule/config');        //Data connection
 const commercialParametersFile = require("./CommercialParameters");
-// const commercialParameters = require("./CommercialParameters").commercialParameters
-const fs = require("fs")
+
 
 const Sequelize = require("sequelize");
 const StoreResults = require("../../models/simulation")(connection, Sequelize)
 
 
-
-//We have all the powerplant in this array and also its corrosponding economic parameters
-
-
-//++++++++++Dummy data to test+++++////////////
-
-// const powerPlants = [
-//     {
-//         plant_name: 'Mix(Captive)',
-//         power_plant_code: 19001,
-//         fca_code: '704',
-//         sddp_code: '299.0000',
-//         company: null,
-//         address: 'abcecfghijk',
-//         longitude: '69.466',
-//         latitude: '35.48',
-//         project_nature: 'Private',
-//         policy_reference: null,
-//         agreement_type: 'PPA',
-//         contract_type: 'Take and Pay',
-//         units: '1.0000',
-//         technical_parameter_id: 261,
-//         disco_id: 4,
-//         economic_parameters_id: 261,
-//         dollar_parity: '1.0000',
-//         us_cpi: '1.0000',
-//         local_cpi: '1.0000',
-//         cod: '2019-01-01',
-//         term: 30,
-//         end_year: 2045,
-//         kibor: '0.0000',
-//         libor: '0.0000',
-//         sinsoure_fee: '0.0100',
-//         rmb_rate: '0.0200',
-//         technology: 'CCGT',
-//         fuel_category: 'Thermal',
-//         fuel_code: 19,
-//         installed_capacity: '200.0000',
-//         derated_capacity: null,
-//         msl: '0.0000',
-//         scheduled_outages: '720.0000',
-//         forced_outages: '550.0000',
-//         auxilary_consumption: '20.0000',
-//         rate_emission_CO2: '1.9000',
-//         rate_emission_NOx: '1.9000',
-//         rate_emission_SOx: '1.7000',
-//         reserve_primary: '0.0000',
-//         reserve_secondary: '1.0000',
-//         reserve_tertiary: '1.0000',
-//         min_time_up: '3.0000',
-//         min_time_down: '0.5000',
-//         fuel_type: null,
-//         heat_reat_MSL: '0.5000',
-//         heat_rate_50: '0.6000',
-//         heat_rate_75: '0.7000',
-//         heat_rate_90: '0.8000',
-//         heat_rate_FL: '0.9000',
-//         ramp_up_rate: '0.0000',
-//         ramp_down_rate: null,
-//         repair_time_mean: '4.0000',
-//         repair_time_min: '1.0000',
-//         repair_time_max: '6.0000',
-//         ref_fuel_cost: null,
-//         startup_cost: null,
-//         availability_for_cp: null,
-//         fuel_calorific_value: null,
-//         synchronization_time: '2.0000',
-//     },
-//     {
-//         plant_name: 'Kashmir',
-//         power_plant_code: 7031,
-//         fca_code: null,
-//         sddp_code: '262.0000',
-//         company: null,
-//         address: 'abcecfghijk',
-//         longitude: '69.466',
-//         latitude: '35.48',
-//         project_nature: 'Private',
-//         policy_reference: null,
-//         agreement_type: 'PPA',
-//         contract_type: 'Take and Pay',
-//         units: '1.0000',
-//         technical_parameter_id: 228,
-//         disco_id: 4,
-//         economic_parameters_id: 228,
-//         dollar_parity: '105.0000',
-//         us_cpi: '245.5190',
-//         local_cpi: '216.6100',
-//         cod: '2020-07-01',
-//         term: 0,
-//         end_year: 2051,
-//         kibor: '0.0600',
-//         libor: '0.0000',
-//         sinsoure_fee: '0.0000',
-//         rmb_rate: '0.0200',
-//         technology: 'CCGT',
-//         fuel_category: 'Thermal',
-//         fuel_code: 7,
-//         installed_capacity: '40.0000',
-//         derated_capacity: '40.0000',
-//         msl: '0.0000',
-//         scheduled_outages: '720.0000',
-//         forced_outages: '550.0000',
-//         auxilary_consumption: '20.0000',
-//         rate_emission_CO2: '1.9000',
-//         rate_emission_NOx: '1.9000',
-//         rate_emission_SOx: '1.7000',
-//         reserve_primary: '0.0000',
-//         reserve_secondary: '1.0000',
-//         reserve_tertiary: '1.0000',
-//         min_time_up: '3.0000',
-//         min_time_down: '0.5000',
-//         fuel_type: null,
-//         heat_reat_MSL: '0.5000',
-//         heat_rate_50: '0.6000',
-//         heat_rate_75: '0.7000',
-//         heat_rate_90: '0.8000',
-//         heat_rate_FL: '0.9000',
-//         ramp_up_rate: '0.0000',
-//         ramp_down_rate: null,
-//         repair_time_mean: '4.0000',
-//         repair_time_min: '1.0000',
-//         repair_time_max: '6.0000',
-//         ref_fuel_cost: null,
-//         startup_cost: null,
-//         availability_for_cp: null,
-//         fuel_calorific_value: null,
-//         synchronization_time: '2.0000',
-//     }
-// ]
-
 const output = {}
 async function addingRefYear(powerPlants, assumptions, commercialParameters) {
     console.log("Inside printit---------------------")
 
-    console.log("powerPlants.length: ", powerPlants.length)
-    console.log("assumptions.length: ", assumptions.length)
-    console.log("assumptions.length: ", commercialParameters)
+    // console.log("powerPlants.length: ", powerPlants.length)
+    // console.log("assumptions.length: ", assumptions.length)
+    // console.log("assumptions.length: ", commercialParameters)
 
 
 
     //loop over and find cod and calculate ref year and add it back in that powerplant object
     var x = {}
-    // var commercialParametersNameArray = Object.keys(commercialParameters)
     for (var _ = 0; _ < commercialParameters.length; _++) {
         const commercialParameter = commercialParameters[_]
 
         x = await getDataBaseValue(commercialParameter, assumptions, powerPlants)
-
-
-        console.log("after-3")
 
     }
     return x
@@ -186,11 +49,12 @@ async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
             //Powerplant to use for calculation
             var powerplant = powerPlants[i]
 
-            //powerplant to display
 
+            //Calculating Ref Year 
             const cod = new Date(powerplant.cod)
             const refyear = Helper.getRefYear(cod, assumptionDate)
             powerplant['year'] = refyear
+
 
 
             if ((commercialParameter == 'interestforeignannual' || commercialParameter == 'interestlocalannual') && (powerplant.year <= 30)) {
@@ -215,7 +79,7 @@ async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
 
 
 }
-
+// Function to run query and return structured Out object
 async function databaseComm(commercialParameter, fcc_query, rate_query, powerplant, assumptionDate, allAssumptions) {
     var refRate = [{ rate: 0 }]
     var indexValue = 0
@@ -233,14 +97,36 @@ async function databaseComm(commercialParameter, fcc_query, rate_query, powerpla
     const outputPowerPlant = {}
     outputPowerPlant['name']= powerplant.plant_name
     outputPowerPlant['year']= powerplant.year
-    // outputPowerPlant['assumption_date'] = assumptionDate
-    // outputPowerPlant['assumptions'] = allAssumptions
 
     outputPowerPlant["refvalue"] = refRate,
         outputPowerPlant["fccvalue"] = fccRate,
 
         outputPowerPlant["index"] = indexValue
-    // console.log("outputPowerPlant:  .........................", outputPowerPlant)
+
+
+
+// Structure of output object 
+// {
+//     commercialParameter_1:{
+//         date_1:{
+//             [{All powerplant objects}]
+//         }
+//         date_2:{
+//             [{All powerplant objects}]
+//         }
+//     },
+//     commercialParameter_2:{
+//         date_1:{
+//             [{All powerplant objects}]
+//         }
+//         date_2:{
+//             [{All powerplant objects}]
+//         }
+//     }
+// }
+
+
+
 
     if (commercialParameter in output) {
 
@@ -254,7 +140,6 @@ async function databaseComm(commercialParameter, fcc_query, rate_query, powerpla
             completeArray.push(powerPlants)
 
             output[commercialParameter][assumptionDate] = completeArray
-            // output[commercialParameter]['Assumptions']= allAssumptions
 
         }
     }
@@ -276,49 +161,27 @@ const query = 'select * from powerplant join economicparameters on (powerplant.e
 
 router.post("/", (req, res) => {
 
+    //Request object -> assumption Date and assumption values
     const assumptions = req.body["assumption"]
-    // console.log(req.body)
     console.log("assumptions.length: ", assumptions.length)
 
-    // console.log(assumptions)
     var out = {}
     connection.query(query, { type: connection.QueryTypes.SELECT }).then(async powerPlants => {
-        console.log("before-1")
+        // Getting all the commercial parameters from database  
         const commercialParameters = await commercialParametersFile.getCommercialParameters()
 
-        out = await addingRefYear(powerPlants, assumptions, commercialParameters)
-        console.log("using: ", commercialParameters)
 
-        console.log("after-1")
+        //Main function
+        out = await addingRefYear(powerPlants, assumptions, commercialParameters)
+
 
     }).then(() => {
-        console.log("At the end")
+        console.log("After computations")
         res.json(out)
-        // Excel.createExcel(out)
-        // var jsonObj = JSON.parse(out);
-        // console.log(jsonObj);
-
-        // stringify JSON Object
-        // var jsonContent = JSON.stringify(out);
-        // // console.log(jsonContent);
-
-        // fs.writeFile("output.json", jsonContent, 'utf8', function (err) {
-        //     if (err) {
-        //         console.log("An error occured while writing JSON Object to File.");
-        //         // return console.log(err);
-        //     }
-
-        //     console.log("JSON file has been saved.");
-        // });
         StoreResults.create({ user_id: 1, results: out }).then(response => {
-            console.log("response: ",response)
             console.log('database updated')
         }).catch(error => console.log('ERROR: ', error))
 
-
-
-    }).then(() => {
-        out = {}
     })
 })
 
