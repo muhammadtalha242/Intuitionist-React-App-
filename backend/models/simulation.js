@@ -21,7 +21,8 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: true
       },
     }, {
-      tableName: 'simulation',
+      createdAt:false,
+updatedAt:false,tableName: 'simulation',
       timestamps: false,
       freezeTableName: true
     });

@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    tableName: 'cpp'
+    createdAt:false,
+updatedAt:false,tableName: 'cpp'
   });
 };

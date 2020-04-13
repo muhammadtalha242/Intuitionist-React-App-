@@ -24,6 +24,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    tableName: 'systemdemand'
+    createdAt:false,
+updatedAt:false,tableName: 'systemdemand'
   });
 };

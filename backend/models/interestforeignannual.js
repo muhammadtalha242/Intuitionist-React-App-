@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'interestforeignannual'
+    createdAt:false,
+updatedAt:false,tableName: 'interestforeignannual'
   });
 };

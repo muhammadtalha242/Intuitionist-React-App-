@@ -25,6 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'fuelprices'
+    createdAt:false,
+updatedAt:false,tableName: 'fuelprices'
   });
 };

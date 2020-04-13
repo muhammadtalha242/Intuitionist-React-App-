@@ -285,6 +285,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    tableName: 'commercialparameters'
+    createdAt:false,
+updatedAt:false,tableName: 'commercialparameters'
   });
 };

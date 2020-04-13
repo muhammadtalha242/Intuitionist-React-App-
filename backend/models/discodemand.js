@@ -29,6 +29,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'discodemand'
+    createdAt:false,
+updatedAt:false,tableName: 'discodemand'
   });
 };

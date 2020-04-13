@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'dsracost'
+    createdAt:false,
+updatedAt:false,tableName: 'dsracost'
   });
 };

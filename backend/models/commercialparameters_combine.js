@@ -25,6 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   }, {
-    tableName: 'commercialparameters_combine'
+    createdAt:false,
+updatedAt:false,tableName: 'commercialparameters_combine'
   });
 };

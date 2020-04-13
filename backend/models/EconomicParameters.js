@@ -49,7 +49,8 @@ module.exports = function(sequelize,DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'economicparameters',
+    createdAt:false,
+updatedAt:false,tableName: 'economicparameters',
     createdAt:false,
     updatedAt:false
 

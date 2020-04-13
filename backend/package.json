@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -26,5 +26,8 @@
     "nodemon": "^2.0.2",
     "sequelize": "^4.44.4",
     "util.promisify": "^1.0.1"
+  },
+  "devDependencies": {
+    "chalk": "^4.0.0"
   }
 }
