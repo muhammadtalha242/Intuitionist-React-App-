@@ -3,6 +3,7 @@ const db = require('../config/dbConfig');
 var baseController = express.Router();
 var logger = require('../util/logger');
 const maxItems = 100;
+
 baseController.get("/", all);
 baseController.get("/:id", byId);
 baseController.post("/", add);
@@ -14,7 +15,7 @@ async function all(req, res) {
     logger.info("query.page",req.query.page);
     if (req.query.page) {
       page = parseInt(req.query.page);
-      console.log("query.page>0", req.query.page);
+     
     }
     var limit = maxItems;
     var offset = (page - 1) * maxItems;
@@ -68,7 +69,7 @@ async function update(req, res) {
         var modelName = req.baseUrl.replace("/", "");
         console.log("path:", modelName);
         var toUpdate = await db.getModel(modelName).findByPk(id);
-        console.log("toUpdate: ",toUpdate);
+        // console.log("toUpdate: ",toUpdate);
         toUpdate.update(updatedModel);
         logger.success(`200 /${modelName}/update:${id}`, toUpdate);
         return res.status(200).send(toUpdate); 

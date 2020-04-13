@@ -1,466 +1,1197 @@
 {
-  "info": {
-    "_postman_id": "3bb57ee6-2838-4241-a4e4-63863df5a747",
-    "name": "FinalYearProject",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Database",
-      "item": [
-        {
-          "name": "GET TableNames",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\"item\": \"annualsecuritycost\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3000/data/",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["data", ""]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET TableValues",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "http://localhost:3000/data/link?item=annualsecuritycost",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["data", "link"],
-              "query": [
-                {
-                  "key": "item",
-                  "value": "annualsecuritycost"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "PUT update table",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{ \"table_name\": \"bus\", \"id\": \"2\", \"bus_name\": \"AES-LALP\", \"bus_code\": \"85\" }"
-            },
-            "url": {
-              "raw": "http://localhost:3000/update/edit",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["update", "edit"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "DELETE TableRow",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{ \"table_name\": \"bus\", \"id\": \"2\", \"bus_name\": \"AES-LALP\", \"bus_code\": \"85\" }"
-            },
-            "url": {
-              "raw": "http://localhost:3000/update/delete",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["update", "delete"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST InsterRowInTable",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{ \"table_name\": \"bus\", \"id\": \"200\", \"bus_name\": \"AES-LALP\", \"bus_code\": \"85\" }"
-            },
-            "url": {
-              "raw": "http://localhost:3000/update/insert",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["update", "insert"]
-            }
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "EPP&CPP Computations",
-      "item": [
-        {
-          "name": "POST Send Assumptions",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"year\": \"2020\",\n    \"assumption\": [\n        [\n            \"2020-01-01T00:00:00.000Z\",\n            {\n                \"dollar_parity\": \"45\",\n                \"us_cpi\": \"123\",\n                \"local_cpi\": \"135\",\n                \"kibor\": \"0\",\n                \"libor\": \"0\",\n                \"sinsoure_fee\": \"0\"\n            }\n        ],\n        [\n            \"2020-02-01T00:00:00.000Z\",\n            {\n                \"dollar_parity\": \"35\",\n                \"us_cpi\": \"131\",\n                \"local_cpi\": \"113\",\n                \"kibor\": \"0\",\n                \"libor\": \"0\",\n                \"sinsoure_fee\": \"0\"\n            }\n        ]\n    ]\n}"
-            },
-            "url": {
-              "raw": "http://localhost:4000/submit/",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["submit", ""]
-            }
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "FCC Computations",
-      "item": [
-        {
-          "name": "POST Send FCC assumptions",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"year\": \"2020\",\n    \"assumption\": [\n        [\n            \"2020-01-01T00:00:00.000Z\",\n            {\n                \"gas\": \"122\",\n                \"rlng\": \"225\",\n                \"thar_oal\": \"330\",\n                \"imp_coal\": \"17\",\n                \"rfo\": \"120\",\n                \"hsd\": \"650\",\n                \"baggase\": \"18\",\n                \"liberty_1\": \"1503.43\",\n                \"uch_1\": \"916.683\",\n                \"rlng_new\": \"1400\",\n                \"imported_iran\": \"1\",\n                \"nuclear\": \"1\",\n                \"mix_cap\": \"1\",\n\t\t\t\t\"local_coal_calorific_value\": \"1\",\n                \"import_coal_calorific_value\": \"1\"\n            }\n        ],\n        [\n            \"2020-02-01T00:00:00.000Z\",\n            {\n                \"gas\": \"152\",\n                \"rlng\": \"215\",\n                \"thar_oal\": \"310\",\n                \"imp_coal\": \"17\",\n                \"rfo\": \"120\",\n                \"hsd\": \"650\",\n                \"baggase\": \"18\",\n                \"liberty_1\": \"1503.43\",\n                \"uch_1\": \"916.683\",\n                \"rlng_new\": \"1400\",\n                \"imported_iran\": \"1\",\n                \"nuclear\": \"1\",\n                \"mix_cap\": \"1\",\n\t\t\t\t\"local_coal_calorific_value\": \"1\",\n                \"import_coal_calorific_value\": \"1\"\n            }\n        ]\n    ]\n}"
-            },
-            "url": {
-              "raw": "http://localhost:4000/submitFCC/",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["submitFCC", ""]
-            }
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "Authentication",
-      "item": [],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "Visualization",
-      "item": [],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "SDDP",
-      "item": [
-        {
-          "name": "GET ResultsFromDatabase",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "http://localhost:4000/results/?id=4",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["results", ""],
-              "query": [
-                {
-                  "key": "id",
-                  "value": "4"
-                }
-              ]
-            }
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "Powerplant",
-      "item": [
-        {
-          "name": "Create",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"plant_name\": \"123ABC\",\r\n    \"power_plant_code\": 14001,\r\n    \"fca_code\": \"665\",\r\n    \"sddp_code\": \"93.0000\",\r\n    \"company\": \"Quaid-e-Azam Thermal Power (Pvt) Limited\",\r\n    \"address\": \"Islamabad\",\r\n    \"longitude\": \"69.466\",\r\n    \"latitude\": \"35.48\",\r\n    \"project_nature\": \"Public\",\r\n    \"policy_reference\": \"2015\",\r\n    \"agreement_type\": \"PPA\",\r\n    \"contract_type\": \"Take or Pay\",\r\n    \"units\": \"1.0000\",\r\n    \"technical_parameter_id\": 85,\r\n    \"disco_id\": 2,\r\n    \"economic_parameters_id\": 85\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:4000/powerplants",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["powerplants"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "All",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:4000/powerplants/",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["powerplants", ""]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Single",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:4000/powerplants/123ABC",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["powerplants", "123ABC"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"plant_name\": \"Alliance\",\r\n    \"address\": \"Pakistan ABC\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:4000/powerplants/123ABC",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["powerplants", "123ABC"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:4000/powerplants/123ABC",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["powerplants", "123ABC"]
-            }
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    },
-    {
-      "name": "TechnicalParameters",
-      "item": [
-        {
-          "name": "Create",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n        \"technical_parameter_id\": 99999,\r\n        \"technology\": \"CCGT\",\r\n        \"fuel_category\": \"Thermal\",\r\n        \"fuel_code\": 5,\r\n        \"installed_capacity\": \"350.0000\",\r\n        \"derated_capacity\": \"350.0000\",\r\n        \"msl\": \"70.0000\",\r\n        \"scheduled_outages\": \"720.0000\",\r\n        \"forced_outages\": \"550.0000\",\r\n        \"auxilary_consumption\": \"1.2000\",\r\n        \"rate_emission_CO2\": \"1.3000\",\r\n        \"rate_emission_NOx\": \"1.2000\",\r\n        \"rate_emission_SOx\": \"1.1000\",\r\n        \"reserve_primary\": \"1.0000\",\r\n        \"reserve_secondary\": \"0.0000\",\r\n        \"reserve_tertiary\": \"0.0000\",\r\n        \"min_time_up\": \"8.0000\",\r\n        \"min_time_down\": \"6.0000\",\r\n        \"fuel_type\": \"RFO\",\r\n        \"heat_reat_MSL\": \"0.5000\",\r\n        \"heat_rate_50\": \"0.6000\",\r\n        \"heat_rate_75\": \"0.7000\",\r\n        \"heat_rate_90\": \"0.8000\",\r\n        \"heat_rate_FL\": \"0.9000\",\r\n        \"ramp_up_rate\": \"17.5000\",\r\n        \"ramp_down_rate\": null,\r\n        \"repair_time_mean\": \"2.0000\",\r\n        \"repair_time_min\": \"1.0000\",\r\n        \"repair_time_max\": \"5.0000\",\r\n        \"ref_fuel_cost\": \"2843.5000\",\r\n        \"startup_cost\": \"13100.0000\",\r\n        \"availability_for_cp\": \"0.6000\",\r\n        \"fuel_calorific_value\": null,\r\n        \"synchronization_time\": \"30.0000\"\r\n    }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:4000/techparams",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["techparams"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "All",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:4000/techparams/",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["techparams", ""]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Single",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:4000/techparams/99999",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["techparams", "99999"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"technical_parameter_id\": 99999,\r\n    \"technology\": \"ABCDEF\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:4000/techparams/99999",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["techparams", "99999"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:4000/techparams/99999",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "4000",
-              "path": ["techparams", "99999"]
-            }
-          },
-          "response": []
-        }
-      ],
-      "protocolProfileBehavior": {}
-    }
-  ],
-  "protocolProfileBehavior": {}
+	"info": {
+		"_postman_id": "8c8c7eba-78f4-4196-a024-0a847717c6d5",
+		"name": "FinalYearProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Database",
+			"item": [
+				{
+					"name": "GET TableNames",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"item\": \"annualsecuritycost\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/data/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"data",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET TableValues",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/data/link?item=annualsecuritycost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"data",
+								"link"
+							],
+							"query": [
+								{
+									"key": "item",
+									"value": "annualsecuritycost"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT update table",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"table_name\": \"bus\", \"id\": \"2\", \"bus_name\": \"AES-LALP\", \"bus_code\": \"85\" }"
+						},
+						"url": {
+							"raw": "http://localhost:3000/update/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"update",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE TableRow",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"table_name\": \"bus\", \"id\": \"2\", \"bus_name\": \"AES-LALP\", \"bus_code\": \"85\" }"
+						},
+						"url": {
+							"raw": "http://localhost:3000/update/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"update",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST InsterRowInTable",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"table_name\": \"bus\", \"id\": \"200\", \"bus_name\": \"AES-LALP\", \"bus_code\": \"85\" }"
+						},
+						"url": {
+							"raw": "http://localhost:3000/update/insert",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"update",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "EPP&CPP Computations",
+			"item": [
+				{
+					"name": "POST Send Assumptions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"year\": \"2020\",\n    \"assumption\": [\n        [\n            \"2020-01-01T00:00:00.000Z\",\n            {\n                \"dollar_parity\": \"45\",\n                \"us_cpi\": \"123\",\n                \"local_cpi\": \"135\",\n                \"kibor\": \"0\",\n                \"libor\": \"0\",\n                \"sinsoure_fee\": \"0\"\n            }\n        ],\n        [\n            \"2020-02-01T00:00:00.000Z\",\n            {\n                \"dollar_parity\": \"35\",\n                \"us_cpi\": \"131\",\n                \"local_cpi\": \"113\",\n                \"kibor\": \"0\",\n                \"libor\": \"0\",\n                \"sinsoure_fee\": \"0\"\n            }\n        ]\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/submit/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"submit",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "FCC Computations",
+			"item": [
+				{
+					"name": "POST Send FCC assumptions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"year\": \"2020\",\n    \"assumption\": [\n        [\n            \"2020-01-01T00:00:00.000Z\",\n            {\n                \"gas\": \"122\",\n                \"rlng\": \"225\",\n                \"thar_oal\": \"330\",\n                \"imp_coal\": \"17\",\n                \"rfo\": \"120\",\n                \"hsd\": \"650\",\n                \"baggase\": \"18\",\n                \"liberty_1\": \"1503.43\",\n                \"uch_1\": \"916.683\",\n                \"rlng_new\": \"1400\",\n                \"imported_iran\": \"1\",\n                \"nuclear\": \"1\",\n                \"mix_cap\": \"1\",\n\t\t\t\t\"local_coal_calorific_value\": \"1\",\n                \"import_coal_calorific_value\": \"1\"\n            }\n        ],\n        [\n            \"2020-02-01T00:00:00.000Z\",\n            {\n                \"gas\": \"152\",\n                \"rlng\": \"215\",\n                \"thar_oal\": \"310\",\n                \"imp_coal\": \"17\",\n                \"rfo\": \"120\",\n                \"hsd\": \"650\",\n                \"baggase\": \"18\",\n                \"liberty_1\": \"1503.43\",\n                \"uch_1\": \"916.683\",\n                \"rlng_new\": \"1400\",\n                \"imported_iran\": \"1\",\n                \"nuclear\": \"1\",\n                \"mix_cap\": \"1\",\n\t\t\t\t\"local_coal_calorific_value\": \"1\",\n                \"import_coal_calorific_value\": \"1\"\n            }\n        ]\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4000/submitFCC/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"submitFCC",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Authentication",
+			"item": [],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Visualization",
+			"item": [],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "SDDP",
+			"item": [
+				{
+					"name": "GET ResultsFromDatabase",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4000/results/?id=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"results",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Powerplant",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"plant_name\": \"123ABC\",\r\n    \"power_plant_code\": 14001,\r\n    \"fca_code\": \"665\",\r\n    \"sddp_code\": \"93.0000\",\r\n    \"company\": \"Quaid-e-Azam Thermal Power (Pvt) Limited\",\r\n    \"address\": \"Islamabad\",\r\n    \"longitude\": \"69.466\",\r\n    \"latitude\": \"35.48\",\r\n    \"project_nature\": \"Public\",\r\n    \"policy_reference\": \"2015\",\r\n    \"agreement_type\": \"PPA\",\r\n    \"contract_type\": \"Take or Pay\",\r\n    \"units\": \"1.0000\",\r\n    \"technical_parameter_id\": 85,\r\n    \"disco_id\": 2,\r\n    \"economic_parameters_id\": 85\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/powerplants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"powerplants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/powerplants/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"powerplants",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/powerplants/123ABC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"powerplants",
+								"123ABC"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"plant_name\": \"Alliance\",\r\n    \"address\": \"Pakistan ABC\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/powerplants/123ABC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"powerplants",
+								"123ABC"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/powerplants/123ABC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"powerplants",
+								"123ABC"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TechnicalParameters",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"technical_parameter_id\": 99999,\r\n        \"technology\": \"CCGT\",\r\n        \"fuel_category\": \"Thermal\",\r\n        \"fuel_code\": 5,\r\n        \"installed_capacity\": \"350.0000\",\r\n        \"derated_capacity\": \"350.0000\",\r\n        \"msl\": \"70.0000\",\r\n        \"scheduled_outages\": \"720.0000\",\r\n        \"forced_outages\": \"550.0000\",\r\n        \"auxilary_consumption\": \"1.2000\",\r\n        \"rate_emission_CO2\": \"1.3000\",\r\n        \"rate_emission_NOx\": \"1.2000\",\r\n        \"rate_emission_SOx\": \"1.1000\",\r\n        \"reserve_primary\": \"1.0000\",\r\n        \"reserve_secondary\": \"0.0000\",\r\n        \"reserve_tertiary\": \"0.0000\",\r\n        \"min_time_up\": \"8.0000\",\r\n        \"min_time_down\": \"6.0000\",\r\n        \"fuel_type\": \"RFO\",\r\n        \"heat_reat_MSL\": \"0.5000\",\r\n        \"heat_rate_50\": \"0.6000\",\r\n        \"heat_rate_75\": \"0.7000\",\r\n        \"heat_rate_90\": \"0.8000\",\r\n        \"heat_rate_FL\": \"0.9000\",\r\n        \"ramp_up_rate\": \"17.5000\",\r\n        \"ramp_down_rate\": null,\r\n        \"repair_time_mean\": \"2.0000\",\r\n        \"repair_time_min\": \"1.0000\",\r\n        \"repair_time_max\": \"5.0000\",\r\n        \"ref_fuel_cost\": \"2843.5000\",\r\n        \"startup_cost\": \"13100.0000\",\r\n        \"availability_for_cp\": \"0.6000\",\r\n        \"fuel_calorific_value\": null,\r\n        \"synchronization_time\": \"30.0000\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/techparams",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"techparams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/techparams/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"techparams",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/techparams/99999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"techparams",
+								"99999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"technical_parameter_id\": 99999,\r\n    \"technology\": \"ABCDEF\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/techparams/99999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"techparams",
+								"99999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/techparams/99999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"techparams",
+								"99999"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "CommercialParameters",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"commercial_id\": 99999,\n    \"FCC_id\": 3,\n    \"VOM_Local_id\": 3,\n    \"VOM_Foreign_id\": 3,\n    \"WaterCharges_id\": 3,\n    \"LimeStoneCharges_id\": 3,\n    \"AshDisposalCost_id\": 3,\n    \"EscalableComponent_id\": 3,\n    \"NonEscalableComponentForeign_id\": 3,\n    \"NonEscalableComponentLocal_id\": 3,\n    \"FOMLocal_id\": 3,\n    \"FOMForeign_id\": 3,\n    \"Insurance_id\": 3,\n    \"FixedCostOfWorkingCapital_id\": 3,\n    \"ROE_id\": 3,\n    \"ROEDC_id\": 3,\n    \"ProceedFromCRES_id\": 3,\n    \"WHT_id\": 3,\n    \"DSRACost_id\": 3,\n    \"FixedFCC_id\": 3,\n    \"AnnualSecurityCost_id\": 3,\n    \"Sinosure_id\": 3,\n    \"InterestRateRMB_id\": 3,\n    \"RepaymentRMB_id\": 3,\n    \"IRSACharges_id\": 3,\n    \"VariableRate_id\": 3,\n    \"InterestForeignAnnual_id\": 3,\n    \"InterestLocalAnnual_id\": 3,\n    \"FixedCostJetty_id\": 3,\n    \"VariableCostJetty_id\": 3,\n    \"FixedRate_id\": 3,\n    \"InterestForeignQuarter_id\": 3,\n    \"OutstandingPrincipleForeignQuarter_id\": 3,\n    \"OutstandingPrincipleLocalQuarter_id\": 3,\n    \"InterestLocalQuarter_id\": 3,\n    \"InterestChargesForeign_id\": 3,\n    \"InterestChargesKibor_id\": 3,\n    \"power_plant_name\": \"KOHINOOR\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/commercialparams/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"commercialparams",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/commercialparams/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"commercialparams",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/commercialparams/99999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"commercialparams",
+								"99999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commercial_id\": 99999,\r\n    \r\n    \"power_plant_name\": \"KOHINOOR-updated\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/commercialparams/99999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"commercialparams",
+								"99999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/commercialparams/99999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"commercialparams",
+								"99999"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Annual Security Cost",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 99999999,\r\n        \"rate\": \"0.0000\",\r\n        \"year\": 1\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/securitycost/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"securitycost",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/securitycost/?page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"securitycost",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/securitycost/99999999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"securitycost",
+								"99999999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 99999999,\r\n    \"rate\": \"1.29384\",\r\n    \"year\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/securitycost/99999999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"securitycost",
+								"99999999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/securitycost/99999999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"securitycost",
+								"99999999"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Ash Disposal Cost",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 99999999,\r\n        \"rate\": \"0.0000\",\r\n        \"year\": 1\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/disposalcost/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"disposalcost",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/disposalcost/?page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"disposalcost",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/disposalcost/99999999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"disposalcost",
+								"99999999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 99999999,\r\n    \"rate\": \"1.29384\",\r\n    \"year\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/disposalcost/99999999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"disposalcost",
+								"99999999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/disposalcost/99999999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"disposalcost",
+								"99999999"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Commercial Parameters Combine",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 999999999,\n    \"commercial_parameter_name\": \"annual_security_cost\",\n    \"year\": 1,\n    \"rate\": \"0.0000\",\n    \"power_plant_name\": \"AES PAK GEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/commercialparams_combine",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"commercialparams_combine"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/commercialparams_combine/?page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"commercialparams_combine",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/commercialparams_combine/999999999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"commercialparams_combine",
+								"999999999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 999999999,\r\n    \"commercial_parameter_name\": \"annual_security_cost_updated\",\r\n    \"year\": 1,\r\n    \"rate\": \"0.0000\",\r\n    \"power_plant_name\": \"AES PAK GEN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/commercialparams_combine/999999999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"commercialparams_combine",
+								"999999999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/commercialparams_combine/999999999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"commercialparams_combine",
+								"999999999"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Bus",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 99999,\n    \"bus_name\": \"updated bus\",\n    \"bus_code\": 70\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/buses/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"buses",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/buses/?page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"buses",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/buses/99999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"buses",
+								"99999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 99999,\r\n    \"bus_name\": \"updated-bus\",\r\n    \"bus_code\": 70\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/buses/99999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"buses",
+								"99999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/buses/99999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"buses",
+								"99999"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
 }

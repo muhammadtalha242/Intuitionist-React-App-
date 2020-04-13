@@ -1,5 +1,4 @@
 /* jshint indent: 2 */
-
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('commercialparameters', {
     commercial_id: {
@@ -148,7 +147,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    FixeFCC_id: {
+    FixedFCC_id: {
       type: DataTypes.INTEGER(10),
       allowNull: true,
       references: {
@@ -276,6 +275,14 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
+    InterestChargesKibor_id: {
+      type: DataTypes.INTEGER(10),
+      allowNull: true,
+      references: {
+        model: 'InterestChargesKibor',
+        key: 'id'
+      }
+    },
     power_plant_name: {
       type: DataTypes.STRING(255),
       allowNull: true,
@@ -286,6 +293,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     createdAt:false,
-updatedAt:false,tableName: 'commercialparameters'
+updatedAt:false,
+tableName: 'commercialparameters'
   });
 };

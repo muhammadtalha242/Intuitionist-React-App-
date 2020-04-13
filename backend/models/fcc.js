@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('fcc', {
     id: {
       type: DataTypes.INTEGER(10),
@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    createdAt:false,
-updatedAt:false,tableName: 'fcc'
+    createdAt: false,
+    updatedAt: false, tableName: 'fcc'
   });
 };

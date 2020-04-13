@@ -1,27 +1,25 @@
-const Sequelize = require('sequelize')
-const db = require("../config")
+/* jshint indent: 2 */
 
-module.exports = db.define(
-  'annualsecuritycost',
-  {
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define('annualsecuritycost', {
     id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
     rate: {
-      type: Sequelize.DECIMAL,
+      type: DataTypes.DECIMAL,
       allowNull: true
     },
     year: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER(10),
       allowNull: true
     }
-  },
-  {
-    timestamps: false,
-    freezeTableName: true
-  }
-)
+  }, {
+    createdAt:false,
+    updatedAt:false,
+    tableName: 'annualsecuritycost'
+  });
+};
 

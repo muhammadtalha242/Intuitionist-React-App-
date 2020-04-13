@@ -1,26 +1,24 @@
 
-const Sequelize = require('sequelize')
-const db = require("../routes/DataBaseModule/config")
-
-module.exports = db.define(
-  'bus',
-  {
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define('bus', {
     id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
     bus_name: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     bus_code: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: true
     }
-  },
-  {
-    timestamps: false,
-    freezeTableName: true
+  },{
+    createdAt:false,
+    updatedAt:false,
+    tableName: 'bus'
   }
-)
+  
+);
+}
