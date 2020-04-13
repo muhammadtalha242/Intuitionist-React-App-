@@ -8,7 +8,6 @@ const FccComputationModules = require('./routes/FCC/FccComputationModules')
 const login = require('./routes/RegistrationLoginModule/login')
 const database = require('./routes/DataBaseModule/data')
 const updateDatabase = require('./routes/DataBaseModule/updateTable')
-var powerplantController = require('./src/controllers/powerplantController')
 var bodyParser = require('body-parser')
 const apiConfig = require('./src/config/apiConfig');
 

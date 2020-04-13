@@ -1,5 +1,7 @@
 const mapper = require('../config/mapperConfig');
 const Sequelize = require("sequelize");
+const logger = require("../util/logger");
+
 const sequelize = new Sequelize("intuitionist_dev", "root", "Liverpool1", {
   host: "localhost",
   dialect: "mysql",
@@ -13,16 +15,13 @@ const sequelize = new Sequelize("intuitionist_dev", "root", "Liverpool1", {
     idle: 100000,
   },
 });
+sequelize
+  .authenticate()
+  .then(() => logger.success("DB Connected", "YAYYY!!!"))
+  .catch((err) => logger.fail("DB Connection Failed", err));
 
 
 const db = {};
-
-
-// db.Sequelize = Sequelize;
-// db.sequelize = sequelize;
-
-// db.powerplant = require('../../models/powerplant')(sequelize, Sequelize);
-// db.commercialparameters = require('../../models/commercialparameters')(sequelize, Sequelize);
 
  db.getModel = function(path){
    var modelName = mapper.mapPath(path);
