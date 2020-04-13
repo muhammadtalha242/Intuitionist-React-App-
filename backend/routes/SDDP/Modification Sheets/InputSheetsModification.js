@@ -19,20 +19,23 @@ class InputModificationSheet {
 
             if (plant.fuel_category === type) {
                 console.log("plant in thermel")
+                
+
                 dateArray.forEach(date=>{
                     const currentDate = new Date(date)
                     const plant_cod = new Date(plant.cod)
-                    const cod_difference =((plant_cod.getFullYear() - currentDate.getFullYear()) * 12) + (plant_cod.getMonth() - currentDate.getMonth());
+                    const cod_difference =((currentDate.getFullYear() - plant_cod.getFullYear()) * 12) + (currentDate.getMonth() - plant_cod.getMonth());
                     const end_difference =  plant.end_year - currentDate.getFullYear() ;
                     if(cod_difference >0 && end_difference > 0 ) {
                         console.log('Plant not included ', plant.plant_name)
-                        console.log('cod_difference: ',cod_difference)
+                        console.log('cod_difference: ',cod_difference,currentDate, plant_cod)
                         console.log('end_difference: ',end_difference)
                     }
-                    else{
+                    else {
                         console.log('Plant included ',plant.plant_name)
-                        console.log('cod_difference: ',cod_difference)
+                        console.log('cod_difference: ',cod_difference,currentDate, plant_cod)
                         console.log('end_difference: ',end_difference)
+                        sepratedPowerPlants.push(plant)
                     }                   
 
                 })
@@ -63,8 +66,8 @@ class InputModificationSheet {
         var sum = 0
         cvarArray.forEach(cvar => {
     
-            const plantsArray = Object.values(outputs[0][cvar])[1][1]
-    
+            const commercialParameterArray = Object.values(this.output[cvar])
+            
             plantsArray.forEach(plant => {
     
     
