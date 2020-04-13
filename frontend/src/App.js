@@ -10,7 +10,7 @@ import DatabaseModule from "./components/DatabaseModule/DataBaseModule";
 function App() {
   return (
     <div className="App">
-
+      <Route exact path="/" component={Modules} />
       <Route exact path="/landing" component={Landing} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/modules" component={Modules} />
