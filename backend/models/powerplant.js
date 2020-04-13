@@ -80,9 +80,9 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
+    tableName: 'powerplant',
     createdAt:false,
-updatedAt:false,
-tableName: 'powerplant',
+    updatedAt:false
 
   });
 };

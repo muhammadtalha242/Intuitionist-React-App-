@@ -9,8 +9,6 @@ const login = require('./routes/RegistrationLoginModule/login')
 const database = require('./routes/DataBaseModule/data')
 const updateDatabase = require('./routes/DataBaseModule/updateTable')
 var bodyParser = require('body-parser')
-const apiConfig = require('./src/config/apiConfig');
-
 //
 // const tryingRoute = require("./routes/CPP&EPP/UsingRefactored")
 
@@ -38,8 +36,6 @@ app.use('/', login)
 app.use('/data', database)
 app.use('/update', updateDatabase)
 
-
-apiConfig.configureApi(app);
 
 app.listen(4000, () => {
 	console.log("Server working at port 4000")

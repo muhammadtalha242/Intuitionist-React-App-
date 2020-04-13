@@ -21,7 +21,6 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    createdAt:false,
-updatedAt:false,tableName: 'neo'
+    tableName: 'neo'
   });
 };
