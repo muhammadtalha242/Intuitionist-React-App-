@@ -1,3 +1,6 @@
+
+//--------ALL FILES IN SDDP MODULES ARE SEPERATLY BUILD NOT INTEGRATED -----------
+
 // IMPORTANT -->> dont not alter
 const thermalInputCols = '!Num	...Nombre...	#Uni	Tipo	.PotIns	.GerMin	.GerMax	..Teif.	..Ih...	.CVaria	.MR.	Comb	...G1..	.CEsp.1	...G2..	.CEsp.2	...G3..	.CEsp.3	NAdF	...1	...2	...3	ComT	CTransp	StartUp	sfal	NGas	NuCC	..NombreCC..	CoefE.'.split("\t")
 // IMPORTANT -->> dont not alter

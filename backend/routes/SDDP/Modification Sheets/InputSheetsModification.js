@@ -66,7 +66,7 @@ class InputModificationSheet {
         var sum = 0
         cvarArray.forEach(cvar => {
     
-            const commercialParameterArray = Object.values(this.output[cvar])
+            const plantsArray = Object.values(this.output[cvar])[1][1]
             
             plantsArray.forEach(plant => {
     
