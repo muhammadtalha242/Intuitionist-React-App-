@@ -54,5 +54,12 @@ module.exports = [
   { key: "transmissionbus", value: "transmissionbusconfiguration" },
   { key: "transmissionlinedata", value: "transmissionline" },
   { key: "userdata", value: "user" },
+  { key: "variablecostjettyValues", value: "variablecostjetty" },
+  { key: "variablerateValues", value: "variablerate" },
+  { key: "vomforeignValues", value: "vom_foreign" },
+  { key: "vomlocalValues", value: "vom_local" },
+  { key: "waterchargesValues", value: "watercharges" },
+  { key: "whtValues", value: "wht" },
+
 
 ];
