@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PersistentDrawerLeft from './PersistentDrawerLeft'
-import TableTrying from './TableTrying'
-import { endpoints } from "../Api/Endpoints"
 import DatabaseTable from './databaseTable'
 import Error from './Error'
-import './database.css';
+import Spinner from '../Spinner/spinnericon'
+import Backdrop from '@material-ui/core/Backdrop';
+// import CircularProgress from '@material-ui/core/CircularProgress';
 // import Header from '../header'
 // import Footer from '../footer'
 import axios from "axios";
@@ -12,7 +12,7 @@ import axios from "axios";
 export class DataBaseModule extends Component {
     constructor(props) {
         super(props);
-        this.testVarible= "null";
+        this.testVarible = "null";
         this.state = {
             tables: [],
             table: [],
@@ -20,13 +20,13 @@ export class DataBaseModule extends Component {
             showError: false,
             item: '',
             errorMessage: '',
-            createdAt:false,
-updatedAt:false,tableName:''
+            tableName: '',
+            open: false
         }
 
     };
     componentDidMount = () => {
-        axios.get(endpoints.database.GETtablesName, this.state)
+        axios.get('/data', this.state)
             .then(response => {
                 this.setState({
                     componentShow: false,
@@ -41,7 +41,6 @@ updatedAt:false,tableName:''
                 // How can we show it here?
                 // {<Error error={error}/>}
 
-
                 this.setState({
                     showError: true,
                     errorMessage: 'Status Code :500'
@@ -49,17 +48,24 @@ updatedAt:false,tableName:''
             })
     }
 
+    showSpinner = (l) => {
+        this.setState({
+            open: l
+        })
+    }
 
-    goTo = (tableName) => {
+    goTo = (tableName, open) => {
+        this.showSpinner(open)
         //Call query from backend to generate the database table on clicking a particular row
-        axios.get(endpoints.database.GETtableValue, {
-            params: {item: tableName}        
+        axios.post('/data/link', {
+            item: tableName
         })
             .then(response =>
                 this.setState({
-                    table:response.data,
+                    table: response.data,
                     componentShow: true,
-                    tableName
+                    open: !open,
+                    tableName: tableName
                 })
             )
             .catch(error => {
@@ -68,14 +74,18 @@ updatedAt:false,tableName:''
             })
     }
     render() {
+
         const errorPage = (this.state.showError ? <Error error={this.state.errorMessage} /> : null)
-        this.testVarible = (this.state.componentShow ? <DatabaseTable tableData={this.state.table} tableName={this.state.tableName} /> : null)
+        this.testVarible = (this.state.open ? <Backdrop open={this.state.open}>
+            <Spinner />
+            {/* <CircularProgress color="inherit" /> */}
+        </Backdrop> : this.state.componentShow ? <DatabaseTable tableData={this.state.table} tableName={this.state.tableName} /> : null)
 
         return (
             <div>
                 {/* <Header/> */}
 
-                <PersistentDrawerLeft tables={this.state.tables} goTo={this.goTo} databasetable={this.testVarible}/>
+                <PersistentDrawerLeft tables={this.state.tables} goTo={this.goTo} databasetable={this.testVarible} />
 
                 {/* Display error page */}
                 {errorPage}

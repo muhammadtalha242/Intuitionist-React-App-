@@ -1,7 +1,7 @@
 
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme,fade } from '@material-ui/core/styles';
+import { makeStyles, useTheme, fade } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -18,7 +18,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import TableChartOutlinedIcon from '@material-ui/icons/TableChartOutlined';
 import SearchIcon from '@material-ui/icons/Search';
-
 const drawerWidth = 300;
 
 const useStyles = makeStyles((theme) => ({
@@ -104,93 +103,91 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function PersistentDrawerLeft(props) {
-    const classes = useStyles();
-    const theme = useTheme();
-    const [open, setOpen] = React.useState(true);
-  
-    const handleDrawerOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
-  
-    const sendTableName=(tablename)=>{
-        
-        props.goTo(tablename)
-    }
+  const classes = useStyles();
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(true);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const sendTableName = (tablename) => {
+    let open = true
+    props.goTo(tablename, open)
+  }
 
 
 
-    return (
-      <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap>
-              Database Tables
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={clsx(classes.menuButton, open && classes.hide)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            Database Table
             </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="left"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div className={classes.drawerHeader}>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
 
           <SearchIcon />
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            {(props.tables).map((text, index) => (
-              <ListItem button key={text} 
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          {(props.tables).map((text, index) => (
+            <ListItem button key={text}
               onClick={event => { sendTableName(text) }}
-              >
-                <ListItemIcon >
-                    
-                    <TableChartOutlinedIcon />
-                    
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-         
-        </Drawer>
-        <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: open,
-          })}
-        >
-            THIS IS DATABASE TABLE
+            >
+              <ListItemIcon >
 
-          {props.databasetable}
-          
-        </main>
-      </div>
-    );
-  }
-  
+                <TableChartOutlinedIcon />
+
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+
+      </Drawer>
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: open,
+        })}
+      >
+
+        {props.databasetable}
+
+      </main>
+    </div>
+  );
+}
