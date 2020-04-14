@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize,DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('economicparameters', {
     economic_parameters_id: {
       type: DataTypes.INTEGER(11),
@@ -49,10 +49,8 @@ module.exports = function(sequelize,DataTypes) {
       allowNull: true
     }
   }, {
-    createdAt:false,
-updatedAt:false,tableName: 'economicparameters',
-    createdAt:false,
-    updatedAt:false
+    createdAt: false,
+    updatedAt: false, tableName: 'economicparameters',
 
   });
 };
