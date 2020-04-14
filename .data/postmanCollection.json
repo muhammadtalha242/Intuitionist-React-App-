@@ -3692,7 +3692,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"id\": 9999999,\r\n        \"rate\": \"0.2154\",\r\n        \"year\": 1\r\n    }",
+							"raw": "{\n    \"id\": 9999999,\n    \"rate\": \"0.2154\",\n    \"year\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
