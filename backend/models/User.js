@@ -1,22 +1,21 @@
-const Sequelize = require('sequelize')
-const db = require("../routes/DataBaseModule/config")
-
-module.exports = db.define(
-    'user',
-    {
+module.exports = function (sequelize, DataTypes) {
+    return sequelize.define('user', {
         id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         email: {
-            type: Sequelize.STRING
+            type: DataTypes.STRING
         },
         password: {
-            type: Sequelize.STRING
+            type: DataTypes.STRING
         }
     },
-    {
-        timestamps: false
-    }
-)
+        {
+            createdAt: false,
+            updatedAt: false,
+            tableName: 'user'
+        }
+    )
+}
