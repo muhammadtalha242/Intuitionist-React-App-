@@ -1,0 +1,14 @@
+,Data Base,Data Base,,Data Base,,,,
+sddp code,All the Future And Retring Plants till 2030,CoD for Future Plants and Retiring date for Retiring Plants,,"i. 0 For Retring Plants
+ii. Derated Capacity for Future Plants",,,,
+NUM,Nombre,Data,#Uni,.PotIns,..FatOpe,ProbFal,O&MCost,Spilling penalty
+25,windgen2018,01/12/2020,1,50,1,0,0,0
+32,solargen2018,01/03/2021,1,50,1,0,0,0
+35,Zorlu_solar,01/01/2022,1,0,1,0,0,0
+36,Solargen2022,01/07/2022,1,0,1,0,0,0
+37,Solargen2023,01/01/2023,1,400,1,0,0,0
+38,Solargen2024,01/01/2024,1,400,1,0,0,0
+39,Solargen2025,01/01/2025,1,400,1,0,0,0
+40,windgen2022,01/01/2022,1,660,1,0,0,0
+41,windgen2023,01/01/2023,1,240,1,0,0,0
+42,windgen2024,01/01/2024,1,500,1,0,0,0
