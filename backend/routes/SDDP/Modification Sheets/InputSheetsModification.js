@@ -17,7 +17,6 @@ class InputModificationSheet {
         powerplants.forEach(plant => {
 
             if (plant.fuel_category === fuel_category) {
-                console.log(`plant in ${fuel_category}`)
 
                 var isCommissioned = true
                 var isRetired = false
@@ -26,40 +25,32 @@ class InputModificationSheet {
                     const plant_cod = new Date(plant.cod)
                     const cod_difference = ((currentDate.getFullYear() - plant_cod.getFullYear()) * 12) + (currentDate.getMonth() - plant_cod.getMonth());
                     const end_difference = plant.end_year - currentDate.getFullYear();
-                   
-                        if (cod_difference < 0) {
-                            isCommissioned = false
-                            console.log(`Plant not cod  ${plant.plant_name}`)
+
+                    if (cod_difference < 0) {
+                        isCommissioned = false
+
+                    }
+                    else if (cod_difference >= 0 && !isCommissioned) {
+                        isCommissioned = true
+                        plant['change'] = 'com'
+                        plant['change_date'] = date
+                        if (!sepratedPowerPlants.includes(plant)) {
+                            sepratedPowerPlants.push(plant)
 
                         }
-                        else if (cod_difference >= 0 && !isCommissioned) {
-                            isCommissioned = true
-                            console.log(`Plant cod in ${plant.plant_name}`)
-                            console.log(`date: ${date}`)
-                            plant['change'] = 'com'
-                            plant['change_date'] = date
-                            if (!sepratedPowerPlants.includes(plant)) {
-                                console.log(`plant going in ${plant.plant_name}`)
-                                sepratedPowerPlants.push(plant)
-                                
-                            }
-                        }
-                        else {
-                            console.log(`Plant HERE ${plant.plant_name}`)
+                    }
+
+                    if (end_difference <= 0) {
+
+                        console.log(`Plant retired  ${plant.plant_name}, date:  ${date}`)
+                        plant['change'] = 'ret'
+                        plant['change_date'] = date
+                        if (!sepratedPowerPlants.includes(plant)) {
+                            sepratedPowerPlants.push(plant)
 
                         }
-                        if (end_difference <= 0) {
+                    }
 
-                            console.log(`Plant retired  ${plant.plant_name}, date:  ${date}`)
-                            plant['change'] = 'ret'
-                            plant['change_date'] = date
-                            if (!sepratedPowerPlants.includes(plant)) {
-                                console.log(`plant going in ${plant.plant_name}`)
-                                sepratedPowerPlants.push(plant)
-                                
-                            }
-                        }
-                        
                 })
 
 
