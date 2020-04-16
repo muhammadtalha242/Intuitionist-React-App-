@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('technicalparameters', {
     technical_parameter_id: {
       type: DataTypes.INTEGER(11),
@@ -145,7 +145,9 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    createdAt:false,
-updatedAt:false,tableName: 'technicalparameters'
+    createdAt: false,
+    updatedAt: false, 
+    tableName: 'technicalparameters',
+    underscored: true
   });
 };
