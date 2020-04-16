@@ -57,13 +57,12 @@ export class DataBaseModule extends Component {
     goTo = (tableName, open) => {
         this.showSpinner(open)
         //Call query from backend to generate the database table on clicking a particular row
-        axios.post('/data/link', {
-            item: tableName
-        })
+        axios.get(`${tableName}`)
             .then(response =>
+                
                 this.setState({
                     table: response.data,
-                    componentShow: true,
+                    // componentShow: true,
                     open: !open,
                     tableName: tableName
                 })
