@@ -2,8 +2,7 @@ const Excel = require('./Excel')
 const outputs = require('./SampleData/output+powerplants.json')
 
 class InputSheets {
-
-
+   
 
     getData() {
         console.log("Giving data away")
@@ -21,7 +20,8 @@ class InputSheets {
     }
 
     getTipo(powerplant) {
-        const plantsArray = Object.values(outputs[0]["VOM_Local"])[1][1]
+        const nameOfCommparams = Object.keys(outputs[0])
+        const plantsArray = Object.values(outputs[0][numberOfCommparams[0]])[1][1]
         var tipo = null
         plantsArray.forEach(plant => {
             if (plant.name === powerplant.plant_name) {

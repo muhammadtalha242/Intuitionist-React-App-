@@ -33,7 +33,7 @@ class InputModificationSheet {
                     else if (cod_difference >= 0 && !isCommissioned) {
                         isCommissioned = true
                         plant['change'] = 'com'
-                        plant['change_date'] = date
+                        plant['change_date'] = plant.cod
                         if (!sepratedPowerPlants.includes(plant)) {
                             sepratedPowerPlants.push(plant)
 
@@ -42,9 +42,8 @@ class InputModificationSheet {
 
                     if (end_difference <= 0) {
 
-                        console.log(`Plant retired  ${plant.plant_name}, date:  ${date}`)
                         plant['change'] = 'ret'
-                        plant['change_date'] = date
+                        plant['change_date'] = `${plant.end_year}-01-01`
                         if (!sepratedPowerPlants.includes(plant)) {
                             sepratedPowerPlants.push(plant)
 
@@ -63,35 +62,30 @@ class InputModificationSheet {
         return sepratedPowerPlants
     }
 
-    getTipo(powerplant) {
-        const plantsArray = Object.values(outputs[0]["VOM_Local"])[1][1]
-        var tipo = null
-        plantsArray.forEach(plant => {
-            if (plant.name === powerplant.plant_name) {
-                tipo = ((plant.year > 0) ? 0 : 1)
-            }
-        })
-        return tipo
-    }
+
     getCvariables(powerplant) {
         const cvarArray = ["VOM_Local", "VOM_Foreign", "WaterCharges", "LimeStoneCharges", "AshDisposalCost", "VariableRate", "VariableCostJetty"]
 
         var sum = 0
         cvarArray.forEach(cvar => {
+            const dateArray = Object.keys(this.output[cvar]).reverse()
 
-            const plantsArray = Object.values(this.output[cvar])[1][1]
+            dateArray.forEach(date => {
 
-            plantsArray.forEach(plant => {
+                const plantsArray = this.output[cvar][date][1]
+
+                plantsArray.forEach(plant => {
 
 
-                if (plant.name === powerplant.plant_name) {
-                    var index = plant.index
-                    if (fuel_categoryof(plant.index) === 'object' && (plant.index !== null)) {
-                        index = index[0]["rate"]
+                    if (plant.name === powerplant.plant_name) {
+                        var index = plant.index
+                        if (typeof(plant.index) === 'object' && (plant.index !== null)) {
+                            index = index[0]["rate"]
+                        }
+                        sum = sum + index
+
                     }
-                    sum = sum + index
-
-                }
+                })
             })
 
         })

@@ -13,7 +13,9 @@ const inputSheetsModification = new InputSheetsModification(output)
 const excel = new Excel()
 
 
-const creatingRowObject =(powerplant, thermalInputCols) =>{
+const creatingRowObject =(powerplant, thermalInputCols,date) =>{
+    const plant_date = new Date(powerplant.change_date)
+    const assumption_date = new Date(date)
     const row = {}
     thermalInputCols.forEach(col => {
         switch (col) {
@@ -24,7 +26,7 @@ const creatingRowObject =(powerplant, thermalInputCols) =>{
                 row[col] = powerplant.plant_name
                 break;
             case "Data":
-                row[col] = powerplant.cod
+                row[col] = (powerplant.change_date)
                 break;
             case "#Uni":
                 row[col] = 1
@@ -40,10 +42,24 @@ const creatingRowObject =(powerplant, thermalInputCols) =>{
                 row[col] = powerplant.forced_outages
                 break;
             case "CTransp":
-                row[col] = inputSheetsModification.getCvariables(powerplant) * 1000
+
+            if(plant_date>= assumption_date){
+                console.log("0")
+                console.log(`plant_date>= assumption_date ${plant_date>= assumption_date}`)
+                row[col] =  'zero'
                 break;
+                
+            }
+            else{
+                console.log("123")
+                console.log(`plant_date>= assumption_date ${plant_date>= assumption_date}`)
+                row[col] =  'not zero'
+
+                break;
+                
+            }
             case "CoefE":
-                row[col] = "???"
+                row[col] = 1
                 break;
            
             default:
@@ -69,12 +85,20 @@ console.log("THERMAL MODIFICATION")
 const workbook = excel.workbook()
 const workSheet = excel.createSheet(workbook, fileName)
 excel.worksheetColumns(workSheet, thermalInputCols)
-thermalPlants.forEach(powerplant => {
+const nameOfCommparams = Object.keys(outputs[0])
+const dateArray = Object.keys(output[nameOfCommparams[0]]).reverse()
+console.log(dateArray)
+dateArray.forEach(date=>{
 
-    const row = creatingRowObject(powerplant, thermalInputCols)
-    excel.worksheetAddRow(workSheet, row)
+    thermalPlants.forEach(powerplant => {
 
-});
+        const row = creatingRowObject(powerplant, thermalInputCols,date)
+        excel.worksheetAddRow(workSheet, row)
+    
+    });
+    
+})
+
 
 
 excel.writeFile(workbook, fileName)
