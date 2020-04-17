@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('../config/dbConfig');
 var drivedController = express.Router();
 var logger = require('../util/logger');
-// const powerplants = require("../../models/powerPlantsAndTechparams")
+//const powerplants = require("../../models/powerPlantsAndTechparams")
 const maxItems = 100;
 
 drivedController.get("/", all);

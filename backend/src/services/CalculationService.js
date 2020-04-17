@@ -1,13 +1,16 @@
-const BaseRepository = require('../data/BaseRepository')
-const PowerPlantRepository = require('../data/PowerPlantRepository')
 
-module.exports = class BaseService {
+module.exports = class CalculationService {
   constructor() {
-    this.baseRepo = new BaseRepository();
   }
-  async get(modelName, page) {
-    console.log("BASESERVICE");
-    return this.baseRepo.get(modelName, page);
+
+  calculateA(parity, libor) {
+    return parity * libor;
+  }
+  calculateB(parity, libor) {
+    return parseFloat(parity) + parseFloat(libor);
+  }
+  calculateC(parity, libor) {
+    return parity / libor;
   }
 }
 

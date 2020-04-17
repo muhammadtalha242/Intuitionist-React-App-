@@ -1,17 +1,17 @@
 const express = require('express');
 const db = require('../config/dbConfig');
-var baseController = express.Router();
 var logger = require('../util/logger');
-const BaseService = require('../services/BaseService');
-
-module.exports = class BaseController {
+const PowerPlantService  = require('../services/PowerPlantService');
+const BaseController = require('./BaseController');
+module.exports = class PowerPlantController extends BaseController {
 
     constructor(){
+        super();
     }
 
-    async all(req, res) {
-        console.log("BASECONTROLLER");
-        let baseService = new BaseService();
+    async allWithIncludes(req, res) {
+        console.log("PPCONTROLLER");
+        let ppService = new PowerPlantService();
         var page = 1;
         logger.info("query.page", req.query.page);
         if (req.query.page) {
@@ -19,7 +19,7 @@ module.exports = class BaseController {
 
         }
         var modelName = req.baseUrl.replace("/", "");
-        var collection = await baseService.get(modelName, page)
+        var collection = await ppService.getWithIncludes(modelName, page)
         if (collection.length < 1) {
             logger.fail(`404 /${modelName}`, collection.length);
         } else {
@@ -32,9 +32,10 @@ module.exports = class BaseController {
         return res.status(200).send(collection);
     }
     getRoutes() {
-        console.log("BASEROUTES");
+        console.log("PPROUTES");
         let router = express.Router();
         router.get("/", this.all);
+        router.get("/childs", this.allWithIncludes);
         // router.get("/:id", byId);
         // router.post("/", add);
         // router.patch("/:id", update);

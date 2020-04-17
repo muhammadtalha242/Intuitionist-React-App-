@@ -1,5 +1,6 @@
 module.exports = [
   { key: "powerplants", value: "powerplant" },
+  //  { key: "pp", value: "powerplant" },
   { key: "techparams", value: "technicalparameters" },
   { key: "commercialparams", value: "commercialparameters" },
   { key: "commercialparams_combine", value: "commercialparameters_combine" },
