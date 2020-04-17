@@ -11,18 +11,14 @@ const excel = new Excel()
 
 
 
-// exports.genraterenewableInput=(obj,plants)=>{
-//     output = obj
-//     powerplants = plants
-// }
+exports.genrateRenewableInput = (obj, plants) => {
+    renewable(obj, plants)
+}
 
-const outputs = inputSheets.getData()
-const output = outputs[0]
-const powerplants = outputs[1]
 
 
 const creatingRowObject = (powerplant, renewableInputCols) => {
-    
+
 
     const row = {}
     renewableInputCols.forEach(col => {
@@ -30,12 +26,12 @@ const creatingRowObject = (powerplant, renewableInputCols) => {
             case '!Num':
                 row[col] = powerplant.sddp_code
                 break;
-                case "Name":
-                    row[col] = powerplant.plant_name
-                    break;
-                    case "Bus":
-                    row[col] = powerplant.bus_sddp_code
-                    break;
+            case "Name":
+                row[col] = powerplant.plant_name
+                break;
+            case "Bus":
+                row[col] = powerplant.bus_sddp_code
+                break;
             case "Stat.":
                 row[col] = powerplant.sddp_code
                 break;
@@ -51,7 +47,7 @@ const creatingRowObject = (powerplant, renewableInputCols) => {
             case "FatOpe":
                 row[col] = 1
                 break;
-            
+
             default:
                 row[col] = 0
         }
@@ -64,32 +60,18 @@ const creatingRowObject = (powerplant, renewableInputCols) => {
 }
 
 
-const renewablePlants = inputSheets.extractPlants(powerplants, "Renewable");
+const renewable = (obj, powerplants) => {
+    const renewablePlants = inputSheets.extractPlants(powerplants, "Renewable");
+    const workbook = excel.workbook()
+    const workSheet = excel.createSheet(workbook, fileName)
+    excel.worksheetColumns(workSheet, renewableInputCols)
+    renewablePlants.forEach(powerplant => {
 
-// renewablePlants.map((item,index)=>{
+        const row = creatingRowObject(powerplant, renewableInputCols)
+        excel.worksheetAddRow(workSheet, row)
 
-
-//     if(item.plant_name === 'HALMORE'){
-//         console.log("index: -------->>>",index)
-
-//         console.log(item)
-//         const row = creatingRowObject(item, renewableInputCols)
-
-//     }
-// })
+    });
 
 
-
-console.log("renewable")
-const workbook = excel.workbook()
-const workSheet = excel.createSheet(workbook, fileName)
-excel.worksheetColumns(workSheet, renewableInputCols)
-renewablePlants.forEach(powerplant => {
-
-    const row = creatingRowObject(powerplant, renewableInputCols)
-    excel.worksheetAddRow(workSheet, row)
-
-});
-
-
-excel.writeFile(workbook, fileName)
+    excel.writeFile(workbook, fileName)
+}

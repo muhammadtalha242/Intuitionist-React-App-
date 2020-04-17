@@ -21,7 +21,7 @@ class InputSheets {
 
     getTipo(powerplant) {
         const nameOfCommparams = Object.keys(outputs[0])
-        const plantsArray = Object.values(outputs[0][numberOfCommparams[0]])[1][1]
+        const plantsArray = Object.values(outputs[0][nameOfCommparams[0]])[1][1]
         var tipo = null
         plantsArray.forEach(plant => {
             if (plant.name === powerplant.plant_name) {

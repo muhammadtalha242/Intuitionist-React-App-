@@ -43,7 +43,8 @@ class Excel {
 
     }
     writeFile (workbook, fileName) {
-        workbook.csv.writeFile(`${fileName}.csv`)
+        const path="C:\\STUDY\\AllSemester\\FYP\\CPPA-G\\project\\app\\backend\\routes\\SDDP\\Output Sheets\\"
+        workbook.csv.writeFile(`${path}${fileName}.csv`)
             .then(() => {
                 console.log("done")
             });

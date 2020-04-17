@@ -13,33 +13,29 @@ const excel = new Excel()
 
 
 
+var output ={};
+var powerplants=[];
+exports.genrateThermalInput=(obj,plants)=>{
+    console.log("in thermal")
+    output = obj
+    powerplants = plants
+    thermal(obj,plants)
+}
+    
 
-// exports.genrateThermalInput=(obj,plants)=>{
-//     output = obj
-//     powerplants = plants
-// }
+// const outputs = inputSheets.getData()
+// const output = outputs[0]
+// const powerplants = outputs[1]
 
-const outputs = inputSheets.getData()
-const output = outputs[0]
-const powerplants = outputs[1]
-
-const getFCCrefFuelCost = (powerplant) => {
+const getFCCrefFuelCost = (powerplant,output) => {
     const plantsArray = Object.values(output[Object.keys(output)[0]])[1][1]
-
     var out = 0
     plantsArray.forEach(plant => {
-
-
         if (plant.name === powerplant.plant_name) {
             const result = (plant.fccvalue[0]['rate'])
             const refFuel = powerplant.ref_fuel_cost
-
             out = result / refFuel
-
-
         }
-
-
     })
     return out
 
@@ -47,13 +43,12 @@ const getFCCrefFuelCost = (powerplant) => {
 
 const getSDDPNumber =(powerplantName)=>{
     var sddp_code = null
+    console.log(`powerplants ${powerplants.length} =====================================>>>>>`)
     powerplants.forEach(plant => {
-
 
         if (plant.plant_name === powerplantName) {
             sddp_code = plant.sddp_code
         }
-
 
     })
    
@@ -65,7 +60,7 @@ const getSDDPNumber =(powerplantName)=>{
 
 
 
-const creatingRowObject = (powerplant, thermalInputCols) => {
+const creatingRowObject = (powerplant, thermalInputCols,output) => {
     const plantWithMultiFuels ={
         'KAPCO-B1':['KAPCO_B1_HSD','KAPCO_B1_LNG','KAPCO_B1_RFO'],
         'KAPCO-B3':['KAPCO_B3_HSD','KAPCO_B3_LNG'],
@@ -116,7 +111,7 @@ const creatingRowObject = (powerplant, thermalInputCols) => {
     row[thermalInputCols[10]] = ((powerplant.fuel_type === 'Nuclear' || powerplant.fuel_type === 'Baggase') ? 1 : 0)
     row[thermalInputCols[11]] = powerplant.fuel_code
     row[thermalInputCols[12]] = 100
-    row[thermalInputCols[13]] = getFCCrefFuelCost(powerplant)
+    row[thermalInputCols[13]] = getFCCrefFuelCost(powerplant,output)
     row[thermalInputCols[14]] = 0
     row[thermalInputCols[15]] = 0
     row[thermalInputCols[16]] = 0
@@ -146,7 +141,7 @@ const creatingRowObject = (powerplant, thermalInputCols) => {
     row[thermalInputCols[26]] = 0
     row[thermalInputCols[27]] = 0
     row[thermalInputCols[28]] = 0
-    row[thermalInputCols[29]] = 0   //coef (ONLY THIS IS LEFT)
+    row[thermalInputCols[29]] = 1   //coef (ONLY THIS IS LEFT)
 
     console.log("ROW OBJECT:", row)
     return row
@@ -155,32 +150,22 @@ const creatingRowObject = (powerplant, thermalInputCols) => {
 }
 
 
-const thermalPlants = inputSheets.extractPlants(powerplants, "Thermal");
+const thermal=(obj,plants)=>{
+    const thermalPlants = inputSheets.extractPlants(plants, "Thermal");
 
-// thermalPlants.map((item,index)=>{
-   
-    
-//     if(item.plant_name === 'HALMORE'){
-//         console.log("index: -------->>>",index)
-        
-//         console.log(item)
-//         const row = creatingRowObject(item, thermalInputCols)
-
-//     }
-// })
-
-
-
-console.log("THERMAL")
 const workbook = excel.workbook()
+console.log(`filename: ${fileName}`)
 const workSheet = excel.createSheet(workbook, fileName)
 excel.worksheetColumns(workSheet, thermalInputCols)
 thermalPlants.forEach(powerplant => {
 
-    const row = creatingRowObject(powerplant, thermalInputCols)
+    const row = creatingRowObject(powerplant, thermalInputCols,obj)
     excel.worksheetAddRow(workSheet, row)
 
 });
 
 
 excel.writeFile(workbook, fileName)
+
+}
+

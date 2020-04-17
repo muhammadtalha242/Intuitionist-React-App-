@@ -11,14 +11,10 @@ const excel = new Excel()
 
 
 
-// exports.genratehydelInput=(obj,plants)=>{
-//     output = obj
-//     powerplants = plants
-// }
+exports.genrateHydelInput = (obj, plants) => {
+    hydel(obj, plants)
 
-const outputs = inputSheets.getData()
-const output = outputs[0]
-const powerplants = outputs[1]
+}
 
 
 const creatingRowObject = (powerplant, hydelInputCols) => {
@@ -78,32 +74,22 @@ const creatingRowObject = (powerplant, hydelInputCols) => {
 }
 
 
-const hydelPlants = inputSheets.extractPlants(powerplants, "Hydel");
 
-// hydelPlants.map((item,index)=>{
+const hydel = (obj, powerplants) => {
+    console.log("hydel")
 
+    const hydelPlants = inputSheets.extractPlants(powerplants, "Hydel");
+    const workbook = excel.workbook()
+    const workSheet = excel.createSheet(workbook, fileName)
+    excel.worksheetColumns(workSheet, hydelInputCols)
+    hydelPlants.forEach(powerplant => {
 
-//     if(item.plant_name === 'HALMORE'){
-//         console.log("index: -------->>>",index)
+        const row = creatingRowObject(powerplant, hydelInputCols)
+        excel.worksheetAddRow(workSheet, row)
 
-//         console.log(item)
-//         const row = creatingRowObject(item, hydelInputCols)
-
-//     }
-// })
-
-
-
-console.log("hydel")
-const workbook = excel.workbook()
-const workSheet = excel.createSheet(workbook, fileName)
-excel.worksheetColumns(workSheet, hydelInputCols)
-hydelPlants.forEach(powerplant => {
-
-    const row = creatingRowObject(powerplant, hydelInputCols)
-    excel.worksheetAddRow(workSheet, row)
-
-});
-
-
+    });
 excel.writeFile(workbook, fileName)
+
+}
+
+
