@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('../config/dbConfig');
 var drivedController = express.Router();
 var logger = require('../util/logger');
+// const powerplants = require("../../models/powerPlantsAndTechparams")
 const maxItems = 100;
 
 drivedController.get("/", all);
@@ -17,6 +18,7 @@ powerplants.belongsTo(ecoparams, { foreignKey: 'economic_parameters_id' })
 ecoparams.hasOne(powerplants, { foreignKey: 'economic_parameters_id' })
 powerplants.belongsTo(techparams, { foreignKey: 'technical_parameter_id' })
 techparams.hasOne(powerplants, { foreignKey: 'technical_parameter_id' })
+
 
 logger.info("query.page");
 

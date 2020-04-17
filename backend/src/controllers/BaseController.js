@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('../config/dbConfig');
 var baseController = express.Router();
 var logger = require('../util/logger');
+const BaseService = require('../services/BaseService');
 const maxItems = 100;
 
 baseController.get("/", all);
@@ -20,9 +21,7 @@ async function all(req, res) {
     var limit = maxItems;
     var offset = (page - 1) * maxItems;
     var modelName = req.baseUrl.replace("/", "");
-    var collection = await db
-      .getModel(modelName)
-      .findAll({ limit: limit, offset: offset });
+    var collection = await BaseService.get(modelName,limit,offset)
     if (collection.length<1) {
         logger.fail(`404 /${modelName}`,collection.length);
     }else{
