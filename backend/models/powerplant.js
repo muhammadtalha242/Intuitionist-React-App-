@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('powerplant', {
     plant_name: {
       type: DataTypes.STRING(255),
@@ -80,9 +80,10 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    createdAt:false,
-updatedAt:false,
-tableName: 'powerplant',
+    createdAt: false,
+    updatedAt: false,
+    tableName: 'powerplant',
+    underscored: true
 
   });
 };

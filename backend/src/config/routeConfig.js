@@ -5,7 +5,7 @@ module.exports = [
   { key: "commercialparams_combine", value: "commercialparameters_combine" },
   { key: "disposalcost", value: "ashdisposalcost" },
   { key: "securitycost", value: "annualsecuritycost" },
-  { key: "buses", value: "bus" },
+  { key: "bus", value: "bus" },
   { key: "cppValues", value: "cpp" },
   { key: "eppValues", value: "epp" },
   { key: "discos", value: "disco" },

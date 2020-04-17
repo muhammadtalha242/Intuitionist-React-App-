@@ -1,40 +1,39 @@
 import React from 'react'
 import DataInput from "./DateInput"
-import InputTable from './InputTable'
+import InputTable from './inputtabl'
 import axios from "axios"
-import {endpoints} from '../Api/Endpoints'
 
 class Modules extends React.Component {
     constructor() {
         super()
-        this.getDatesArray= this.getDatesArray.bind(this)
+        this.getDatesArray = this.getDatesArray.bind(this)
         this.getFinalAssumptions = this.getFinalAssumptions.bind(this)
         this.sendAssumption = this.sendAssumption.bind(this)
         this.state =
         {
             objectArray: {},
             showInputTable: false,
-            assumptions:[]
+            assumptions: []
 
         }
     }
     getDatesArray(date, showInputTable) {
-        
-        this.setState({objectArray:date, showInputTable:showInputTable})
+
+        this.setState({ objectArray: date, showInputTable: showInputTable })
     }
-    getFinalAssumptions(assumptions){
+    getFinalAssumptions(assumptions) {
         this.setState({
             assumptions
-        },()=> this.sendAssumption(this.state.assumptions))
+        }, () => this.sendAssumption(this.state.assumptions))
     }
-    sendAssumption(assumptions){
-        console.log("sending Query: ",assumptions)
-        axios.post(endpoints.EPPComputations.POSTassumptions, assumptions )
+    sendAssumption(assumptions) {
+        console.log("sending Query: ", assumptions)
+        axios.post('/submit', assumptions)
             .then(response => {
 
-                console.log("this is response: ",response)
+                console.log("this is response: ", response)
                 this.setState({
-                    response:response.data
+                    response: response.data
                 })
             })
             .catch(error => {
@@ -44,7 +43,7 @@ class Modules extends React.Component {
     }
 
     render() {
-        const inputTable=(this.state.showInputTable? <InputTable objectArray={this.state.objectArray} getFinalAssumptions={this.getFinalAssumptions}/>:null) 
+        const inputTable = (this.state.showInputTable ? <InputTable objectArray={this.state.objectArray} getFinalAssumptions={this.getFinalAssumptions} /> : null)
         return (
             <div>
                 <DataInput getDateArray={this.getDatesArray} />
