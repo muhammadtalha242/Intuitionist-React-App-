@@ -6,20 +6,28 @@ const BaseService = require('../services/BaseService');
 
 module.exports = class BaseController {
 
-    constructor(){
+    constructor() {
     }
-
-    async all(req, res) {
-        console.log("BASECONTROLLER");
+    middleware(req, res, next) {
+        console.log("In middle ware")
         let baseService = new BaseService();
+        req["baseService"] = Object.assign(baseService)
+        req.modelName = req.baseUrl.replace("/", "");
+
+        // console.log(res.local)
+        next()
+    }
+    async all(req, res) {
+        console.log("In the BASECONTROLLER");
+
+        let modelName = req.modelName
         var page = 1;
         logger.info("query.page", req.query.page);
         if (req.query.page) {
             page = parseInt(req.query.page);
 
         }
-        var modelName = req.baseUrl.replace("/", "");
-        var collection = await baseService.get(modelName, page)
+        var collection = await req.baseService.get(modelName, page)
         if (collection.length < 1) {
             logger.fail(`404 /${modelName}`, collection.length);
         } else {
@@ -31,16 +39,76 @@ module.exports = class BaseController {
         }
         return res.status(200).send(collection);
     }
-    getRoutes() {
-        console.log("BASEROUTES");
-        let router = express.Router();
-        router.get("/", this.all);
-        // router.get("/:id", byId);
-        // router.post("/", add);
-        // router.patch("/:id", update);
-        // router.delete("/:id", remove);
-        return router;
+
+
+    async  byId(req, res) {
+
+
+        var id = req.params.id;
+        var modelName = req.modelName
+        var response = await req.baseService.getById(modelName, id)
+        if (response === null) {
+            logger.fail(`404 /${modelName}/byId:${id}`, response);
+            return res.status(404).send(response);
+        }
+        logger.success(`200 /${modelName}/byId:${id}`, response);
+        return res.status(200).send(response);
     }
+    async  add(req, res) {
+        try {
+            var newModel = req.body;
+            var modelName = req.modelName
+
+            await req.baseService.create(modelName, newModel);
+            logger.success(`200 /${modelName}/add`, newModel);
+            return res.status(201).send(true);
+        }
+        catch (error) {
+            logger.fail(`400 /${modelName}/add`, error);
+            return res.status(400).send(fail);
+        }
+    }
+    async  update(req, res) {
+    try {
+        var id = req.params.id;
+        var updatedModel = req.body;
+        var modelName = req.modelName;
+        console.log("path:", modelName);
+
+        await req.baseService.update(modelName,id,updatedModel);
+       
+        logger.success(`200 /${modelName}/update:${id}`, updatedModel);
+        return res.status(200).send(updatedModel);
+    } catch (error) {
+        logger.fail(`400 /${modelName}/update:${id}`, error);
+        return res.status(400).send(false);
+    }
+}
+
+async  remove(req, res) {
+    try {
+        var id = req.params.id;
+        var modelName = req.modelName;
+        var toRemove = await req.baseService.remove(modelName, id)
+        logger.success(`200 /${modelName}/remove:${id}`, toRemove);
+        return res.status(202).send(true);
+    } catch (error) {
+        logger.fail(`400 /${modelName}/remove:${id}`, error);
+        return res.status(400).send(false);
+    }
+}
+
+
+getRoutes() {
+    console.log("BASEROUTES");
+    let router = express.Router();
+    router.get("/", this.middleware, this.all);
+    router.get("/:id", this.middleware, this.byId);
+    router.post("/", this.middleware, this.add);
+    router.patch("/:id", this.middleware, this.update);
+    router.delete("/:id", this.middleware, this.remove);
+    return router;
+}
 
 
 }
@@ -81,7 +149,7 @@ module.exports = class BaseController {
 //     logger.info("query.page",req.query.page);
 //     if (req.query.page) {
 //       page = parseInt(req.query.page);
-     
+
 //     }
 //     var limit = maxItems;
 //     var offset = (page - 1) * maxItems;
@@ -99,18 +167,7 @@ module.exports = class BaseController {
 //     return res.status(200).send(collection);
 // }
 // */
-// async function byId(req, res) {
-//     var id = req.params.id;
-//     var modelName = req.baseUrl.replace("/", "");
-//     var response = await db.getModel(modelName).findByPk(id);
-//     if (response === null) {
-//         logger.fail(`404 /${modelName}/byId:${id}`, response);
-//         return res.status(404).send(response);
-//     }
-//     logger.success(`200 /${modelName}/byId:${id}`, response);
-//     return res.status(200).send(response);
-// }
-
+// 
 // async function add(req, res) {
 //     try {
 //         var newModel = req.body;
@@ -125,35 +182,5 @@ module.exports = class BaseController {
 //     }
 // }
 
-// async function update(req, res) {
-//     try {
-//         var id = req.params.id;
-//         var updatedModel = req.body;
-//         var modelName = req.baseUrl.replace("/", "");
-//         console.log("path:", modelName);
-//         var toUpdate = await db.getModel(modelName).findByPk(id);
-//         // console.log("toUpdate: ",toUpdate);
-//         toUpdate.update(updatedModel);
-//         logger.success(`200 /${modelName}/update:${id}`, toUpdate);
-//         return res.status(200).send(toUpdate);
-//     } catch (error) {
-//         logger.fail(`400 /${modelName}/update:${id}`, error);
-//         return res.status(400).send(false);
-//     }
-// }
-
-// async function remove(req, res) {
-//     try {
-//         var id = req.params.id;
-//         var modelName = req.baseUrl.replace("/", "");
-//         var toRemove = await db.getModel(modelName).findByPk(id);
-//         toRemove.destroy();
-//         logger.success(`200 /${modelName}/remove:${id}`, toRemove);
-//         return res.status(202).send(true);
-//     } catch (error) {
-//         logger.fail(`400 /${modelName}/remove:${id}`, error);
-//         return res.status(400).send(false);
-//     }
-// }
 
 // module.exports = baseController;

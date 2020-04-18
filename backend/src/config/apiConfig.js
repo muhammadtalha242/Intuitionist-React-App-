@@ -10,7 +10,7 @@ let configureApi = function (app) {
   let baseController = new BaseController();
   routes.map(route => {
     app.use(`/${route.key}`, baseController.getRoutes());
-    logger.info("configuredRoute", `/${route.key}`);
+    // logger.info("configuredRoute", `/${route.key}`);
   })
 
   configureCustomRoutes(app);
@@ -21,9 +21,9 @@ let configureApi = function (app) {
 };
 
 let configureCustomRoutes = function (app) {
-  let pp = new PowerPlantController();
+  let powerplant = new PowerPlantController();
 
-  app.use('/powerplants', pp.getRoutes())
+  app.use('/powerplants', powerplant.getRoutes())
 }
 
 module.exports = {

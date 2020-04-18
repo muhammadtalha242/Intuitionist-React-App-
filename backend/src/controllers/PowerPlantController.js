@@ -35,7 +35,7 @@ module.exports = class PowerPlantController extends BaseController {
         console.log("PPROUTES");
         let router = express.Router();
         router.get("/", this.all);
-        router.get("/childs", this.allWithIncludes);
+        router.get("/childs/all", this.allWithIncludes);
         // router.get("/:id", byId);
         // router.post("/", add);
         // router.patch("/:id", update);

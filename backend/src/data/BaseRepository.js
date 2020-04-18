@@ -18,43 +18,43 @@ module.exports = class BaseRepository {
         return modelCollection;
     }
 
-    // async getById(id) {
-    //     var model = await db.getModel(this.model).findByPk(id);
-    //     return model;
-    // };
+    async getById(modelName, id) {
+        var model = await db.getModel(modelName).findByPk(id);
+        return model;
+    };
 
-    // async add(newModel) {
-    //     try {
-    //         await db.getModel(this.model).create(newModel);
-    //         return true;
-    //     }
-    //     catch (error) {
-    //         logger.fail(`BaseRepository.add Failed`, error);
-    //         return false;
-    //     }
-    // };
+    async create(modelName,newModel) {
+        try {
+            await db.getModel(modelName).create(newModel);
+            return true;
+        }
+        catch (error) {
+            logger.fail(`BaseRepository.add Failed`, error);
+            return false;
+        }
+    };
 
-    // async update(id, updatedModel) {
-    //     try {
-    //         var toUpdate = await db.getModel(this.model).findByPk(id);
-    //         toUpdate.update(updatedModel);
-    //         return true;
-    //     } catch (error) {
-    //         logger.fail(`BaseRepository.update Failed`, error);
-    //         return false;
-    //     }
-    // };
+    async update(modelName, id, updatedModel) {
+        try {
+            var toUpdate = await db.getModel(modelName).findByPk(id);
+            toUpdate.update(updatedModel);
+            return true;
+        } catch (error) {
+            logger.fail(`BaseRepository.update Failed`, error);
+            return false;
+        }
+    };
 
-    // async remove(id) {
-    //     try {
-    //         var toRemove = await db.getModel(this.model).findByPk(id);
-    //         toRemove.destroy();
-    //         return true;
-    //     } catch (error) {
-    //         logger.fail(`BaseRepository.remove Failed`, error);
-    //         return false;
-    //     }
-    // };
+    async remove(modelName,id) {
+        try {
+            var toRemove = await db.getModel(modelName).findByPk(id);
+            toRemove.destroy();
+            return true;
+        } catch (error) {
+            logger.fail(`BaseRepository.remove Failed`, error);
+            return false;
+        }
+    };
 }
 
 // var maxItems = 100;

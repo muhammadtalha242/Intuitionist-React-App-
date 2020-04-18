@@ -2,13 +2,35 @@ const BaseRepository = require('../data/BaseRepository')
 const PowerPlantRepository = require('../data/PowerPlantRepository')
 
 module.exports = class BaseService {
-  constructor() {
-    this.baseRepo = new BaseRepository();
-  }
-  async get(modelName, page) {
-    console.log("BASESERVICE");
-    return this.baseRepo.get(modelName, page);
-  }
+    constructor() {
+        this.baseRepo = new BaseRepository();
+    }
+    async get(modelName, page) {
+        console.log("BASESERVICE");
+        return this.baseRepo.get(modelName, page);
+    }
+
+
+    async getById(modelName, id) {
+        const response = this.baseRepo.getById(modelName, id);
+        return response;
+    };
+
+    async create(modelName, newModel) {
+        const response = this.baseRepo.create(modelName, newModel);
+        return response;
+    };
+    async update (modelName, id , updatedModel) {
+          const response = this.baseRepo.update(modelName, id , updatedModel);
+          return response;
+        };
+        
+    async remove (modelName, id) {
+          const response = this.baseRepo.remove(modelName, id);
+          return response;
+        };
+        
+
 }
 
 
@@ -27,21 +49,8 @@ module.exports = class BaseService {
 //   return response;
 // };
 
-// let create = function(req, res) {
-//   const response = BaseRepository.create(req, res);
-//   return response;
-// };
 
-// let update = function(req, res) {
-//   const response = BaseRepository.update(req, res);
-//   return response;
-// };
-
-// let remove = function(req, res) {
-//   const response = BaseRepository.remove(req, res);
-//   return response;
-// };
-
+// 
 // module.exports = {
 //   //   create: create,
 //   get: get,
