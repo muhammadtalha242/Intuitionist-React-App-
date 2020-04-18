@@ -28,6 +28,12 @@ module.exports = class PowerPlantService extends BaseService {
     })
     return filteredCollection;
   }
+  async getRefValues(){
+    console.log("CALLING getRefValues")
+    let out=await this.ppRepo.getRefValues()
+    console.log('CALLed getRefValues')
+    return out    
+  }
 }
 
 

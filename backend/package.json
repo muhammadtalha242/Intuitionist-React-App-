@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/hoek": "^9.0.4",
+    "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.17.2",
     "cors": "^2.8.5",
