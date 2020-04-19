@@ -29,16 +29,19 @@ module.exports = class FormulasService {
     let result = newOutputArray.map(plant => {
       const commercialParameter = plant.commercial_parameter_name;
       const assumption = plant.assupmtions
-      const ref_rate = plant.rate
-      return this.IndexValue(commercialParameter, assumption, powerPlant, ref_rate)
+      const rate = plant.rate
+      const output = this.IndexValue(commercialParameter, assumption, powerPlant, rate)
+      plant['index_value'] = output
+      return plant
     })
+    return result
   }
 
   IndexValue = (commercialParameter, assumption, powerplant, rate) => {
     // const expectedAssumptions= commercialParameters[commercialParameter]
-    // indexValues_3 =(assumption, ref_eco, ref_rate)
-    // indexValues_5=(assumption_1, assumption_2, ref_eco_1, ref_eco_2, ref_rate)
-    // indexValues_1=(ref_rate)
+    // indexValues_3 =(assumption, ref_eco, rate)
+    // indexValues_5=(assumption_1, assumption_2, ref_eco_1, ref_eco_2, rate)
+    // indexValues_1=(rate)
 
 
     // // SAVE:
@@ -50,109 +53,108 @@ module.exports = class FormulasService {
     switch (commercialParameter) {
 
 
-      case 'interest_foreign_annual':
+      // case 'interest_foreign_annual':
 
-        return InterestForeignAnnual(assumption, powerplant, rate)
+      //   return InterestForeignAnnual(assumption, powerplant, rate)
 
 
-      case 'interest_local_annual':
-        return InterestLocalAnnual(assumption, powerplant, rate)
+      // case 'interest_local_annual':
+      //   return InterestLocalAnnual(assumption, powerplant, rate)
 
-        
 
       case 'vom_local':
-        return indexValues_3(assumption.dollar_parity, powerplant.local_cpi, ref_rate)
+        return indexValues_3(assumption.dollar_parity, powerplant.economicparameter.local_cpi, rate)
 
       case 'vom_foreign':
-        return indexValues_5(assumption.dollar_parity, powerplant.us_cpi, powerplant.dollar_parity, powerplant.us_cpi, ref_rate)
+        return indexValues_5(assumption.dollar_parity, powerplant.economicparameter.us_cpi, powerplant.economicparameter.dollar_parity, powerplant.economicparameter.us_cpi, rate)
 
       case 'water_charges':
-        return indexValues_3(assumption.local_cpi, powerplant.local_cpi, ref_rate)
+        return indexValues_3(assumption.local_cpi, powerplant.economicparameter.local_cpi, rate)
 
       case 'limestone_charges':
-        return indexValues_3(assumption.local_cpi, powerplant.local_cpi, ref_rate)
+        return indexValues_3(assumption.local_cpi, powerplant.economicparameter.local_cpi, rate)
 
       case 'ash_disposal_charges':
-        return indexValues_3(assumption.local_cpi, powerplant.local_cpi, ref_rate)
+        return indexValues_3(assumption.local_cpi, powerplant.economicparameter.local_cpi, rate)
 
       case 'escalable_component':
-        return indexValues_5(assumption.dollar_parity, assumption.us_cpi, powerplant.dollar_parity, powerplant.us_cpi, ref_rate)
+        return indexValues_5(assumption.dollar_parity, assumption.us_cpi, powerplant.economicparameter.dollar_parity, powerplant.economicparameter.us_cpi, rate)
 
       case 'nonescalable_component_foreign':
-        return indexValues_3(assumption.dollar_parity, powerplant.dollar_parity, ref_rate)
+        return indexValues_3(assumption.dollar_parity, powerplant.economicparameter.dollar_parity, rate)
 
       case 'nonescalable_component_local':
-        return indexValues_1(ref_rate)
+        return indexValues_1(rate)
 
       case 'fom_local':
-        return indexValues_3(assumption.local_cpi, powerplant.local_cpi, ref_rate)
+        return indexValues_3(assumption.local_cpi, powerplant.economicparameter.local_cpi, rate)
 
       case 'fom_foreign':
-        return indexValues_3(assumption.dollar_parity, powerplant.dollar_parity, ref_rate)
+        return indexValues_3(assumption.dollar_parity, powerplant.economicparameter.dollar_parity, rate)
 
       case 'sinosure':
 
-        return indexValues_5(assumption.sinsoure_fee, assumption.dollar_parity, powerplant.sinosure_fee, powerplant.dollar_parity, ref_rate)
+        return indexValues_5(assumption.sinsoure_fee, assumption.dollar_parity, powerplant.economicparameter.sinosure_fee, powerplant.economicparameter.dollar_parity, rate)
 
       case 'fixed_rate':
-        return indexValues_1(ref_rate)
+        return indexValues_1(rate)
 
       case 'variable_rate':
-        return indexValues_3(assumption.local_cpi, powerplant.local_cpi, ref_rate)
+        return indexValues_3(assumption.local_cpi, powerplant.economicparameter.local_cpi, rate)
 
       case 'repayment_rmb':
-        return indexValues_3(assumption.dollar_parity, powerplant.dollar_parity, ref_rate)
+        return indexValues_3(assumption.dollar_parity, powerplant.economicparameter.dollar_parity, rate)
 
 
       //CHECK
       case 'interest_rate_rmb':
-        return intersestRateRMB(assumption.dollar_parity, powerplant.dollar_parity)
+        return intersestRateRMB(assumption.dollar_parity, powerplant.economicparameter.dollar_parity)
 
       case 'fixed_cost_jetty':
-        return FixedCostJetty(assumption.dollar_parity, powerplant.dollar_parity, ref_rate)
+        return FixedCostJetty(assumption.dollar_parity, powerplant.economicparameter.dollar_parity, rate)
 
       case 'variable_cost_jetty':
-        return VariableCostJetty(assumption.dollar_parity, powerplant.dollar_parity, ref_rate)
+        return VariableCostJetty(assumption.dollar_parity, powerplant.economicparameter.dollar_parity, rate)
 
       case 'fixed_fcc':
-        return indexValues_1(ref_rate)
+        return indexValues_1(rate)
 
       case 'irsa_charges':
-        return indexValues_1(ref_rate)
+        return indexValues_1(rate)
 
       case 'insurance':
-        return indexValues_1(ref_rate)
+        return indexValues_1(rate)
 
       case 'fixedcostonworkingcapital':
-        return indexValues_3(assumption.kibor, powerplant.kibor, ref_rate)
+        return indexValues_3(assumption.kibor, powerplant.economicparameter.kibor, rate)
 
       case 'interest_charges_foreign':
-        return indexValues_3(assumption.libor, powerplant.libor, ref_rate)
+        return indexValues_3(assumption.libor, powerplant.economicparameter.libor, rate)
 
       case 'roe':
-        return indexValues_3(assumption.dollar_parity, powerplant.dollar_parity, ref_rate)
+        return indexValues_3(assumption.dollar_parity, powerplant.economicparameter.dollar_parity, rate)
 
       case 'roedc':
-        return indexValues_3(assumption.dollar_parity, powerplant.dollar_parity, ref_rate)
+        return indexValues_3(assumption.dollar_parity, powerplant.economicparameter.dollar_parity, rate)
 
       case 'wht':
         //(ROEDC + ROE) *0.075    
-        const roe = indexValues_3(assumption.dollar_parity, powerplant.dollar_parity, ref_rate)
-        const roedc = indexValues_3(assumption.dollar_parity, powerplant.dollar_parity, ref_rate)
+        const roe = indexValues_3(assumption.dollar_parity, powerplant.economicparameter.dollar_parity, rate)
+        const roedc = indexValues_3(assumption.dollar_parity, powerplant.economicparameter.dollar_parity, rate)
 
         return (roe + roedc) * 0.075
 
       case 'annual_security_cost':
-        return indexValues_3(assumption.dollar_parity, powerplant.dollar_parity, ref_rate)
+        return indexValues_3(assumption.dollar_parity, powerplant.economicparameter.dollar_parity, rate)
 
       case 'proceed_from_cres':
-        return indexValues_1(ref_rate)
+        return indexValues_1(rate)
 
       case 'dsra_cost':
-        return indexValues_1(ref_rate)
+        return indexValues_1(rate)
 
       case 'interest_charges_local':  //interest_charges_local == interest_charges_kibor 
-        return indexValues_3(assumption.kibor, powerplant.kibor, ref_rate)
+        return indexValues_3(assumption.kibor, powerplant.economicparameter.kibor, rate)
 
 
       default:
@@ -166,23 +168,23 @@ module.exports = class FormulasService {
 
 
     //Formula for variables with 3 parameters
-    indexValues_3 = (assumption, ref_eco, ref_rate) => {
-      const value = (assumption / ref_eco) * ref_rate;
+    indexValues_3 = (assumption, ref_eco, rate) => {
+      const value = (assumption / ref_eco) * rate;
 
       return value
     }
 
     //Formula for variables with 5 parameters
-    indexValues_5 = (assumption_1, assumption_2, ref_eco_1, ref_eco_2, ref_rate) => {
+    indexValues_5 = (assumption_1, assumption_2, ref_eco_1, ref_eco_2, rate) => {
 
-      const value = ((assumption_1 / ref_eco_1) * (assumption_2 / ref_eco_2) * (ref_rate));
+      const value = ((assumption_1 / ref_eco_1) * (assumption_2 / ref_eco_2) * (rate));
 
       return value
     }
 
     //Formula for variables with 1 parameters
-    indexValues_1 = (ref_rate) => {
-      const value = ref_rate
+    indexValues_1 = (rate) => {
+      const value = rate
 
       return value
     }
@@ -193,23 +195,23 @@ module.exports = class FormulasService {
       return value
     }
 
-    FixedCostJetty = (assumption, ref_eco, ref_rate) => {
-      const value = (1 + (((assumption / ref_eco) - 1) * 0.5)) * ref_rate
+    FixedCostJetty = (assumption, ref_eco, rate) => {
+      const value = (1 + (((assumption / ref_eco) - 1) * 0.5)) * rate
       return value
     }
-    VariableCostJetty = (assumption, ref_eco, ref_rate) => {
-      const value = (1 + (((assumption / ref_eco) - 1) * 0.6)) * ref_rate
+    VariableCostJetty = (assumption, ref_eco, rate) => {
+      const value = (1 + (((assumption / ref_eco) - 1) * 0.6)) * rate
       return value
     }
 
-    InterestForeignAnnual = (assumption, powerplant, ref_rate) => {
+    InterestForeignAnnual = (assumption, powerplant, rate) => {
 
-      if (ref_rate.length != 4) {
+      if (rate.length != 4) {
         return 0
       }
       var sum = 0
-      ref_rate.forEach(rate => {
-        const interest = rate.interestforeignquarter_rate * (assumption.dollar_parity / powerplant.dollar_parity)
+      rate.forEach(rate => {
+        const interest = rate.interestforeignquarter_rate * (assumption.dollar_parity / powerplant.economicparameter.dollar_parity)
         const outstanding = rate.OutstandingPrincipleForeignQuarter_rate * assumption.dollar_parity
         const installed = (assumption.libor - powerplant.libor) / (powerplant.installed_capacity * powerplant.derated_capacity * 8670 * 1000)
         sum = interest + (outstanding * installed)
@@ -218,12 +220,12 @@ module.exports = class FormulasService {
       return sum / 4
     }
 
-    InterestLocalAnnual = (assumption, powerplant, ref_rate) => {
-      if (ref_rate.length != 4) {
+    InterestLocalAnnual = (assumption, powerplant, rate) => {
+      if (rate.length != 4) {
         return 0
       }
       var sum = 0
-      ref_rate.forEach(rate => {
+      rate.forEach(rate => {
         const interest = rate.InterestLocalQuarter_rate
         const outstanding = rate.OutstandingPrincipleLocalQuarter_rate * assumption.dollar_parity
 
@@ -237,42 +239,4 @@ module.exports = class FormulasService {
     }
 
   }
-
-
-// let pp = new PowerPlantRepository();
-// console.log(pp.get(1));
-
-
-// let get = async function (modelName, page) {
-//   let baseRepo = new BaseRepository(modelName);
-//   const response = await baseRepo.get(page);
-//   return response;
-// };
-
-// let getById = function(req, res) {
-//   const response = BaseRepository.getById(req, res);
-//   return response;
-// };
-
-// let create = function(req, res) {
-//   const response = BaseRepository.create(req, res);
-//   return response;
-// };
-
-// let update = function(req, res) {
-//   const response = BaseRepository.update(req, res);
-//   return response;
-// };
-
-// let remove = function(req, res) {
-//   const response = BaseRepository.remove(req, res);
-//   return response;
-// };
-
-// module.exports = {
-//   //   create create,
-//   get get,
-//   //   getById getById,
-//   //   update update,
-//   //   remove remove
-// };
+}

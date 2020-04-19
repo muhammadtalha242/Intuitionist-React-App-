@@ -23,7 +23,7 @@ module.exports = class CalculationService {
 
         });
 
-        
-        return newOutputArray
+        let output = this.formulasService.getIndexValue(newOutputArray,powerPlant)
+        return output
     }
 }
