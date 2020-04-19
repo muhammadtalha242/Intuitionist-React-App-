@@ -21,7 +21,7 @@ module.exports = class CommercialParamter extends BaseService {
     async getCommercialParameters() {
         let results = await this.cpRepo.getAllCommercialParameters();
         let commpara = []
-        const excludedcommercialParameters = ['fcc', 'interest_foreign_quarter', 'outstanding_principle_foreign_quarter', 'outstanding_principle_local_quarter', 'interest_local_quarter']
+        const excludedcommercialParameters = ['fcc']
 
         results.forEach(res => {
             let value = res.dataValues.commercial_parameter_name
