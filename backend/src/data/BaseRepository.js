@@ -4,7 +4,7 @@ var logger = require('../util/logger');
 module.exports = class BaseRepository {
 
     constructor() {
-        this.maxItems = 2;
+        this.maxItems = 100;
         this.db = db;
     }
 

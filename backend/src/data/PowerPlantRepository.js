@@ -18,7 +18,7 @@ module.exports = class PowerPlantRepository extends BaseRepository {
         this.techparams.hasOne(this.powerplants, { foreignKey: 'technical_parameter_id' })
     }
 
-    async getWithIncludes(modelName, page) {
+    async getWithIncludes(page) {
         console.log("PPRepo.Get");
         var limit = this.maxItems;
         var offset = (page - 1) * this.maxItems;

@@ -24,11 +24,11 @@ module.exports = class CommercialParameterController extends BaseController {
 
         let commpara = new CommercialParameterService()
         
-        const assumptions = req.body;
+        const assumptions = req.body.assumption;
         let modelName = req.baseUrl.replace("/", "");
         
 
-        let collection = await commpara.getRefValues()
+        let collection = await commpara.getRefValues(assumptions)
         
         if (collection.length < 1) {
             logger.fail(`404 /${modelName}`, collection.length);

@@ -41,6 +41,7 @@ app.use('/update', updateDatabase)
 
 apiConfig.configureApi(app);
 
-app.listen(4000, () => {
+const server = app.listen(4000, () => {
 	console.log("Server working at port 4000")
 });
+server.setTimeout(30*60*1000);

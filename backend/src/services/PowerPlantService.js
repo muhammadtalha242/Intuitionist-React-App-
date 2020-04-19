@@ -8,11 +8,11 @@ module.exports = class PowerPlantService extends BaseService {
     this.ppRepo = new PowerPlantRepository();
     this.calculationService = new CalculationService();
   }
-  async getWithIncludes(modelName, page) {
+  async getWithIncludes( page) {
     console.log("PPSERVICE");
-    let collection = await this.ppRepo.getWithIncludes(modelName, page);
+    let collection = await this.ppRepo.getWithIncludes(page);
     let filteredCollection = JSON.parse(JSON.stringify(collection));
-
+    
     return filteredCollection;
   }
   async getRefValues(){

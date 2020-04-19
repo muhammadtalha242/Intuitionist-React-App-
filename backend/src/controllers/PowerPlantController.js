@@ -27,7 +27,7 @@ module.exports = class PowerPlantController extends BaseController {
 
         }
         var modelName = req.baseUrl.replace("/", "");
-        var collection = await ppService.getWithIncludes(modelName, page)
+        var collection = await ppService.getWithIncludes( page)
         if (collection.length < 1) {
             logger.fail(`404 /${modelName}`, collection.length);
         } else {
