@@ -1,12 +1,12 @@
 const BaseService = require('./BaseService')
 const PowerPlantRepository = require('../data/PowerPlantRepository')
 const logger = require('../util/logger')
-const CalculationService = require('../services/CalculationService');
+const FormulasService = require('./FormulasService');
 module.exports = class PowerPlantService extends BaseService {
   constructor() {
     super();
     this.ppRepo = new PowerPlantRepository();
-    this.calculationService = new CalculationService();
+    this.formulasService = new FormulasService();
   }
   async getWithIncludes( page) {
     console.log("PPSERVICE");

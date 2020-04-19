@@ -1,14 +1,16 @@
 const BaseService = require('./BaseService')
 const CommercialParamterRepository = require('../data/CommercialParamterRepository')
 const logger = require('../util/logger')
-const CalculationService = require('../services/CalculationService');
+const FormulasService = require('./FormulasService');
+const CalculationsService = require('./CalculationsService');
 const PowerPlantService = require('../services/PowerPlantService');
 
 module.exports = class CommercialParamter extends BaseService {
     constructor() {
         super();
         this.cpRepo = new CommercialParamterRepository();
-        this.calculationService = new CalculationService();
+        this.formulasService = new FormulasService();
+        this.calculationsService = new CalculationsService();
         this.powerplantService = new PowerPlantService();
         this.commercialParamsArray = null
         this.powerplantArray = null
@@ -52,14 +54,14 @@ module.exports = class CommercialParamter extends BaseService {
             let ref_years = assumptions.map(assumption => {
                 const assumptionDate = new Date(assumption[0])
                 const plantCOD =  new Date(powerPlant.economicparameter.cod)
-                return this.calculationService.getRefYear(plantCOD, assumptionDate)
+                return this.formulasService.getRefYear(plantCOD, assumptionDate)
             })
 
             console.log("powerplantName: ", powerPlant.plant_name)
             console.log("ref_years: ", ref_years)
 
-            out.push(await this.cpRepo.getRefValues(this.commercialParamsArray, ref_years,powerPlant.plant_name))
-            
+            const queryOutput = await this.cpRepo.getRefValues(this.commercialParamsArray, ref_years,powerPlant.plant_name)
+            out.push(this.calculationsService.getPlantsRefValue(assumptions,powerPlant,queryOutput))
         }
 
 

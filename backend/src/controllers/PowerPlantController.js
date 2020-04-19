@@ -18,7 +18,6 @@ module.exports = class PowerPlantController extends BaseController {
     //     next()
     // }
     async allWithIncludes(req, res) {
-        console.log("PPCONTROLLER");
         let ppService = new PowerPlantService();
         var page = 1;
         logger.info("query.page", req.query.page);
@@ -57,7 +56,6 @@ module.exports = class PowerPlantController extends BaseController {
         return res.status(200).send(collection);
     }
     getRoutes() {
-        console.log("PPROUTES");
         let router = express.Router();
         router.get("/", this.all);
         router.get("/childs/all", this.allWithIncludes);

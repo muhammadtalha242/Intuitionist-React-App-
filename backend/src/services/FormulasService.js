@@ -1,5 +1,5 @@
 
-module.exports = class CalculationService {
+module.exports = class FormulasService {
   constructor() {
   }
 

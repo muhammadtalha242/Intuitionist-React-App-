@@ -42,7 +42,6 @@ module.exports = class CommercialParameterController extends BaseController {
         return res.status(200).send(collection);
     }
     getRoutes() {
-        console.log("PPROUTES");
         let router = express.Router();
         
         router.post("/getRefValues", this.getRefValues);

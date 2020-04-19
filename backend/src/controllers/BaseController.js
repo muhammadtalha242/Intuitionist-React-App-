@@ -100,7 +100,6 @@ async  remove(req, res) {
 
 
 getRoutes() {
-    console.log("BASEROUTES");
     let router = express.Router();
     router.get("/", this.middleware, this.all);
     router.get("/:id", this.middleware, this.byId);
