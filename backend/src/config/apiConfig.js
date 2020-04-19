@@ -3,6 +3,7 @@ const drivedRoutes = require('./drivedRoutesConfig');
 const BaseController = require('../controllers/BaseController');
 const DrivedController = require('../controllers/DrivedController');
 const PowerPlantController = require('../controllers/PowerPlantController');
+const CommercialParameterController = require('../controllers/CommercialParameterController');
 
 const logger = require('../util/logger');
 
@@ -22,7 +23,8 @@ let configureApi = function (app) {
 
 let configureCustomRoutes = function (app) {
   let powerplant = new PowerPlantController();
-
+  let commercialParameter = new CommercialParameterController()
+  app.use('/computation',commercialParameter.getRoutes())
   app.use('/powerplants', powerplant.getRoutes())
 }
 

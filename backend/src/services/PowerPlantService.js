@@ -11,21 +11,8 @@ module.exports = class PowerPlantService extends BaseService {
   async getWithIncludes(modelName, page) {
     console.log("PPSERVICE");
     let collection = await this.ppRepo.getWithIncludes(modelName, page);
-    let filteredCollection = collection.map((item, index) => {
-      var i = JSON.parse(JSON.stringify(item));
-      logger.success(">>>>>>> ITEM : ", i);
-      // return item;
-      return {
-        "A": this.calculationService.calculateA(i.economicparameter.dollar_parity, i.economicparameter.libor),
-        "B": this.calculationService.calculateB(i.economicparameter.dollar_parity, i.economicparameter.libor),
-        "C": this.calculationService.calculateC(i.economicparameter.dollar_parity, i.economicparameter.libor),
-        "origItem": {
-          "pp": i.plant_name,
-          "dicoId": i.disco_id,
-          "ecoParam": i.economic_parameters_id
-        }
-      }
-    })
+    let filteredCollection = JSON.parse(JSON.stringify(collection));
+
     return filteredCollection;
   }
   async getRefValues(){

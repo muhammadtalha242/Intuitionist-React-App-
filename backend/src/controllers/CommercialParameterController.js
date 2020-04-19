@@ -1,9 +1,9 @@
 const express = require('express');
 const db = require('../config/dbConfig');
 var logger = require('../util/logger');
-const PowerPlantService  = require('../services/PowerPlantService');
+const CommercialParameterService  = require('../services/CommercialParameterService');
 const BaseController = require('./BaseController');
-module.exports = class PowerPlantController extends BaseController {
+module.exports = class CommercialParameterController extends BaseController {
 
     constructor(){
         super();
@@ -17,33 +17,13 @@ module.exports = class PowerPlantController extends BaseController {
     //     // console.log(res.local)
     //     next()
     // }
-    async allWithIncludes(req, res) {
-        console.log("PPCONTROLLER");
-        let ppService = new PowerPlantService();
-        var page = 1;
-        logger.info("query.page", req.query.page);
-        if (req.query.page) {
-            page = parseInt(req.query.page);
-
-        }
-        var modelName = req.baseUrl.replace("/", "");
-        var collection = await ppService.getWithIncludes(modelName, page)
-        if (collection.length < 1) {
-            logger.fail(`404 /${modelName}`, collection.length);
-        } else {
-
-            logger.success(
-                `200 /${modelName}/all`,
-                `[${collection.length}] Item(s)`
-            );
-        }
-        return res.status(200).send(collection);
-    }
+    
 
     async getRefValues(req, res){
         console.log("in COntroller: calling getRefValues")
-        let modelName = req.modelName
-        let collection = await req.ppService.getRefValues()
+        let commpara = new CommercialParameterService()
+        let modelName = req.baseUrl.replace("/", "");
+        let collection = await commpara.getRefValues()
         console.log("in COntroller: called getRefValues")
         if (collection.length < 1) {
             logger.fail(`404 /${modelName}`, collection.length);
@@ -59,9 +39,8 @@ module.exports = class PowerPlantController extends BaseController {
     getRoutes() {
         console.log("PPROUTES");
         let router = express.Router();
-        router.get("/", this.all);
-        router.get("/childs/all", this.allWithIncludes);
-        router.get("/childs/getRefValues", this.getRefValues);
+        
+        router.get("/getRefValues", this.getRefValues);
 
         // router.get("/:id", byId);
         // router.post("/", add);
