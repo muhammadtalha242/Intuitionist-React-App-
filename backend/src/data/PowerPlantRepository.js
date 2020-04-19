@@ -4,6 +4,7 @@ const db = require('../config/dbConfig');
 module.exports = class PowerPlantRepository extends BaseRepository {
     constructor() {
         super();
+        super.maxItems =1;
         this.db = db;
         this.powerplants = this.db.getModel("powerplants");
         this.techparams = this.db.getModel("techparams");

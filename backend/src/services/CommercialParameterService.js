@@ -33,7 +33,7 @@ module.exports = class CommercialParamter extends BaseService {
     }
 
     async getPlantsAndParameters() {
-        let page = 3;
+        let page = 1;
         this.commercialParamsArray = await this.getCommercialParameters() // Try cashing it
 
         this.powerplantArray = await this.powerplantService.getWithIncludes(page)
@@ -43,7 +43,6 @@ module.exports = class CommercialParamter extends BaseService {
     async getRefValues(assumptions) {
         await this.getPlantsAndParameters()
         console.log("assumptions: ", assumptions)
-
         let out = []
 
         for (var _ = 0; _ < this.powerplantArray.length; _++) {
@@ -58,7 +57,7 @@ module.exports = class CommercialParamter extends BaseService {
 
             console.log("powerplantName: ", powerPlant.plant_name)
             console.log("ref_years: ", ref_years)
-            
+
             out.push(await this.cpRepo.getRefValues(this.commercialParamsArray, ref_years,powerPlant.plant_name))
             
         }
