@@ -20,11 +20,16 @@ module.exports = class CommercialParameterController extends BaseController {
     
 
     async getRefValues(req, res){
-        console.log("in COntroller: calling getRefValues")
+
+
         let commpara = new CommercialParameterService()
+        
+        const assumptions = req.body;
         let modelName = req.baseUrl.replace("/", "");
+        
+
         let collection = await commpara.getRefValues()
-        console.log("in COntroller: called getRefValues")
+        
         if (collection.length < 1) {
             logger.fail(`404 /${modelName}`, collection.length);
         } else {
@@ -40,7 +45,7 @@ module.exports = class CommercialParameterController extends BaseController {
         console.log("PPROUTES");
         let router = express.Router();
         
-        router.get("/getRefValues", this.getRefValues);
+        router.post("/getRefValues", this.getRefValues);
 
         // router.get("/:id", byId);
         // router.post("/", add);

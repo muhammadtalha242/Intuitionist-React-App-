@@ -8,12 +8,17 @@ module.exports = class CommercialParamterRepository extends BaseRepository {
         this.commercialParams = this.db.getModel("commercialparams")
         this.vomlocal = this.db.getModel("vomlocalValues")
         this.commercialParamsCombine = this.db.getModel("commercialparams_combine")
-        this.commercialParamsArray=["annual_security_cost", "ash_disposal_charges", "dsra_cost", "escalable_component", "fixedcostonworkingcapital",  "insurance", "fom_local", "fom_foreign","fixed_cost_jetty","fixed_fcc","fixed_rate", "interest_charges_foreign","interest_charges_local","interest_foreign_annual","interest_local_annual","interest_rate_rmb", "irsa_charges", "limestone_charges","nonescalable_component_foreign", "nonescalable_component_local", "proceed_from_cres", "repayment_rmb","roe","roedc","sinosure","variable_cost_jetty","variable_rate","vom_foreign","vom_local","water_charges", "wht" ];
+        // this.commercialParamsArray=["annual_security_cost", "ash_disposal_charges", "dsra_cost", "escalable_component", "fixedcostonworkingcapital",  "insurance", "fom_local", "fom_foreign","fixed_cost_jetty","fixed_fcc","fixed_rate", "interest_charges_foreign","interest_charges_local","interest_foreign_annual","interest_local_annual","interest_rate_rmb", "irsa_charges", "limestone_charges","nonescalable_component_foreign", "nonescalable_component_local", "proceed_from_cres", "repayment_rmb","roe","roedc","sinosure","variable_cost_jetty","variable_rate","vom_foreign","vom_local","water_charges", "wht" ];
     }
+    async getAllCommercialParameters(){
+        var result = await this.commercialParamsCombine
+            .findAll({ attributes: [[this.db.sequelize.fn('distinct', this.db.sequelize.col('commercial_parameter_name')), 'commercial_parameter_name']]  });
 
-    async getRefValues(year, powerplant) {
+        return result;
+    }
+    async getRefValues(commercialParamsArray , year) {
         var modelCollection = await this.commercialParamsCombine
-            .findAll({ where: { commercial_parameter_name: this.commercialParamsArray, year: 1, power_plant_name: ['AES PAK GEN',"AES LALPIR","KOHINOOR","HABIBULLAH"] } });
+            .findAll({ where: { commercial_parameter_name: commercialParamsArray, year: year, power_plant_name: ['AES PAK GEN',"AES LALPIR","KOHINOOR","HABIBULLAH"] } });
 
         return modelCollection;
         // let refRate=[]
