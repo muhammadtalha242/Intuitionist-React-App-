@@ -3,24 +3,24 @@ const PowerPlantRepository = require('../data/PowerPlantRepository')
 const logger = require('../util/logger')
 const FormulasService = require('./FormulasService');
 module.exports = class PowerPlantService extends BaseService {
-  constructor() {
-    super();
-    this.ppRepo = new PowerPlantRepository();
-    this.formulasService = new FormulasService();
-  }
-  async getWithIncludes( page) {
-    console.log("PPSERVICE");
-    let collection = await this.ppRepo.getWithIncludes(page);
-    let filteredCollection = JSON.parse(JSON.stringify(collection));
-    
-    return filteredCollection;
-  }
-  async getRefValues(){
-    console.log("CALLING getRefValues")
-    let out=await this.ppRepo.getRefValues()
-    console.log('CALLed getRefValues')
-    return out    
-  }
+    constructor() {
+        super();
+        this.ppRepo = new PowerPlantRepository();
+        this.formulasService = new FormulasService();
+    }
+    async getWithIncludes(page) {
+        console.log("PPSERVICE");
+        let collection = await this.ppRepo.getWithIncludes(page);
+        let filteredCollection = JSON.parse(JSON.stringify(collection));
+
+        return filteredCollection;
+    }
+    async getRefValues() {
+        console.log("CALLING getRefValues")
+        let out = await this.ppRepo.getRefValues()
+        console.log('CALLed getRefValues')
+        return out
+    }
 }
 
 
