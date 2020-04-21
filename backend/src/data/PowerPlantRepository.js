@@ -26,6 +26,44 @@ module.exports = class PowerPlantRepository extends BaseRepository {
 
 
     }
+    async getAllData(assumptionDates) {
+        let assumptionDateArray = assumptionDates.map(date => {
+
+            return `TIMESTAMPDIFF(YEAR,economicparameters.cod,"${date}")`
+        })
+
+        let rawQuery = `SELECT
+        powerplant.plant_name,
+        economicparameters.economic_parameters_id as paramID,
+        commercialparameters_combine.id as paramCombineID,
+        commercialparameters_combine.commercial_parameter_name,
+        commercialparameters_combine.year AS years,
+        commercialparameters_combine.rate
+        FROM
+            powerplant
+        INNER JOIN economicparameters
+            ON
+                powerplant.economic_parameters_id = economicparameters.economic_parameters_id
+            AND
+            powerplant. economic_parameters_id = economicparameters.economic_parameters_id
+        INNER JOIN commercialparameters_combine
+            ON
+                commercialparameters_combine.power_plant_name = powerplant.plant_name
+        WHERE
+            powerplant.plant_name = "AES PAK GEN"
+        AND
+            commercialparameters_combine.year
+            IN
+                (${assumptionDateArray})`
+
+        rawQuery = rawQuery.replace(/'/, "");
+        // TIMESTAMPDIFF(YEAR,economicparameters.cod,('2020-01-01T00:00:00.000Z'))
+        console.log("raw QUERY: ",rawQuery )
+        let modelCollection = await this.db.sequelize.query(rawQuery,  {  type: this.db.sequelize.QueryTypes.SELECT })
+        console.log("output: ",modelCollection)
+        return modelCollection;
+
+    }
 
     async getWithIncludes(page) {
         console.log("PPRepo.Get");
@@ -34,13 +72,13 @@ module.exports = class PowerPlantRepository extends BaseRepository {
         var modelCollection = await this.powerplants
             .findAll({
                 include: [{
-                        model: this.ecoparams
-                    },
-                    {
-                        model: this.techparams,
-                    }, {
-                        model: this.commercialparams
-                    }
+                    model: this.ecoparams
+                },
+                {
+                    model: this.techparams,
+                }, {
+                    model: this.commercialparams
+                }
                 ],
                 limit: limit,
                 offset: offset
@@ -51,13 +89,13 @@ module.exports = class PowerPlantRepository extends BaseRepository {
         var modelCollection = await this.powerplants
             .findAll({
                 include: [{
-                        model: this.ecoparams
-                    },
-                    {
-                        model: this.techparams,
-                    }, {
-                        model: this.commercialparams
-                    }
+                    model: this.ecoparams
+                },
+                {
+                    model: this.techparams,
+                }, {
+                    model: this.commercialparams
+                }
                 ],
                 where: { plant_name: powerPlantName }
             });
@@ -67,13 +105,13 @@ module.exports = class PowerPlantRepository extends BaseRepository {
         var modelCollection = await this.powerplants
             .findAll({
                 include: [{
-                        model: this.ecoparams
-                    },
-                    {
-                        model: this.techparams,
-                    }, {
-                        model: this.commercialparams
-                    }
+                    model: this.ecoparams
+                },
+                {
+                    model: this.techparams,
+                }, {
+                    model: this.commercialparams
+                }
                 ],
                 where: { technical_parameter_id: id }
             });

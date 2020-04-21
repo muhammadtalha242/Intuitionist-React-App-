@@ -55,14 +55,38 @@ module.exports = class PowerPlantController extends BaseController {
         }
         return res.status(200).send(collection);
     }
+
+    
+    async getAllData(req, res){
+        console.log("in COntroller: calling getAllData")
+        let modelName = req.modelName
+        let ppService = new PowerPlantService();
+
+        const assumptions = req.body.assumption;
+
+        let collection = await ppService.getAllData(assumptions)
+        console.log("in COntroller: called getAllData")
+        if (collection.length < 1) {
+            logger.fail(`404 /${modelName}`, collection.length);
+        } else {
+
+            logger.success(
+                `200 /${modelName}/getAllData`,
+                `[${collection.length}] Item(s)`
+            );
+        }
+        return res.status(200).send(collection);
+    }
+
     getRoutes() {
         let router = express.Router();
         router.get("/", this.all);
         router.get("/childs/all", this.allWithIncludes);
         router.get("/childs/getRefValues", this.getRefValues);
 
+        router.post("/childs/get", this.getAllData);
+
         // router.get("/:id", byId);
-        // router.post("/", add);
         // router.patch("/:id", update);
         // router.delete("/:id", remove);
         return router;

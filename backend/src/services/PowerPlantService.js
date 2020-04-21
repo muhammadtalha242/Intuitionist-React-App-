@@ -15,6 +15,23 @@ module.exports = class PowerPlantService extends BaseService {
 
         return filteredCollection;
     }
+    async getAllData(assumptions){
+
+
+        console.log("PPSERVICE: GET ALL DATA");
+
+        let assumptioDates = assumptions.map(assumption =>{
+            const assumptionDate = assumption[0]
+            return assumptionDate
+        })
+        console.log("PPSERVICE: GET ALL DATA: assumptioDates: ", assumptioDates);
+        
+        let collection = await this.ppRepo.getAllData(assumptioDates);
+        let filteredCollection = JSON.parse(JSON.stringify(collection));
+
+        return filteredCollection;
+    }
+
     async getRefValues() {
         console.log("CALLING getRefValues")
         let out = await this.ppRepo.getRefValues()
