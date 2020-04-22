@@ -26,7 +26,7 @@ module.exports = class PowerPlantRepository extends BaseRepository {
 
 
     }
-    async getAllData(assumptionDates) {
+    async getAllData(assumptionDates, plantNames) {
         let assumptionDateArray = assumptionDates.map(date => {
 
             return `TIMESTAMPDIFF(YEAR,economicparameters.cod,"${date}")`
@@ -34,8 +34,8 @@ module.exports = class PowerPlantRepository extends BaseRepository {
 
         let rawQuery = `SELECT
         powerplant.plant_name,
-        economicparameters.economic_parameters_id as paramID,
-        commercialparameters_combine.id as paramCombineID,
+        economicparameters.cod,
+
         commercialparameters_combine.commercial_parameter_name,
         commercialparameters_combine.year AS years,
         commercialparameters_combine.rate
@@ -50,17 +50,15 @@ module.exports = class PowerPlantRepository extends BaseRepository {
             ON
                 commercialparameters_combine.power_plant_name = powerplant.plant_name
         WHERE
-            powerplant.plant_name = "AES PAK GEN"
+            powerplant.plant_name in ("3GorgesWFrm","3GorgesWFrm2")
+        
         AND
             commercialparameters_combine.year
             IN
                 (${assumptionDateArray})`
 
         rawQuery = rawQuery.replace(/'/, "");
-        // TIMESTAMPDIFF(YEAR,economicparameters.cod,('2020-01-01T00:00:00.000Z'))
-        console.log("raw QUERY: ",rawQuery )
-        let modelCollection = await this.db.sequelize.query(rawQuery,  {  type: this.db.sequelize.QueryTypes.SELECT })
-        console.log("output: ",modelCollection)
+        let modelCollection = await this.db.sequelize.query(rawQuery, { type: this.db.sequelize.QueryTypes.SELECT })
         return modelCollection;
 
     }

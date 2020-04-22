@@ -15,23 +15,86 @@ module.exports = class PowerPlantService extends BaseService {
 
         return filteredCollection;
     }
-    async getAllData(assumptions){
+    async getAllData(assumptions) {
 
 
-        console.log("PPSERVICE: GET ALL DATA");
 
-        let assumptioDates = assumptions.map(assumption =>{
+        let assumptioDates = assumptions.map(assumption => {
             const assumptionDate = assumption[0]
             return assumptionDate
         })
-        console.log("PPSERVICE: GET ALL DATA: assumptioDates: ", assumptioDates);
-        
+
         let collection = await this.ppRepo.getAllData(assumptioDates);
+
         let filteredCollection = JSON.parse(JSON.stringify(collection));
 
+        filteredCollection = this.restructureOutput(filteredCollection)  
         return filteredCollection;
     }
 
+
+    restructureOutput(filteredCollection) {
+        let restructuredOutput = []
+        filteredCollection.forEach(collection => {
+            let doseNotexists = true
+            let existsName = false
+
+
+            restructuredOutput.forEach(arr => {
+                if(arr.includes(collection)){
+                    console.log("Collection all")
+                    doseNotexists = false
+                }
+                arr.forEach(plant => {
+                    
+                    if (plant.plant_name === collection.plant_name && plant.years === collection.years) {
+                        plant.commercialparameters.push({ "commercial_parameter_name": collection.commercial_parameter_name, 'rate': collection.rate })
+                        existsName = false
+                        doseNotexists = false
+    
+                    }
+                    else if (plant.plant_name === collection.plant_name && plant.years !== collection.years) {
+                        existsName = true
+                        doseNotexists = false
+
+                    }
+                    else {
+                        existsName = false
+                        doseNotexists = true
+                    }
+                })
+                if (existsName) {
+
+                    const powerplant = { ...collection }
+
+                    delete powerplant.commercial_parameter_name
+                    delete powerplant.paramCombineID
+                    delete powerplant.rate
+
+                    powerplant.commercialparameters = [{ "commercial_parameter_name": collection.commercial_parameter_name, 'rate': collection.rate }]
+
+                    arr.push(powerplant)
+
+                    existsName = false
+                    doseNotexists = false
+
+                }
+            })
+            if (doseNotexists) {
+                const powerplant = { ...collection }
+
+                delete powerplant.commercial_parameter_name
+                delete powerplant.paramCombineID
+                delete powerplant.rate
+
+                powerplant.commercialparameters = [{ "commercial_parameter_name": collection.commercial_parameter_name, 'rate': collection.rate }]
+
+                restructuredOutput.push([powerplant])
+                doseNotexists = false
+            }
+        })
+        return restructuredOutput
+    }
     async getRefValues() {
         console.log("CALLING getRefValues")
         let out = await this.ppRepo.getRefValues()
@@ -40,41 +103,3 @@ module.exports = class PowerPlantService extends BaseService {
     }
 }
 
-
-// let pp = new PowerPlantRepository();
-// console.log(pp.get(1));
-
-
-// let get = async function (modelName, page) {
-//   let baseRepo = new BaseRepository(modelName);
-//   const response = await baseRepo.get(page);
-//   return response;
-// };
-
-// let getById = function(req, res) {
-//   const response = BaseRepository.getById(req, res);
-//   return response;
-// };
-
-// let create = function(req, res) {
-//   const response = BaseRepository.create(req, res);
-//   return response;
-// };
-
-// let update = function(req, res) {
-//   const response = BaseRepository.update(req, res);
-//   return response;
-// };
-
-// let remove = function(req, res) {
-//   const response = BaseRepository.remove(req, res);
-//   return response;
-// };
-
-// module.exports = {
-//   //   create: create,
-//   get: get,
-//   //   getById: getById,
-//   //   update: update,
-//   //   remove: remove
-// };
