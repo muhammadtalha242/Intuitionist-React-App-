@@ -57,7 +57,7 @@ module.exports = class PowerPlantService extends BaseService {
 
                             internalArray = true
                         }
-                    } else if (!externalAray && !internalArray) {
+                    } else if (!updated && !internalArray) {
                         nameArray = false
                     }
 
