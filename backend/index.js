@@ -1,47 +1,56 @@
-const express = require("express");
-const cors = require("cors");
-const app = express();
+const filteredCollection = require("./routes/SDDP/SampleData/plants_specific.json");
 
-// const SDDP = require('./routes/SDDP/getResults')  ROUTE UNDERCONSTRUCTION
-const ComputationModules = require('./routes/CPP&EPP/ComputationModules')
-const FccComputationModules = require('./routes/FCC/FccComputationModules')
-const login = require('./routes/RegistrationLoginModule/login')
-const database = require('./routes/DataBaseModule/data')
-const updateDatabase = require('./routes/DataBaseModule/updateTable')
-var bodyParser = require('body-parser')
-const apiConfig = require('./src/config/apiConfig');
+const Enumerable = require("linq-js");
+/*
+  "plant_name": "3GorgesWFrm2",
+        "cod": "2017-06-01",
+        "commercial_parameter_name": "annual_security_cost",
+        "years": 4,
+        "rate": "0.0372"
+*/
+var collection = Enumerable.from(filteredCollection)
+  .groupBy(
+    function (plant) {
+      return `${plant.plant_name, plant.years, plant.commercial_parameter_name}`;
+    }, // Key selector
+    function (plant) {
+      return `plant:${plant.plant_name}, years:${plant.years}, commercial_parameter_name:${plant.commercial_parameter_name} `;
+    }, // Element selector
+    function (key, grouping) {
+      // Result selector
+      return {
+        plant: key,
+        params: grouping.source,
+      };
+    }
+  )
+  .toArray();
 
-//
-// const tryingRoute = require("./routes/CPP&EPP/UsingRefactored")
+console.log(JSON.stringify(collection));
 
+var people = [
+  { name: "Carl", age: 33, job: "Tech" },
+  { name: "Homer", age: 42, job: "Tech" },
+  { name: "Phipps", age: 35, job: "Nurse" },
+  { name: "Doris", age: 27, job: "Nurse" },
+  { name: "Willy", age: 31, job: "Janitor" },
+];
+var grouped = Enumerable.from(people)
+  .groupBy(
+    function (person) {
+      return person.job;
+    }, // Key selector
+    function (person) {
+      return person;
+    }, // Element selector
+    function (job, grouping) {
+      // Result selector
+      return {
+        job: job,
+        persons: grouping.source,
+      };
+    }
+  )
+  .toArray();
 
-
-const db = require('./routes/DataBaseModule/config');
-db.authenticate()
-	.then(() => console.log('db connected'))
-	.catch(err => console.log('error connecting'))
-
-
-app.use(bodyParser.json())
-app.use(express.json());
-app.use(cors());
-app.use(
-	bodyParser.urlencoded(
-		{ extended: false }
-	)
-)
-
-app.use('/submit', ComputationModules)
-app.use('/submitFCC', FccComputationModules)
-// app.use('/results', SDDP) ROUTE UNDERCONSTRUCTION
-app.use('/', login)
-app.use('/data', database)
-app.use('/update', updateDatabase)
-
-
-apiConfig.configureApi(app);
-
-const server = app.listen(4000, () => {
-	console.log("Server working at port 4000")
-});
-server.setTimeout(30*60*1000);
+console.log(JSON.stringify(grouped));

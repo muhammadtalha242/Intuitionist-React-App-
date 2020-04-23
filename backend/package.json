@@ -1,34 +1,36 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "watch": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@hapi/hoek": "^9.0.4",
-    "axios": "^0.19.2",
-    "bcrypt": "^4.0.1",
-    "body-parser": "^1.17.2",
-    "cors": "^2.8.5",
-    "excel4node": "^1.7.2",
-    "exceljs": "^3.8.2",
-    "express": "^4.17.1",
-    "http-proxy-middleware": "^1.0.0",
-    "jsonwebtoken": "^7.4.2",
-    "minimist": "^1.2.5",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.1.0",
-    "nodemon": "^2.0.2",
-    "sequelize": "^4.44.4",
-    "util.promisify": "^1.0.1"
-  },
-  "devDependencies": {
-    "chalk": "^4.0.0"
-  }
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "watch": "nodemon",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon index.js",
+        "lab": "cls && nodemon routes\\SSDP\\SampleData\\tempData.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@hapi/hoek": "^9.0.4",
+        "axios": "^0.19.2",
+        "bcrypt": "^4.0.1",
+        "body-parser": "^1.17.2",
+        "cors": "^2.8.5",
+        "excel4node": "^1.7.2",
+        "exceljs": "^3.8.2",
+        "express": "^4.17.1",
+        "http-proxy-middleware": "^1.0.0",
+        "jsonwebtoken": "^7.4.2",
+        "linq-js": "^2.1.24",
+        "minimist": "^1.2.5",
+        "mysql": "^2.18.1",
+        "mysql2": "^2.1.0",
+        "nodemon": "^2.0.2",
+        "sequelize": "^4.44.4",
+        "util.promisify": "^1.0.1"
+    },
+    "devDependencies": {
+        "chalk": "^4.0.0"
+    }
 }
