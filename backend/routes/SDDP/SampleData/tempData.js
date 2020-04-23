@@ -1,4 +1,4 @@
-const filteredCollection = require('./plants.json')
+const filteredCollection = require('./plants copy.json')
 const restructureOutput = (filteredCollection) => {
     var restructuredOutput = []
     var nameArray = false
