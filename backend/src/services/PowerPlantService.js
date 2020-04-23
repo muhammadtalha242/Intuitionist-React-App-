@@ -28,42 +28,41 @@ module.exports = class PowerPlantService extends BaseService {
 
         let filteredCollection = JSON.parse(JSON.stringify(collection));
 
-        filteredCollection = this.restructureOutput(filteredCollection)  
+        filteredCollection = this.restructureOutput(filteredCollection)
         return filteredCollection;
     }
 
 
     restructureOutput(filteredCollection) {
-        let restructuredOutput = []
+        var restructuredOutput = []
+        var nameArray = false
         filteredCollection.forEach(collection => {
-            let doseNotexists = true
-            let existsName = false
+            var internalArray = false
+            var externalAray = false
+            var updated = false
 
 
             restructuredOutput.forEach(arr => {
-                if(arr.includes(collection)){
-                    console.log("Collection all")
-                    doseNotexists = false
-                }
-                arr.forEach(plant => {
-                    
-                    if (plant.plant_name === collection.plant_name && plant.years === collection.years) {
-                        plant.commercialparameters.push({ "commercial_parameter_name": collection.commercial_parameter_name, 'rate': collection.rate })
-                        existsName = false
-                        doseNotexists = false
-    
-                    }
-                    else if (plant.plant_name === collection.plant_name && plant.years !== collection.years) {
-                        existsName = true
-                        doseNotexists = false
 
+                arr.forEach(plant => {
+                    if (plant.plant_name === collection.plant_name) {
+
+                        nameArray = true
+
+                        if (plant.years === collection.years) {
+
+                            plant.commercialparameters.push({ "commercial_parameter_name": collection.commercial_parameter_name, 'rate': collection.rate })
+                            updated = true
+                        } else {
+
+                            internalArray = true
+                        }
+                    } else if (!externalAray && !internalArray) {
+                        nameArray = false
                     }
-                    else {
-                        existsName = false
-                        doseNotexists = true
-                    }
+
                 })
-                if (existsName) {
+                if (internalArray && !updated) {
 
                     const powerplant = { ...collection }
 
@@ -75,12 +74,11 @@ module.exports = class PowerPlantService extends BaseService {
 
                     arr.push(powerplant)
 
-                    existsName = false
-                    doseNotexists = false
 
                 }
+
             })
-            if (doseNotexists) {
+            if (!nameArray) {
                 const powerplant = { ...collection }
 
                 delete powerplant.commercial_parameter_name
@@ -90,8 +88,12 @@ module.exports = class PowerPlantService extends BaseService {
                 powerplant.commercialparameters = [{ "commercial_parameter_name": collection.commercial_parameter_name, 'rate': collection.rate }]
 
                 restructuredOutput.push([powerplant])
-                doseNotexists = false
+                nameArray = true
+                externalAray = true
+
+
             }
+
         })
         return restructuredOutput
     }

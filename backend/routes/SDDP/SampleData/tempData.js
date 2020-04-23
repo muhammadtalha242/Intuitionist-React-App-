@@ -262,7 +262,7 @@ const filteredCollection = [
 const restructureOutput = (filteredCollection) => {
     var restructuredOutput = []
     var nameArray = false
-
+    var updated = false
     filteredCollection.forEach(collection => {
         var internalArray = false
         var externalAray = false
@@ -292,7 +292,7 @@ const restructureOutput = (filteredCollection) => {
                         console.log("plantName and year exist in : ", collection.plant_name, collection.years)
 
                         plant.commercialparameters.push({ "commercial_parameter_name": collection.commercial_parameter_name, 'rate': collection.rate })
-
+                        updated = true
                     } else {
                         console.log("plantName exist in arr but not year: ", collection.plant_name, collection.years)
 
@@ -308,7 +308,7 @@ const restructureOutput = (filteredCollection) => {
                 console.log('internArray:       ', internalArray)
 
             })
-            if (internalArray) {
+            if (internalArray && !updated) {
 
                 const powerplant = { ...collection }
 
@@ -317,7 +317,8 @@ const restructureOutput = (filteredCollection) => {
                 delete powerplant.rate
 
                 powerplant.commercialparameters = [{ "commercial_parameter_name": collection.commercial_parameter_name, 'rate': collection.rate }]
-                console.log("ADDING IN ARR")
+                console.log("PLANT ADDED IN INTERNAL ARRAY:", powerplant.plant_name, powerplant.years)
+
                 arr.push(powerplant)
 
 
@@ -338,6 +339,7 @@ const restructureOutput = (filteredCollection) => {
             powerplant.commercialparameters = [{ "commercial_parameter_name": collection.commercial_parameter_name, 'rate': collection.rate }]
 
             restructuredOutput.push([powerplant])
+            console.log("PLANT ADDED IN EXTERNAL ARRAY:", powerplant.plant_name, powerplant.years)
             nameArray = true
             externalAray = true
 
@@ -352,4 +354,3 @@ const restructureOutput = (filteredCollection) => {
     console.log("restructuredOutput ", restructuredOutput)
     return restructuredOutput
 }
-restructureOutput(filteredCollection)
