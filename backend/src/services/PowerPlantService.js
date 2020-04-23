@@ -28,7 +28,7 @@ module.exports = class PowerPlantService extends BaseService {
 
         let filteredCollection = JSON.parse(JSON.stringify(collection));
 
-        filteredCollection = this.restructureOutput(filteredCollection)
+        // filteredCollection = this.restructureOutput(filteredCollection)
         return filteredCollection;
     }
 
@@ -45,7 +45,7 @@ module.exports = class PowerPlantService extends BaseService {
             restructuredOutput.forEach(arr => {
 
                 arr.forEach(plant => {
-                    if (plant.plant_name === collection.plant_name) {
+                    if (plant.plant_name.toLower() === collection.plant_name) {
 
                         nameArray = true
 

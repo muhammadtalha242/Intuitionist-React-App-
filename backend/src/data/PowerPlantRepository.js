@@ -50,7 +50,7 @@ module.exports = class PowerPlantRepository extends BaseRepository {
             ON
                 commercialparameters_combine.power_plant_name = powerplant.plant_name
         WHERE
-            powerplant.plant_name in ("Alman","3GorgesWFrm","Almaghni","3GorgesWFrm2","AES LALPIR","3GorgesWFrm3", "AES PAK GEN", "AJ Power", "AllaiKhwar", "Alliance")
+            powerplant.plant_name in ("3GorgesWFrm","3GorgesWFrm2","3GorgesWFrm3")
             
         AND
             commercialparameters_combine.year
