@@ -23,6 +23,7 @@
         "http-proxy-middleware": "^1.0.0",
         "jsonwebtoken": "^7.4.2",
         "linq-js": "^2.1.24",
+        "linq.js": "^2.0.0",
         "minimist": "^1.2.5",
         "mysql": "^2.18.1",
         "mysql2": "^2.1.0",

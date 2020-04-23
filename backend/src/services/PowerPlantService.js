@@ -26,75 +26,43 @@ module.exports = class PowerPlantService extends BaseService {
 
         let collection = await this.ppRepo.getAllData(assumptioDates);
 
-        let filteredCollection = JSON.parse(JSON.stringify(collection));
 
-        // filteredCollection = this.restructureOutput(filteredCollection)
+        let filteredCollection = this.restructureOutput(collection)
+        console.log(filteredCollection)
         return filteredCollection;
     }
 
 
     restructureOutput(filteredCollection) {
-        var restructuredOutput = []
-        var nameArray = false
+        var restructuredOutput = [];
         filteredCollection.forEach(collection => {
-            var internalArray = false
-            var externalAray = false
-            var updated = false
-
-
-            restructuredOutput.forEach(arr => {
-
-                arr.forEach(plant => {
-                    if (plant.plant_name.toLower() === collection.plant_name) {
-
-                        nameArray = true
-
-                        if (plant.years === collection.years) {
-
-                            plant.commercialparameters.push({ "commercial_parameter_name": collection.commercial_parameter_name, 'rate': collection.rate })
-                            updated = true
-                        } else {
-
-                            internalArray = true
-                        }
-                    } else if (!updated && !internalArray) {
-                        nameArray = false
-                    }
-
-                })
-                if (internalArray && !updated) {
-
-                    const powerplant = { ...collection }
-
-                    delete powerplant.commercial_parameter_name
-                    delete powerplant.paramCombineID
-                    delete powerplant.rate
-
-                    powerplant.commercialparameters = [{ "commercial_parameter_name": collection.commercial_parameter_name, 'rate': collection.rate }]
-
-                    arr.push(powerplant)
-
-
+            const plant_name = collection.plant_name
+            const years = collection.years
+            const plantYear = `${plant_name}+${years}`
+            if (plant_name in restructuredOutput) {
+                if (plantYear in restructuredOutput[plant_name]) {
+                    restructuredOutput[plant_name][plantYear].commercialparameters.push({ "commercial_parameter_name": collection.commercial_parameter_name, "rate": collection.rate })
                 }
-
-            })
-            if (!nameArray) {
-                const powerplant = { ...collection }
-
-                delete powerplant.commercial_parameter_name
-                delete powerplant.paramCombineID
-                delete powerplant.rate
-
-                powerplant.commercialparameters = [{ "commercial_parameter_name": collection.commercial_parameter_name, 'rate': collection.rate }]
-
-                restructuredOutput.push([powerplant])
-                nameArray = true
-                externalAray = true
-
-
+                else {
+                    const powerplant = { ...collection };
+                    delete powerplant.commercial_parameter_name;
+                    delete powerplant.paramCombineID;
+                    delete powerplant.rate;
+                    powerplant.commercialparameters = [
+                        {
+                            commercial_parameter_name: collection.commercial_parameter_name,
+                            rate: collection.rate,
+                        },
+                    ];
+                    restructuredOutput[plant_name][plantYear] = powerplant
+                }
+            }
+            else {
+                restructuredOutput[plant_name] = {}
             }
 
         })
+
         return restructuredOutput
     }
     async getRefValues() {

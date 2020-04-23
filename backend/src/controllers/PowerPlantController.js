@@ -65,17 +65,19 @@ module.exports = class PowerPlantController extends BaseController {
         const assumptions = req.body.assumption;
 
         let collection = await ppService.getAllData(assumptions)
-        console.log("in COntroller: called getAllData")
-        if (collection.length < 1) {
+        if (Object.keys(collection).length < 1) {
             logger.fail(`404 /${modelName}`, collection.length);
         } else {
 
             logger.success(
                 `200 /${modelName}/getAllData`,
-                `[${collection.length}] Item(s)`
+                `[${Object.keys(collection).length}] Item(s)`
             );
         }
-        return res.status(200).send(collection);
+        console.log("in COntroller: called getAllData")
+        console.log('collection in controller', collection)
+        
+        return res.status(200).send(Object.entries(collection));
     }
 
     getRoutes() {
