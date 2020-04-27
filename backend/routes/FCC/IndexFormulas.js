@@ -110,36 +110,36 @@ VariableCostJetty = (assumption, ref_eco, ref_rate) => {
     return value
 }
 
-InterestForeignAnnual =(assumption, powerplant, ref_rate)=>{
+// InterestForeignAnnual =(assumption, powerplant, ref_rate)=>{
     
-    if(ref_rate.length != 4){
-        return 0
-    }
-    var sum = 0
-    ref_rate.forEach(rate=>{
-       const interest= rate.interestforeignquarter_rate * (assumption.dollar_parity/powerplant.dollar_parity)
-       const outstanding = rate.OutstandingPrincipleForeignQuarter_rate * assumption.dollar_parity
-       const installed  =  (assumption.libor - powerplant.libor)/(powerplant.installed_capacity * powerplant.derated_capacity *8670*1000)
-        sum = interest + (outstanding * installed)
-    })
+//     if(ref_rate.length != 4){
+//         return 0
+//     }
+//     var sum = 0
+//     ref_rate.forEach(rate=>{
+//        const interest= rate.interestforeignquarter_rate * (assumption.dollar_parity/powerplant.dollar_parity)
+//        const outstanding = rate.OutstandingPrincipleForeignQuarter_rate * assumption.dollar_parity
+//        const installed  =  (assumption.libor - powerplant.libor)/(powerplant.installed_capacity * powerplant.derated_capacity *8670*1000)
+//         sum = interest + (outstanding * installed)
+//     })
 
-    return sum/4
-}
+//     return sum/4
+// }
 
-InterestLocalAnnual=(assumption, powerplant, ref_rate)=>{
-    if(ref_rate.length != 4){
-        return 0
-    }
-    var sum = 0
-    ref_rate.forEach(rate=>{
-       const interest= rate.InterestLocalQuarter_rate
-       const outstanding = rate.OutstandingPrincipleLocalQuarter_rate * assumption.dollar_parity
+// InterestLocalAnnual=(assumption, powerplant, ref_rate)=>{
+//     if(ref_rate.length != 4){
+//         return 0
+//     }
+//     var sum = 0
+//     ref_rate.forEach(rate=>{
+//        const interest= rate.InterestLocalQuarter_rate
+//        const outstanding = rate.OutstandingPrincipleLocalQuarter_rate * assumption.dollar_parity
        
-       /// CONFORM IT 
-       const installed  =  (assumption.libor - powerplant.libor)/(powerplant.installed_capacity * powerplant.derated_capacity *8670*1000)
-        /// GET IT CHECKED
-       sum = interest + (outstanding * installed)
+//        /// CONFORM IT 
+//        const installed  =  (assumption.libor - powerplant.libor)/(powerplant.installed_capacity * powerplant.derated_capacity *8670*1000)
+//         /// GET IT CHECKED
+//        sum = interest + (outstanding * installed)
 
-    })
-    return sum/4
-}
+//     })
+//     return sum/4
+// }

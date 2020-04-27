@@ -18,18 +18,21 @@ module.exports = class PowerPlantService extends BaseService {
     async getAllData(assumptions) {
 
 
-
+        //Extracting dates from assumptios
         let assumptioDates = assumptions.map(assumption => {
             const assumptionDate = assumption[0]
             return assumptionDate
         })
 
+        //Getting results from database
         let collection = await this.ppRepo.getAllData(assumptioDates);
 
-
+        // Restructured Results
         let filteredCollection = this.restructureOutput(collection)
-        console.log(filteredCollection)
-        return filteredCollection;
+        // After Indexation formulas
+        let finalResults = this.formulasService.getIndexValue(filteredCollection,assumptions)
+        
+        return finalResults;
     }
 
 

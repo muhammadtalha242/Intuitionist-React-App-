@@ -59,7 +59,8 @@ module.exports = class PowerPlantController extends BaseController {
     
     async getAllData(req, res){
         console.log("in COntroller: calling getAllData")
-        let modelName = req.modelName
+        var modelName = req.baseUrl.replace("/", "");
+
         let ppService = new PowerPlantService();
 
         const assumptions = req.body.assumption;
@@ -74,8 +75,6 @@ module.exports = class PowerPlantController extends BaseController {
                 `[${Object.keys(collection).length}] Item(s)`
             );
         }
-        console.log("in COntroller: called getAllData")
-        console.log('collection in controller', collection)
         
         return res.status(200).send(Object.entries(collection));
     }

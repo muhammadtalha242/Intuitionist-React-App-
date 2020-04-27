@@ -8,7 +8,9 @@ const sequelize = new Sequelize("development_database", "root", "root", {
   host: "localhost",
   dialect: "mysql",
   operatorsAliases: false,
-
+  dialectOptions: {
+    multipleStatements: true
+  },
   pool: {
     max: 36,
     min: 0,

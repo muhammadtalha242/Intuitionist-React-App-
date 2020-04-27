@@ -29,12 +29,13 @@ module.exports = class PowerPlantRepository extends BaseRepository {
     async getAllData(assumptionDates, plantNames) {
         let assumptionDateArray = assumptionDates.map(date => {
 
-            return `TIMESTAMPDIFF(YEAR,economicparameters.cod,"${date}")`
+            return `TIMESTAMPDIFF(YEAR,economicparameters.cod,"${date}")+1`
         })
 
         let rawQuery = `SELECT
-        powerplant.plant_name,
-        economicparameters.cod,
+        powerplant.*,
+        economicparameters.*,
+        technicalparameters.*,
 
         commercialparameters_combine.commercial_parameter_name,
         commercialparameters_combine.year AS years,
@@ -46,6 +47,13 @@ module.exports = class PowerPlantRepository extends BaseRepository {
                 powerplant.economic_parameters_id = economicparameters.economic_parameters_id
             AND
             powerplant. economic_parameters_id = economicparameters.economic_parameters_id
+            
+            
+            INNER JOIN technicalparameters
+                ON
+                    powerplant.technical_parameter_id = technicalparameters.technical_parameter_id
+                AND
+                powerplant. technical_parameter_id = technicalparameters.technical_parameter_id
         INNER JOIN commercialparameters_combine
             ON
                 commercialparameters_combine.power_plant_name = powerplant.plant_name
@@ -55,7 +63,14 @@ module.exports = class PowerPlantRepository extends BaseRepository {
         AND
             commercialparameters_combine.year
             IN
-                (${assumptionDateArray})`
+                (${assumptionDateArray});` ;
+                // `SELECT 
+                // commercialparameters_combine.commercial_parameter_name,
+                // commercialparameters_combine.year AS years,
+                // commercialparameters_combine.rate
+                // FROM commercialparameters_combine 
+                // where commercial_parameter_name LIKE "fcc" 
+                // and year =1;`].join(' ')
 
         rawQuery = rawQuery.replace(/'/, "");
         let modelCollection = await this.db.sequelize.query(rawQuery, { type: this.db.sequelize.QueryTypes.SELECT })
