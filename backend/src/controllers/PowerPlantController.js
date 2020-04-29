@@ -59,7 +59,7 @@ module.exports = class PowerPlantController extends BaseController {
     
     async getAllData(req, res){
         console.log("in COntroller: calling getAllData")
-        var modelName = req.baseUrl.replace("/", "");
+               var modelName = req.baseUrl.replace("/", "");
 
         let ppService = new PowerPlantService();
 

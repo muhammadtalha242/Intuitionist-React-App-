@@ -26,15 +26,34 @@ module.exports = class PowerPlantService extends BaseService {
 
         //Getting results from database
         let collection = await this.ppRepo.getAllData(assumptioDates);
+        
+        let fccCollection = await this.ppRepo.getFCCIndexValue();
+
+        //addFccParameter Values
+        let updatedCollection = this.fccParameter(fccCollection,collection)
 
         // Restructured Results
-        let filteredCollection = this.restructureOutput(collection)
+        let filteredCollection = this.restructureOutput(updatedCollection)
         // After Indexation formulas
         let finalResults = this.formulasService.getIndexValue(filteredCollection,assumptions)
         
         return finalResults;
     }
 
+    fccParameter(fccCollection, collectionX){
+        const fccPlant ={}
+        fccCollection.forEach(plant=>{
+            fccPlant[plant.dataValues.power_plant_name] = plant.dataValues.rate
+        })
+        collectionX.forEach(plant =>{
+            if(plant.commercial_parameter_name === 'fcc'){
+                console.log("fccPlant[plant.plant_name]: ",fccPlant[plant.plant_name])
+                plant.rate = fccPlant[plant.plant_name]
+            }
+        })
+        return collectionX
+
+    }
 
     restructureOutput(filteredCollection) {
         var restructuredOutput = [];

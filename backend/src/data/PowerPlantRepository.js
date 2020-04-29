@@ -1,6 +1,6 @@
 const BaseRepository = require('./BaseRepository')
 const db = require('../config/dbConfig');
-
+const { Op } = require("sequelize");
 module.exports = class PowerPlantRepository extends BaseRepository {
     constructor() {
         super();
@@ -58,26 +58,36 @@ module.exports = class PowerPlantRepository extends BaseRepository {
             ON
                 commercialparameters_combine.power_plant_name = powerplant.plant_name
         WHERE
-            powerplant.plant_name in ("ALMOIZ","Alliance")
             
-        AND
+
             commercialparameters_combine.year
             IN
-                (${assumptionDateArray});` ;
-                // `SELECT 
-                // commercialparameters_combine.commercial_parameter_name,
-                // commercialparameters_combine.year AS years,
-                // commercialparameters_combine.rate
-                // FROM commercialparameters_combine 
-                // where commercial_parameter_name LIKE "fcc" 
-                // and year =1;`].join(' ')
+                (${assumptionDateArray});`;
+        // `SELECT 
+        // commercialparameters_combine.commercial_parameter_name,
+        // commercialparameters_combine.year AS years,
+        // commercialparameters_combine.rate
+        // FROM commercialparameters_combine 
+        // where commercial_parameter_name LIKE "fcc" 
+        // and year =1;`].join(' ')
 
         rawQuery = rawQuery.replace(/'/, "");
         let modelCollection = await this.db.sequelize.query(rawQuery, { type: this.db.sequelize.QueryTypes.SELECT })
         return modelCollection;
 
     }
-
+    async getFCCIndexValue() {
+        var modelCollection = await this.commercialparams
+            .findAll({
+                where: {
+                    [Op.and]: [
+                        { commercial_parameter_name: 'fcc' },
+                        { year: 1 }
+                    ]
+                }
+            });
+        return modelCollection;
+    }
     async getWithIncludes(page) {
         console.log("PPRepo.Get");
         var limit = this.maxItems;

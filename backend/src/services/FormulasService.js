@@ -287,9 +287,15 @@ module.exports = class FormulasService {
   }
 
   InterestForeignAnnual(assumption, powerplant) {
-    const allCommpara = this.groupBy(powerplant.commercialparameters, 'commercial_parameter_name')
-    const { interest_foreign_quarter, outstanding_principle_foreign_quarter } = allCommpara
+    if(powerplant.years >= 30){
+      return 0
+    }
 
+    const allCommpara = this.groupBy(powerplant.commercialparameters, 'commercial_parameter_name')
+
+
+
+    const { interest_foreign_quarter, outstanding_principle_foreign_quarter } = allCommpara
 
 
 
@@ -312,6 +318,9 @@ module.exports = class FormulasService {
   }
 
   InterestLocalAnnual(assumption, powerplant) {
+    if(powerplant.years >= 30){
+      return 0
+    }
     const allCommpara = this.groupBy(powerplant.commercialparameters, 'commercial_parameter_name')
     const { interest_local_quarter, outstanding_principle_local_quarter } = allCommpara
 
