@@ -11,14 +11,14 @@ const excel = new Excel()
 
 
 
-// exports.genratehydelInput=(obj,plants)=>{
-//     output = obj
-//     powerplants = plants
-// }
+exports.genratehydelInput=(output,powerplants)=>{
+    // output = obj
+    // powerplants = plants
 
-const outputs = inputSheets.getData()
-const output = outputs[0]
-const powerplants = outputs[1]
+
+// const outputs = inputSheets.getData()
+// const output = outputs[0]
+// const powerplants = outputs[1]
 
 
 const creatingRowObject = (powerplant, hydelInputCols) => {
@@ -71,7 +71,7 @@ const creatingRowObject = (powerplant, hydelInputCols) => {
         }
     })
 
-    console.log("ROW OBJECT:", row)
+    // console.log("ROW OBJECT:", row)
     return row
 
 
@@ -107,3 +107,4 @@ hydelPlants.forEach(powerplant => {
 
 
 excel.writeFile(workbook, fileName)
+}

@@ -11,14 +11,14 @@ const excel = new Excel()
 
 
 
-// exports.genraterenewableInput=(obj,plants)=>{
-//     output = obj
-//     powerplants = plants
-// }
+exports.genraterenewableInput=(output,powerplants)=>{
+    // output = obj
+    // powerplants = plants
 
-const outputs = inputSheets.getData()
-const output = outputs[0]
-const powerplants = outputs[1]
+
+// const outputs = inputSheets.getData()
+// const output = outputs[0]
+// const powerplants = outputs[1]
 
 
 const creatingRowObject = (powerplant, renewableInputCols) => {
@@ -57,7 +57,7 @@ const creatingRowObject = (powerplant, renewableInputCols) => {
         }
     })
 
-    console.log("ROW OBJECT:", row)
+    // console.log("ROW OBJECT:", row)
     return row
 
 
@@ -93,3 +93,4 @@ renewablePlants.forEach(powerplant => {
 
 
 excel.writeFile(workbook, fileName)
+}

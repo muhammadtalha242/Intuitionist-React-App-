@@ -6,8 +6,9 @@ const PowerPlantController = require('../controllers/PowerPlantController');
 const CommercialParameterController = require('../controllers/CommercialParameterController');
 
 // EDIT
-const FccComputationModules = require('../../routes/FCC/FccComputationModules')
+const FccComputationModules = require('../../routes/FCC/FccComputationModules');
 const ComputationModules = require('../../routes/CPP&EPP/ComputationModules');
+const SddpService= require("../../routes/SDDP/getResults")
 // EDIT
 
 const logger = require('../util/logger');
@@ -29,10 +30,13 @@ let configureApi = function (app) {
 let configureCustomRoutes = function (app) {
   let powerplant = new PowerPlantController();
   let commercialParameter = new CommercialParameterController()
+  let Sddp = new SddpService()
   app.use('/computation',commercialParameter.getRoutes())
   app.use('/powerplants', powerplant.getRoutes())
   app.use('/submitFCC', FccComputationModules)
   app.use('/submit', ComputationModules)
+  app.use('/sheetsData', Sddp.getRoutes())
+
 
 }
 

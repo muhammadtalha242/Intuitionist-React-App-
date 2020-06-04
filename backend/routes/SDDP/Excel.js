@@ -43,7 +43,7 @@ class Excel {
 
     }
     writeFile (workbook, fileName) {
-        workbook.csv.writeFile(`${fileName}.csv`)
+        workbook.csv.writeFile(`./routes/SDDP/inputSheets/${fileName}.csv`)
             .then(() => {
                 console.log("done")
             });

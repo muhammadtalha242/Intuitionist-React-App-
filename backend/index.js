@@ -31,7 +31,7 @@ app.use(
 	)
 )
 
-app.use('/submit', ComputationModules)
+// app.use('/submit', ComputationModules)
 // app.use('/submitFCC', FccComputationModules)
 // app.use('/results', SDDP) ROUTE UNDERCONSTRUCTION
 app.use('/', login)

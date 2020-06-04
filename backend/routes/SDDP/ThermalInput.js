@@ -12,16 +12,16 @@ const Excel = require('./Excel')
 const excel = new Excel()
 
 
+// const outputs = inputSheets.getData()
+// var output = "outputs[0]"
+// var powerplants = "outputs[1]"
+
+exports.genrateThermalInput=(output,powerplants)=>{
+    // output = obj
+    // powerplants = plants
 
 
-// exports.genrateThermalInput=(obj,plants)=>{
-//     output = obj
-//     powerplants = plants
-// }
 
-const outputs = inputSheets.getData()
-const output = outputs[0]
-const powerplants = outputs[1]
 
 const getFCCrefFuelCost = (powerplant) => {
     const plantsArray = Object.values(output[Object.keys(output)[0]])[1][1]
@@ -184,3 +184,4 @@ thermalPlants.forEach(powerplant => {
 
 
 excel.writeFile(workbook, fileName)
+}
