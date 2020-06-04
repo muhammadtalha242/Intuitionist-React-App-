@@ -32,8 +32,8 @@ module.exports = class CommercialParameterController extends BaseController {
         
         if (collection.length < 1) {
             logger.fail(`404 /${modelName}`, collection.length);
-        } else {
-
+        } 
+        else {
             logger.success(
                 `200 /${modelName}/all`,
                 `[${collection.length}] Item(s)`

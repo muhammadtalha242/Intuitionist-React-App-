@@ -16,10 +16,10 @@ const apiConfig = require('./src/config/apiConfig');
 
 
 
-const db = require('./routes/DataBaseModule/config');
-db.authenticate()
-	.then(() => console.log('db connected'))
-	.catch(err => console.log('error connecting'))
+// const db = require('./routes/DataBaseModule/config');
+// db.authenticate()
+// 	.then(() => console.log('db connected'))
+// 	.catch(err => console.log('error connecting'))
 
 
 app.use(bodyParser.json())
@@ -32,7 +32,7 @@ app.use(
 )
 
 app.use('/submit', ComputationModules)
-app.use('/submitFCC', FccComputationModules)
+// app.use('/submitFCC', FccComputationModules)
 // app.use('/results', SDDP) ROUTE UNDERCONSTRUCTION
 app.use('/', login)
 app.use('/data', database)

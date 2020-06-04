@@ -1,5 +1,4 @@
 const express = require('express');
-const db = require('../config/dbConfig');
 var logger = require('../util/logger');
 const PowerPlantService  = require('../services/PowerPlantService');
 const BaseController = require('./BaseController');

@@ -176,12 +176,19 @@ router.post("/", (req, res) => {
 
 
     }).then(() => {
+        console.log("At the end")
+        
+        Excel.createExcel(out)
+        
         console.log("After computations")
         res.json(out)
+        
         StoreResults.create({ user_id: 1, results: out }).then(response => {
             console.log('database updated')
         }).catch(error => console.log('ERROR: ', error))
 
+    }).then(()=>{
+        out = {}
     })
 })
 
