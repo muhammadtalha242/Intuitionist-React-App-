@@ -14,7 +14,7 @@ module.exports = class BaseRepository {
         var offset = (page - 1) * this.maxItems;
         var modelCollection = await db
             .getModel(modelName)
-            .findAll({ limit: limit, offset: offset });
+            .findAll();
         return modelCollection;
     }
 

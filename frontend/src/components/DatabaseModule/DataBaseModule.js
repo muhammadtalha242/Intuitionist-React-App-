@@ -4,6 +4,7 @@ import DatabaseTable from './databaseTable'
 import Error from './Error'
 import Spinner from '../Spinner/spinnericon'
 import Backdrop from '@material-ui/core/Backdrop';
+import tablenames from '../Api/routeConfig_frontEnd'
 // import CircularProgress from '@material-ui/core/CircularProgress';
 // import Header from '../header'
 // import Footer from '../footer'
@@ -26,26 +27,35 @@ export class DataBaseModule extends Component {
 
     };
     componentDidMount = () => {
-        axios.get('/data', this.state)
-            .then(response => {
-                this.setState({
-                    componentShow: false,
-                    tables: response.data
-                })
-            })
-            .catch(error => {
-                console.log('API-> ERROR');
-                console.log(error);
+        console.log('tabel names: ', tablenames)
+        const tables=tablenames.map(t=>{
+            return t.key
+
+        }) 
+        this.setState({
+            componentShow: false,
+            tables: tables
+        })
+        // axios.get('/data', this.state)
+        //     .then(response => {
+                // this.setState({
+                //     componentShow: false,
+                //     tables: response.data
+                // })
+        //     })
+        //     .catch(error => {
+        //         console.log('API-> ERROR');
+        //         console.log(error);
 
 
-                // How can we show it here?
-                // {<Error error={error}/>}
+        //         // How can we show it here?
+        //         // {<Error error={error}/>}
 
-                this.setState({
-                    showError: true,
-                    errorMessage: 'Status Code :500'
-                })
-            })
+        //         this.setState({
+        //             showError: true,
+        //             errorMessage: 'Status Code :500'
+        //         })
+        //     })
     }
 
     showSpinner = (l) => {
@@ -57,14 +67,22 @@ export class DataBaseModule extends Component {
     goTo = (tableName, open) => {
         this.showSpinner(open)
         //Call query from backend to generate the database table on clicking a particular row
-        axios.get(`${tableName}`)
+        const table=tablenames.filter(t=>{
+            if(t.key===tableName){
+                console.log('selected table: ',t.value)
+
+                return t.value
+            }
+        })
+        console.log('selected table: ',table[0].value)
+        axios.get(`${table[0].key}`)
             .then(response =>
                 
                 this.setState({
                     table: response.data,
-                    // componentShow: true,
+                    componentShow: true,
                     open: !open,
-                    tableName: tableName
+                    tableName: table
                 })
             )
             .catch(error => {

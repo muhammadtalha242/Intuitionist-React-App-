@@ -13,28 +13,26 @@ class databaseTable extends Component {
         this.renderHeadings = this.renderHeadings.bind(this);
     };
     rendertable = () => {
-        let d = [...this.props.tableData]
-        d.shift()
-        let data = d.map((item, index) => {
-            let o = {}
-            item.map((ite, i) => {
+        // let d = [...this.props.tableData]
+        // let data = d.map((item, index) => {
+        //     let o = {}
+        //     item.map((ite, i) => {
 
-                o[this.props.tableData[0][i]] = ite
+        //         o[this.props.tableData[0][i]] = ite
 
-            })
-            return o
-        })
+        //     })
+        //     return o
+        // })
 
-        this.setState({ data: data });
+        this.setState({ data: this.props.tableData });
 
     }
     renderHeadings = () => {
 
-        let c = (this.props.tableData[0]).map((item, index) => {
+        let c = Object.keys((this.props.tableData[0])).map((item, index) => {
             let o = {};
             o['field'] = item;
-            item = item.charAt(0).toUpperCase() + item.slice(1)
-            o['title'] = item
+            o['title'] = item.toUpperCase()
             return o
 
         });
@@ -49,9 +47,9 @@ class databaseTable extends Component {
 
     }
     insert = (h) => {
-        h['table_name'] = this.props.tableName
+        // h['table_name'] = this.props.tableName
         console.log(h)
-        axios.post("/update/insert", h)
+        axios.post(`/${this.props.tableName[0].key}`, h)
             .then(response => {
                 console.log('aa')
                 console.log(response)
@@ -66,9 +64,7 @@ class databaseTable extends Component {
 
     edit = (h) => {
 
-        h['table_name'] = this.props.tableName
-        console.log(h)
-        axios.post("/update/edit", h)
+        axios.patch(`/${this.props.tableName[0].key}/${h.id}`, h)
             .then(response =>
                 console.log(response)
             )
@@ -78,8 +74,8 @@ class databaseTable extends Component {
     }
 
     delete = (h) => {
-        h['table_name'] = this.props.tableName
-        axios.post("/update/delete", h)
+
+        axios.delete(`/${this.props.tableName[0].key}/${h.id}`)
             .then(response =>
                 console.log(response)
             )
@@ -93,12 +89,13 @@ class databaseTable extends Component {
         return (
             <MaterialTable
                 style={{ marginTop: "10%" }}
-                title={this.props.tableName.charAt(0).toUpperCase() + this.props.tableName.slice(1)}
+                title={this.props.tableName[0].value.charAt(0).toUpperCase() + this.props.tableName[0].value.slice(1)}
                 columns={this.state.columns}
                 data={this.state.data}
                 editable={{
                     onRowAdd: (newData) =>
                         new Promise((resolve) => {
+                            console.log('newData: ',newData)
                             setTimeout(() => {
                                 resolve();
                                 this.setState((prevState) => {
