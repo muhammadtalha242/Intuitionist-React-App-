@@ -2,7 +2,10 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 const jwt = require('jsonwebtoken')
-const User = require('../../models/User')
+const Sequelize = require("sequelize");
+const connection = require('../DataBaseModule/config');        //Data connection
+const User = require('../../models/User')(connection, Sequelize)
+
 const bcrypt = require('bcrypt')
 const cors = require("cors");
 
@@ -67,7 +70,7 @@ router.post('/login', (req, res) => {
                 bcrypt.compare(req.body.password, user.password, (err, result) => {
                     console.log('b')
                     if (result) {
-                        console.log('a')
+                        console.log('login successful')
                         let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
                             expiresIn: 1440
                         })

@@ -41,7 +41,7 @@ class SimpleFormExample extends React.Component {
             email: this.state.email,
             password: this.state.password
         }
-        console.log('dd')
+        console.log('=============================================================================dd')
         login(user).then(res => {
             console.log('ee')
             if (res) {
@@ -49,7 +49,7 @@ class SimpleFormExample extends React.Component {
                 this.setState({ submitted: true }, () => {
                     setTimeout(() => this.setState({ submitted: false }), 5000);
                 });
-                // this.props.history.push(`/landing`)
+                this.props.history.push(`/landing`)
             }
 
             else {

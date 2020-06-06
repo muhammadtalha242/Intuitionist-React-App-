@@ -6,9 +6,9 @@ class Nav extends Component {
       <nav>
         <ul>
           <li className=""><i className="fas fa-bolt" style={{ color: 'rgb(0, 99, 248)' }}></i><span>  Intuitionist</span></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Mission</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#mission">Mission</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
     );
