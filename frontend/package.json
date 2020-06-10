@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "concurrently": "^5.2.0",
     "excel4node": "^1.7.2",
     "material-table": "^1.57.2",
     "mdbreact": "^4.25.4",
@@ -26,7 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"npm run start\" \"cd ../backend && npm run start\""
   },
   "eslintConfig": {
     "extends": "react-app"
