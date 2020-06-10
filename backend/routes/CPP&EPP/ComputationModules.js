@@ -6,7 +6,7 @@ const indexFunctions = require("./IndexFormulas");
 const Helper = require("./Helper");
 const connection = require('../DataBaseModule/config');        //Data connection
 const commercialParametersFile = require("./CommercialParameters");
-
+const Excel = require("./GenrateExcel")
 
 const Sequelize = require("sequelize");
 const StoreResults = require("../../models/simulation")(connection, Sequelize)
@@ -177,7 +177,7 @@ router.post("/", (req, res) => {
 
     }).then(() => {
         console.log("At the end")
-        
+        res.json(out)
         Excel.createExcel(out)
         
         console.log("After computations")
