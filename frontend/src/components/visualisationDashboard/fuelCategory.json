@@ -1,0 +1,20 @@
+{
+  "dataPoints": [
+    {
+      "y": "59",
+      "fuel_category": "Hydel"
+    },
+    {
+      "y": "1",
+      "fuel_category": "Import (IRAN)"
+    },
+    {
+      "y": "40",
+      "fuel_category": "Renewable"
+    },
+    {
+      "y": "161",
+      "fuel_category": "Thermal"
+    }
+  ]
+}
