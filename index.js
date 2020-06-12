@@ -49,7 +49,8 @@ if(process.env.NODE_ENV === 'production'){
 
 apiConfig.configureApi(app);
 
-const server = app.listen(process.env.PORT || 4000, () => {
-	console.log("Server working at port 4000")
+const PORT= process.env.PORT || 4000
+const server = app.listen(PORT , () => {
+	console.log("Server working on port ${PORT}")
 });
 server.setTimeout(30*60*1000);
