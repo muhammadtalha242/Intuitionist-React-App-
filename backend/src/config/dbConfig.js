@@ -2,7 +2,7 @@ const mapper = require('../config/mapperConfig');
 const Sequelize = require("sequelize");
 const logger = require("../util/logger");
 
-const sequelize = new Sequelize("development_database", "root", "root", {
+const sequelize = new Sequelize("intuitionist", "root", "root", {
   
 // const sequelize = new Sequelize("intuitionist_dev", "root", "Liverpool1", {
   host: "localhost",

@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
+const path = require('path')
 // const SDDP = require('./routes/SDDP/getResults')  ROUTE UNDERCONSTRUCTION
 const ComputationModules = require('./routes/CPP&EPP/ComputationModules')
 const FccComputationModules = require('./routes/FCC/FccComputationModules')
@@ -38,6 +38,13 @@ app.use('/', login)
 app.use('/data', database)
 app.use('/update', updateDatabase)
 
+if(process.env.NODE_ENV === 'production'){
+	app.use(express.static('client/build'));
+
+	app.get('*', (req,res)=>{
+		res.sendFile(path.join(__dirname, 'client','build','index.html'))
+	})
+}
 
 apiConfig.configureApi(app);
 

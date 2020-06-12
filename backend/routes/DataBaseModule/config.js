@@ -1,6 +1,6 @@
 // const mysql = require('mysql');
 const Sequelize = require('sequelize')
-module.exports = new Sequelize("development_database", "root", "root", {
+module.exports = new Sequelize("intuitionist", "root", "root", {
   host: "localhost",
   dialect: "mysql",
   operatorsAliases: false,
