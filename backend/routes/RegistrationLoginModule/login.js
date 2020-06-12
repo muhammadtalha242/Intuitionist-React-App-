@@ -3,7 +3,7 @@ var app = express();
 var router = express.Router();
 const jwt = require('jsonwebtoken')
 const Sequelize = require("sequelize");
-const connection = require('../DataBaseModule/config');        //Data connection
+const connection = require('../../src/config/dbConfig').sequelize;        //Data connection
 const User = require('../../models/User')(connection, Sequelize)
 
 const bcrypt = require('bcrypt')
