@@ -38,6 +38,7 @@ app.use('/', login)
 app.use('/data', database)
 app.use('/update', updateDatabase)
 
+//For heroku
 if(process.env.NODE_ENV === 'production'){
 	app.use(express.static('client/build'));
 

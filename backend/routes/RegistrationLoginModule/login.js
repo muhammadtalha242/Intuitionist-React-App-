@@ -6,7 +6,7 @@ const Sequelize = require("sequelize");
 const connection = require('../../src/config/dbConfig').sequelize;        //Data connection
 const User = require('../../models/User')(connection, Sequelize)
 
-//zara
+//zara24
 const bcrypt = require('bcrypt')
 const cors = require("cors");
 
