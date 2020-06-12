@@ -8,7 +8,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon index.js",
         "lab": "cls && nodemon routes\\SSDP\\SampleData\\tempData.js",
-        "heroku-postbuild": "cd client && npm install && npm run build"
+        "heroku-postbuild": "cd client && npm install && npm run build",
+        "dev": "concurrently \"cd ./frontend && npm run start\" \"npm run start\""
     },
     "author": "",
     "license": "ISC",
@@ -18,6 +19,7 @@
         "bcrypt": "^4.0.1",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.17.2",
+        "concurrently": "^5.2.0",
         "cors": "^2.8.5",
         "excel4node": "^1.7.2",
         "exceljs": "^3.8.2",
