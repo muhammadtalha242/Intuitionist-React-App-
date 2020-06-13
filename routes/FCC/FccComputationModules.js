@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const indexFunctions = require("./IndexFormulas")
-const Excel = require("./GenrateExcel")
+const Excel = require("./GenrateFccExcel")
 const Helper = require("./Helper")
 const connection = require('../DataBaseModule/config');        //Data connection
 const FuelType = require("./FuelTypes").fuelType;
@@ -18,11 +18,7 @@ const FuelType = require("./FuelTypes").fuelType;
 
 const output = {}
 async function addingRefYear(powerPlants, assumptions, FuelType) {
-    console.log("Inside printit---------------------")
-
-    console.log("powerPlants.length: ", powerPlants.length)
-    console.log("assumptions.length: ", assumptions.length)
-
+    
 
 
     //loop over and find cod and calculate ref year and add it back in that powerplant object
@@ -34,7 +30,6 @@ async function addingRefYear(powerPlants, assumptions, FuelType) {
         x = await getDataBaseValue(fuelType, assumptions, powerPlants)
 
 
-        console.log("after-3")
 
     }
     return x
@@ -57,9 +52,7 @@ async function getDataBaseValue(fuelType, assumptions, powerPlants) {
             var powerplant = powerPlants[i]
 
             //powerplant to display
-            console.log("powerplant",powerplant)
             const cod = new Date(powerplant.cod)
-            console.log("COD", cod)
             powerplant['year'] = Helper.getRefYear(cod,assumptionDate)
             var refRate =[{rate:0}]
             var indexValue =[{rate:0}]
@@ -71,13 +64,11 @@ async function getDataBaseValue(fuelType, assumptions, powerPlants) {
             }else{
                 if (powerplant == 'PORT_QASIM' || powerplant == 'HUANENG_ENRG' || powerplant == 'HUBCO_CPIH_1')  {
                     refRate=[{rate:0}]
-                    console.log("refRate: ", refRate)
                     indexValue =indexFunctions.getIndexValueByPlant(fuelType, allAssumptions, powerplant)
                     creatingOutputObject(fuelType,assumptionDate, allAssumptions, powerplant, indexValue, refRate)
 
                 }
                 else {
-                    console.log("HERER")
     
                     var rate_query = `SELECT rate from fcc where year =:year and id in(SELECT FCC_id from commercialparameters  where  power_plant_name =:powerplant_name);`
                     out = await databaseComm(fuelType, rate_query, powerplant, assumptionDate, allAssumptions)
@@ -89,7 +80,6 @@ async function getDataBaseValue(fuelType, assumptions, powerPlants) {
         }
 
     }
-    console.log("OUT: ", out)
     return out
 
 
@@ -102,7 +92,6 @@ async function databaseComm(fuelType, rate_query, powerplant, assumptionDate, al
 }
 
 calculateIndexValue=(fuelType, allAssumptions, powerplant, refRate)=>{
-    console.log("refRate:-------------------->>>>", refRate)
     return indexFunctions.getIndexValue(fuelType, allAssumptions, powerplant, refRate)
 }
 creatingOutputObject=(fuelType,assumptionDate, allAssumptions, powerplant, indexValue, refRate)=>{
@@ -113,7 +102,6 @@ creatingOutputObject=(fuelType,assumptionDate, allAssumptions, powerplant, index
 
     outputPowerPlant["refvalue"] = refRate,
     outputPowerPlant["index"] = indexValue
-    console.log("outputPowerPlant:  .........................", outputPowerPlant)
 
     if (fuelType in output) {
 
@@ -142,27 +130,21 @@ creatingOutputObject=(fuelType,assumptionDate, allAssumptions, powerplant, index
 
 
 // ------IMPORTANT-------
-const query = 'select * from powerplant join economicparameters on (powerplant.economic_parameters_id=economicparameters.economic_parameters_id) join technicalparameters on(powerplant.technical_parameter_id =technicalparameters.technical_parameter_id);'
+const query = 'select * from powerplant join economicparameters on (powerplant.economic_parameters_id=economicparameters.economic_parameters_id) join technicalparameters on(powerplant.technical_parameter_id =technicalparameters.technical_parameter_id) limit 70;'
 
 router.post("/", (req, res) => {
 
     const assumptions = req.body["assumption"]
-    console.log(req.body)
-    console.log("assumptions.length: ",assumptions.length)
     // console.log(assumptions)
     var out = {}
     connection.query(query, { type: connection.QueryTypes.SELECT }).then(async powerPlants => {
-        console.log("before-1")
         // const FuelType = await FuelTypeFile.getFuelType()
-        console.log("using: ",FuelType)
 
         out = await addingRefYear(powerPlants, assumptions, FuelType)
-        console.log("after-1")
 
     }).then(() => {
-        console.log("At the end")
         
-        Excel.createExcel(out)
+        Excel.createfccExcel(out)
         
 
     }).then(()=>{

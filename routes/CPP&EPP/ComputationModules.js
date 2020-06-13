@@ -6,7 +6,7 @@ const indexFunctions = require("./IndexFormulas");
 const Helper = require("./Helper");
 const connection = require('../DataBaseModule/config');        //Data connection
 const commercialParametersFile = require("./CommercialParameters");
-const Excel = require("./GenrateExcel")
+const Excelcpp = require("./GenrateExcel")
 
 const Sequelize = require("sequelize");
 const StoreResults = require("../../models/simulation")(connection, Sequelize)
@@ -14,7 +14,6 @@ const StoreResults = require("../../models/simulation")(connection, Sequelize)
 
 const output = {}
 async function addingRefYear(powerPlants, assumptions, commercialParameters) {
-    console.log("Inside printit---------------------")
 
     // console.log("powerPlants.length: ", powerPlants.length)
     // console.log("assumptions.length: ", assumptions.length)
@@ -90,8 +89,6 @@ async function databaseComm(commercialParameter, fcc_query, rate_query, powerpla
         indexValue = indexFunctions.getIndexValue(commercialParameter, allAssumptions, powerplant, refRate)
     }
 
-    console.log("refRate:-------------------->>>>", refRate)
-    console.log("fccRate:-------------------->>>>", fccRate)
 
 
     const outputPowerPlant = {}
@@ -157,13 +154,12 @@ async function databaseComm(commercialParameter, fcc_query, rate_query, powerpla
 }
 
 // ------IMPORTANT-------
-const query = 'select * from powerplant join economicparameters on (powerplant.economic_parameters_id=economicparameters.economic_parameters_id) join technicalparameters on(powerplant.technical_parameter_id =technicalparameters.technical_parameter_id);'
+const query = 'select * from powerplant join economicparameters on (powerplant.economic_parameters_id=economicparameters.economic_parameters_id) join technicalparameters on(powerplant.technical_parameter_id =technicalparameters.technical_parameter_id) limit 5 ;'
 
 router.post("/", (req, res) => {
 
     //Request object -> assumption Date and assumption values
     const assumptions = req.body["assumption"]
-    console.log("assumptions.length: ", assumptions.length)
 
     var out = {}
     connection.query(query, { type: connection.QueryTypes.SELECT }).then(async powerPlants => {
@@ -176,15 +172,12 @@ router.post("/", (req, res) => {
 
 
     }).then(() => {
-        console.log("At the end")
         res.json(out)
-        Excel.createExcel(out)
+    
+        Excelcpp.createcppExcel(out)
         
-        console.log("After computations")
-        res.json(out)
         
         StoreResults.create({ user_id: 1, results: out }).then(response => {
-            console.log('database updated')
         }).catch(error => console.log('ERROR: ', error))
 
     }).then(()=>{

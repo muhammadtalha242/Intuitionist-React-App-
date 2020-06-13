@@ -1,12 +1,6 @@
 // Require library
 const excel = require('excel4node');
-
-exports.createExcel = (obj) => {
-    console.log("this is excel modules", obj)
-    getObject(obj)
-}
-getObject = (obj) => {
-    
+exports.createcppExcel = (obj) => {
     // Create a new instance of a Workbook class
     var workbook = new excel.Workbook();
 
@@ -16,65 +10,62 @@ getObject = (obj) => {
         const date_row_assumption = 3 //0-99
         const date_row_value = 11 //0-99
         var date_col = 2 //A-z
-    
+
         const commercialParamter = commercial[0]
-        console.log("COMMERCIAL PARAMETER------------------>>>", commercialParamter)
         var worksheet = workbook.addWorksheet(`${commercialParamter}`);
 
         const dateAndPowerPlants = Object.entries(commercial[1])
-        
+        console.log(dateAndPowerPlants)
 
         dateAndPowerPlants.forEach(dateAndPlant => {
             date_col++
             const date = (dateAndPlant[0]).toString()
-            worksheet.cell(date_row_assumption,date_col).string(date)
-            worksheet.cell(date_row_value,date_col).string(date)
-
-            console.log("(date_row_assumption,date_col: -> powerPlantName",date_row_assumption,date_col,date)
-            console.log("date_row_value,date_col: -> powerPlantName",date_row_value,date_col,date)
+            worksheet.cell(date_row_assumption, date_col).string(date)
+            worksheet.cell(date_row_value, date_col).string(date)
 
 
-            const allPowerPlants = dateAndPlant[1]
 
-            
-            var name_row_value = date_row_value+1 //0-99
+            const allPowerPlants = dateAndPlant[1][1]
+            const plantAssumption = dateAndPlant[1][0]
+
+
+            var name_row_value = date_row_value + 1 //0-99
             const name_col = 1 //A-z
-                
+
             var data_row_value = name_row_value //0-99
             var data_col = date_col //A-z
             allPowerPlants.forEach(plant => {
-                
-                const powerPlantName = plant.plant_name
-                console.log("indexedValue, powerplant name, commercial: ",plant.index, powerPlantName,commercialParamter )
 
-                const indexedValue = plant.index.toString()
+                const powerPlantName = plant.name
+                let indexedValue =0
+                if (plant.index !== null){
+                    indexedValue =plant.index.toString()
+                }else{
+                    indexedValue =null
+                }
 
 
-                worksheet.cell(name_row_value,name_col).string(powerPlantName)
-                console.log("name_row_value,name_col: -> powerPlantName",name_row_value,name_col,powerPlantName)
+                worksheet.cell(name_row_value, name_col).string(powerPlantName)
 
                 name_row_value++
-                worksheet.cell(data_row_value,data_col).string(indexedValue)
-                console.log("data_row_value,data_col: -> indexedValue",data_row_value,data_col,indexedValue)
+                worksheet.cell(data_row_value, data_col).string(indexedValue)
 
                 data_row_value++
-                
-                var name_row_assumption = date_row_assumption+1 //0-99 
+
+                var name_row_assumption = date_row_assumption + 1 //0-99 
                 var data_row_assumption = name_row_assumption //0-99
-                    
-                Object.entries(plant.assumptions).forEach(assumption=>{
-                         
-                    const assumptionName= assumption[0]
+
+                Object.entries(plantAssumption[0]).forEach(assumption => {
+
+                    const assumptionName = assumption[0]
                     const assumptionValue = assumption[1].toString()
-                    worksheet.cell(name_row_assumption,name_col).string(assumptionName)
-                    console.log("name_row_assumption,name_col: -> assumptionName",name_row_assumption,name_col,assumptionName)
+                    worksheet.cell(name_row_assumption, name_col).string(assumptionName)
                     name_row_assumption++
 
-                    worksheet.cell(data_row_assumption,data_col).string(assumptionValue)
-                    console.log("data_row_assumption,data_col: -> assumptionValue",data_row_assumption,data_col,assumptionValue)
+                    worksheet.cell(data_row_assumption, data_col).string(assumptionValue)
 
                     data_row_assumption++
-                    
+
 
                 })
 
@@ -85,9 +76,11 @@ getObject = (obj) => {
     })
 
     console.log("EXCEL GENRATED??")
-    workbook.write('CPP&EPP.xlsx');
+    workbook.write('./routes/SDDP/inputSheets/CPP&EPP.xlsx');
 
 }
+
+
 
 
 // Add Worksheets to the workbook

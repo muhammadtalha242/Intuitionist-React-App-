@@ -1,8 +1,8 @@
 // Require library
 const excel = require('excel4node');
 
-exports.createExcel = (obj) => {
-    console.log("this is excel modules", obj)
+exports.createfccExcel = (obj) => {
+
     getObject(obj)
 }
 getObject = (obj) => {
@@ -18,7 +18,7 @@ getObject = (obj) => {
         var date_col = 2 //A-z
     
         const fuelParamter = fuel[0]
-        console.log("fuel PARAMETER------------------>>>", fuelParamter)
+
         var worksheet = workbook.addWorksheet(`${fuelParamter}`);
 
         const dateAndPowerPlants = Object.entries(fuel[1])
@@ -30,8 +30,6 @@ getObject = (obj) => {
             worksheet.cell(date_row_assumption,date_col).string(date)
             worksheet.cell(date_row_value,date_col).string(date)
 
-            console.log("(date_row_assumption,date_col: -> powerPlantName",date_row_assumption,date_col,date)
-            console.log("date_row_value,date_col: -> powerPlantName",date_row_value,date_col,date)
 
 
             const allPowerPlants = dateAndPlant[1]
@@ -45,17 +43,17 @@ getObject = (obj) => {
             allPowerPlants.forEach(plant => {
                 
                 const powerPlantName = plant.plant_name
-                console.log("indexedValue, powerplant name, fuel: ",plant.index, powerPlantName,fuelParamter )
+                
 
                 const indexedValue = plant.index.toString()
 
 
                 worksheet.cell(name_row_value,name_col).string(powerPlantName)
-                console.log("name_row_value,name_col: -> powerPlantName",name_row_value,name_col,powerPlantName)
+                
 
                 name_row_value++
                 worksheet.cell(data_row_value,data_col).string(indexedValue)
-                console.log("data_row_value,data_col: -> indexedValue",data_row_value,data_col,indexedValue)
+                
 
                 data_row_value++
                 
@@ -67,11 +65,11 @@ getObject = (obj) => {
                     const assumptionName= assumption[0]
                     const assumptionValue = assumption[1].toString()
                     worksheet.cell(name_row_assumption,name_col).string(assumptionName)
-                    console.log("name_row_assumption,name_col: -> assumptionName",name_row_assumption,name_col,assumptionName)
+                    
                     name_row_assumption++
 
                     worksheet.cell(data_row_assumption,data_col).string(assumptionValue)
-                    console.log("data_row_assumption,data_col: -> assumptionValue",data_row_assumption,data_col,assumptionValue)
+                    
 
                     data_row_assumption++
                     
@@ -84,8 +82,8 @@ getObject = (obj) => {
 
     })
 
-    console.log("EXCEL GENRATED??")
-    workbook.write('FCC.xlsx');
+    
+    workbook.write('./routes/SDDP/inputSheets/FCC.xlsx');
 
 }
 
