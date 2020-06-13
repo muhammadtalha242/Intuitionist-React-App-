@@ -8,8 +8,6 @@ import {
 import 'date-fns';
 import Button from '@material-ui/core/Button';
 
-
-
 class DataInput extends React.Component {
     constructor() {
         super()
@@ -83,20 +81,6 @@ class DataInput extends React.Component {
                 <form onSubmit={this.dateHandler} style={{ width: '50%', margin: 'auto' }}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils} >
                         <Grid container justify="space-around">
-                            {/* container direction="row" justify="center" alignItems="center" spacing={0} */}
-                            {/* <KeyboardDatePicker
-                                disableToolbar
-                                variant="inline"
-                                format="MM/dd/yyyy"
-                                margin="2%"
-                                id="date-picker-inline"
-                                label="From"
-                                value={this.state.fromDate}
-                                onChange={this.changeHandlerFromDate}
-                                KeyboardButtonProps={{
-                                    'aria-label': 'change date',
-                                }}
-                            /> */}
 
                             <KeyboardDatePicker
 
@@ -123,7 +107,6 @@ class DataInput extends React.Component {
                                     'aria-label': 'change date',
                                 }}
                             />
-                            {/* <Button     type="submit" variant="contained" color="primary" onSubmit={this.dateHandler}>GO</Button> */}
                             <Button color="primary" type="submit" variant="contained" onSubmit={this.dateHandler} size="small" style={{ padding: "0px", border: "0px", margin: "0px" }} >GO</Button>
 
                         </Grid>

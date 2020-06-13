@@ -3,7 +3,8 @@ const Sequelize = require("sequelize");
 const logger = require("../util/logger");
 //mysql://b7fa20857068cd:be8f54bf@us-cdbr-east-05.cleardb.net/heroku_baa5a0ae220b548?reconnect=true
 //db : development_database
-const sequelize = new Sequelize("development_database", "root", "root", {
+//db : intuitionist
+const sequelize = new Sequelize("intuitionist", "root", "root", {
    
 // const sequelize = new Sequelize("intuitionist_dev", "root", "Liverpool1", {
   host: "localhost",

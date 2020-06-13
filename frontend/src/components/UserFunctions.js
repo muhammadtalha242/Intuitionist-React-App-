@@ -7,7 +7,12 @@ export const register = newUser => {
             password: newUser.password
         })
         .then(response => {
-            console.log('Registered')
+            console.log(response.status)
+            return response
+        })
+        .catch(err => {
+            console.log(err)
+            return err
         })
 }
 
@@ -18,11 +23,13 @@ export const login = user => {
             password: user.password
         })
         .then(response => {
-            console.log("positive: ", response)
+            console.log(response.status)
             localStorage.setItem('usertoken', response.data)
-            return response.data
+            return response
         })
         .catch(err => {
-            console.log(err)
+            console.log('error')
+            // console.log(err.status)
+            return err
         })
 }

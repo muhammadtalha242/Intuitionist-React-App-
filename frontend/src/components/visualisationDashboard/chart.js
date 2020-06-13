@@ -7,6 +7,7 @@ import StackedChart from './stackedChart';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import './chart.css';
+import NavBar from '../navBar'
 var React = require('react');
 var Component = React.Component;
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -48,26 +49,30 @@ class Chart extends Component {
 		}
 		return (
 			<div>
-			<Grid container spacing={3} style={{backgroundColor:'#131924'}}>
-				<Grid item xs={12} style={{margin:'2%'}}>
-					<CanvasJSChart options = {options} 
-						onRef={ref => this.chart = ref}
-					/>
-				</Grid>
-				<Grid item xs={10} style={{marginLeft:'8%',marginBottom:'2%'}}>
-					<StackedChart style={{width:'40%'}}/>
-				</Grid>
-				<Grid item xs={3} style={{marginLeft:'5%',marginBottom:'2%'}}>
-					<FuelCategory/>
-				</Grid>
-				<Grid item xs={5} style={{marginBottom:'2%'}}>
-					<FuelType/>
-				</Grid>
-				<Grid item xs={3}>
-					<Losses/>
-				</Grid>
+				
+				<Grid container spacing={3} style={{backgroundColor:'#131924'}}>
+					<Grid item xs={12} >
+						<NavBar/>
+					</Grid>
+					<Grid item xs={12} style={{margin:'2%'}}>
+						<CanvasJSChart options = {options} 
+							onRef={ref => this.chart = ref}
+						/>
+					</Grid>
+					<Grid item xs={10} style={{marginLeft:'8%',marginBottom:'2%'}}>
+						<StackedChart style={{width:'40%'}}/>
+					</Grid>
+					<Grid item xs={3} style={{marginLeft:'5%',marginBottom:'2%'}}>
+						<FuelCategory/>
+					</Grid>
+					<Grid item xs={5} style={{marginBottom:'2%'}}>
+						<FuelType/>
+					</Grid>
+					<Grid item xs={3}>
+						<Losses/>
+					</Grid>
 
-			</Grid>
+				</Grid>
 		</div>
 		);
 	}

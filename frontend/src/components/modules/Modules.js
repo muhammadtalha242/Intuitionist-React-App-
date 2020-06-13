@@ -2,7 +2,7 @@ import React from 'react'
 import DataInput from "./DateInput"
 import InputTable from './inputtabl'
 import axios from "axios"
-
+import NavBar from '../navBar'
 class Modules extends React.Component {
     constructor() {
         super()
@@ -46,6 +46,9 @@ class Modules extends React.Component {
         const inputTable = (this.state.showInputTable ? <InputTable objectArray={this.state.objectArray} getFinalAssumptions={this.getFinalAssumptions} /> : null)
         return (
             <div>
+                <NavBar/>
+                <br/>
+                <br/>
                 <DataInput getDateArray={this.getDatesArray} />
                 {inputTable}
             </div>

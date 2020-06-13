@@ -26,6 +26,7 @@ router.post('/register', (req, res) => {
         }
     })
         .then(user => {
+        
             if (!user) {
                 bcrypt.hash(userInput.password, 10, (err, hash) => {
                     userInput.password = hash
@@ -47,7 +48,11 @@ router.post('/register', (req, res) => {
                 })
             }
             else {
-                res.json({ error: "User already exists" })
+                console.log('user already exists')
+
+                res.status(400).json({
+                    error: "User already exists"
+                })
             }
         })
 
@@ -64,6 +69,8 @@ router.post('/login', (req, res) => {
         }
     })
         .then(user => {
+
+            console.log(user)
             if (user) {
 
                 console.log(req.body.password)
@@ -75,19 +82,17 @@ router.post('/login', (req, res) => {
                         let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
                             expiresIn: 1440
                         })
-                        // res.json({ token: token })
+                   
                         res.send(token)
-                    }
-                    else {
+                    }})}            
+            else {
                         res.status(400).json({
                             error: "User doesnot exist"
                         })
                     }
                 })
-            }
-        }
-        )
         .catch(err => {
+            console.log(err)
             res.send("error :" + err)
         })
 })

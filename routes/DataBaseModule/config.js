@@ -17,7 +17,8 @@
 const Sequelize = require('sequelize')
 
 //db : development_database
-module.exports = new Sequelize("development_database", "root", "root", {
+//db : intuitionist
+module.exports = new Sequelize("intuitionist", "root", "root", {
   host: "localhost",
   dialect: "mysql",
   operatorsAliases: false,

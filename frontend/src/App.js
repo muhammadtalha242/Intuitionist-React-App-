@@ -6,7 +6,7 @@ import Register from './components/Register/Register';
 import { Route } from 'react-router-dom';
 import Landing from "./components/LandingPage/landing";
 import DatabaseModule from "./components/DatabaseModule/DataBaseModule";
-import Chart from './components/visualisationDashboard/chart';
+import Chart from './components/VisualisationDashboard/chart';
 // import SimpleMenu from './components/modules/table';
 
 function App() {

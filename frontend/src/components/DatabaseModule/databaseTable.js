@@ -13,16 +13,6 @@ class databaseTable extends Component {
         this.renderHeadings = this.renderHeadings.bind(this);
     };
     rendertable = () => {
-        // let d = [...this.props.tableData]
-        // let data = d.map((item, index) => {
-        //     let o = {}
-        //     item.map((ite, i) => {
-
-        //         o[this.props.tableData[0][i]] = ite
-
-        //     })
-        //     return o
-        // })
 
         this.setState({ data: this.props.tableData });
 
