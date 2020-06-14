@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8432ecf6-0736-4994-9512-7aed14aac9b3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/dbConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/dbConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visualisationDashboard/Epp.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/VisualisationDashboard/Epp.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visualisationDashboard/Losses.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/VisualisationDashboard/Losses.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visualisationDashboard/canvasjs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/VisualisationDashboard/canvasjs.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visualisationDashboard/canvasjs.react.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/VisualisationDashboard/canvasjs.react.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visualisationDashboard/chart.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/VisualisationDashboard/chart.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visualisationDashboard/chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/VisualisationDashboard/chart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visualisationDashboard/fuelCategory.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/VisualisationDashboard/fuelCategory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visualisationDashboard/fuelCategory.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/VisualisationDashboard/fuelCategory.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visualisationDashboard/fuelType.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/VisualisationDashboard/fuelType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visualisationDashboard/fuel_type.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/VisualisationDashboard/fuel_type.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visualisationDashboard/losses.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/VisualisationDashboard/losses.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visualisationDashboard/stackedChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/VisualisationDashboard/stackedChart.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,7 +35,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/config/dbConfig.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="480">
@@ -34,11 +44,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="530">
-              <caret line="20" column="31" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+            <state relative-caret-position="434">
+              <caret line="19" column="21" lean-forward="true" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -87,6 +106,24 @@
               <item name="Intuitionist" type="b2602c69:ProjectViewProjectNode" />
               <item name="Intuitionist" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Intuitionist" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Intuitionist" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Intuitionist" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Intuitionist" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Intuitionist" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Intuitionist" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -123,12 +160,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1592128360400</updated>
-      <workItem from="1592128361505" duration="2305000" />
+      <workItem from="1592128361505" duration="2728000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2305000" />
+    <option name="totallyTimeSpent" value="2728000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -136,11 +173,11 @@
     <layout>
       <window_info id="npm" side_tool="true" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24954791" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24954791" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info active="true" anchor="bottom" id="Terminal" sideWeight="0.4996986" visible="true" weight="0.32987553" />
+      <window_info anchor="bottom" id="Terminal" sideWeight="0.4996986" visible="true" weight="0.32987553" />
       <window_info anchor="bottom" id="Event Log" sideWeight="0.50030136" side_tool="true" visible="true" weight="0.32987553" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -175,13 +212,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="356">
@@ -203,13 +233,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="20" column="31" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -221,6 +244,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="23" column="10" lean-forward="true" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="19" column="21" lean-forward="true" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
         </state>
       </provider>
     </entry>
