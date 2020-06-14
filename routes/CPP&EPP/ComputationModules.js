@@ -11,14 +11,12 @@ const Excelcpp = require("./GenrateExcel")
 const Sequelize = require("sequelize");
 const StoreResults = require("../../models/simulation")(connection, Sequelize)
 
-
 const output = {}
 async function addingRefYear(powerPlants, assumptions, commercialParameters) {
 
     // console.log("powerPlants.length: ", powerPlants.length)
     // console.log("assumptions.length: ", assumptions.length)
     // console.log("assumptions.length: ", commercialParameters)
-
 
 
     //loop over and find cod and calculate ref year and add it back in that powerplant object
@@ -38,7 +36,6 @@ async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
     for (var x = 0; x < assumptions.length; x++) {
         const assumption = assumptions[x]
 
-
         const assumptionDate = new Date(assumption[0])
         const allAssumptions = assumption[1]
 
@@ -48,12 +45,10 @@ async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
             //Powerplant to use for calculation
             var powerplant = powerPlants[i]
 
-
             //Calculating Ref Year 
             const cod = new Date(powerplant.cod)
             const refyear = Helper.getRefYear(cod, assumptionDate)
             powerplant['year'] = refyear
-
 
 
             if ((commercialParameter == 'interestforeignannual' || commercialParameter == 'interestlocalannual') && (powerplant.year <= 30)) {
@@ -76,7 +71,6 @@ async function getDataBaseValue(commercialParameter, assumptions, powerPlants) {
     }
     return out
 
-
 }
 // Function to run query and return structured Out object
 async function databaseComm(commercialParameter, fcc_query, rate_query, powerplant, assumptionDate, allAssumptions) {
@@ -90,7 +84,6 @@ async function databaseComm(commercialParameter, fcc_query, rate_query, powerpla
     }
 
 
-
     const outputPowerPlant = {}
     outputPowerPlant['name']= powerplant.plant_name
     outputPowerPlant['year']= powerplant.year
@@ -99,7 +92,6 @@ async function databaseComm(commercialParameter, fcc_query, rate_query, powerpla
         outputPowerPlant["fccvalue"] = fccRate,
 
         outputPowerPlant["index"] = indexValue
-
 
 
 // Structure of output object 
@@ -121,7 +113,6 @@ async function databaseComm(commercialParameter, fcc_query, rate_query, powerpla
 //         }
 //     }
 // }
-
 
 
 
@@ -166,10 +157,8 @@ router.post("/", (req, res) => {
         // Getting all the commercial parameters from database  
         const commercialParameters = await commercialParametersFile.getCommercialParameters()
 
-
         //Main function
         out = await addingRefYear(powerPlants, assumptions, commercialParameters)
-
 
     }).then(() => {
         res.json(out)
@@ -186,4 +175,3 @@ router.post("/", (req, res) => {
 })
 
 module.exports = router
-

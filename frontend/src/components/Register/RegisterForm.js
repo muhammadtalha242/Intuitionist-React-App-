@@ -96,7 +96,7 @@ class RegisterForm extends Component {
             return (
                 <div style={{ margin: 'auto' }}>
                     {this.renderForm()}
-                    < Alert severity="error" style={{ width: "50%", margin: '0 auto' }}> <AlertTitle>Error</AlertTitle>User Already Registered</Alert >
+                    < Alert severity="error" style={{ width: "50%", margin: '0 auto',marginBottom:'8%' }}> <AlertTitle>Error</AlertTitle>User Already Registered</Alert >
                 </div>
             )
         }
@@ -104,7 +104,7 @@ class RegisterForm extends Component {
             return (
                 <div>
                      {this.renderForm()}
-                    <Alert severity="success"  style={{ width: "50%", margin: '0 auto' }}>Registered Succesfully!</Alert>
+                    <Alert severity="success"  style={{ width: "50%", margin: '0 auto',marginBottom:'8%' }}>Registered Succesfully!</Alert>
                 </div>
                
             )

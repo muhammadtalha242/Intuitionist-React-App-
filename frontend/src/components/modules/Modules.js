@@ -3,6 +3,8 @@ import DataInput from "./DateInput"
 import InputTable from './inputtabl'
 import axios from "axios"
 import NavBar from '../navBar'
+import Spinner from '../Spinner/spinnericon'
+import Backdrop from '@material-ui/core/Backdrop';
 class Modules extends React.Component {
     constructor() {
         super()
@@ -13,7 +15,8 @@ class Modules extends React.Component {
         {
             objectArray: {},
             showInputTable: false,
-            assumptions: []
+            assumptions: [],
+            open:false
 
         }
     }
@@ -28,12 +31,16 @@ class Modules extends React.Component {
     }
     sendAssumption(assumptions) {
         console.log("sending Query: ", assumptions)
+            this.setState({
+                open: true
+            })
         axios.post('/submit', assumptions)
             .then(response => {
 
                 console.log("this is response: ", response)
                 this.setState({
-                    response: response.data
+                    response: response.data,
+                    open:false
                 })
             })
             .catch(error => {
@@ -44,15 +51,21 @@ class Modules extends React.Component {
 
     render() {
         const inputTable = (this.state.showInputTable ? <InputTable objectArray={this.state.objectArray} getFinalAssumptions={this.getFinalAssumptions} /> : null)
-        return (
-            <div>
-                <NavBar/>
-                <br/>
-                <br/>
-                <DataInput getDateArray={this.getDatesArray} />
-                {inputTable}
-            </div>
-        )
+        if(this.state.open){
+            return(<div>
+                    <Backdrop open={this.state.open}></Backdrop><Spinner/>
+                </div>)
+        }
+        else{
+            return (
+                <div>
+                    <NavBar/>
+                    <br/>
+                    <br/>
+                    <DataInput getDateArray={this.getDatesArray} />
+                    {inputTable}
+                </div>
+            )}
     }
 }
 

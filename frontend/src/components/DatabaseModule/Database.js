@@ -16,17 +16,6 @@ class Database extends Component {
 
     };
 
-    // componentDidMount = () => {
-    //     console.log("inside component did mount")
-    //     this.setState({
-    //         
-    //     })
-
-    // }
-
-
-    
-
     //Generate rows of the particular table to render
     renderItems = (item, index) => {
 
@@ -43,17 +32,6 @@ class Database extends Component {
         return (
             <div>
                 <div>
-                    {/* <Table striped bordered hover variant="dark">
-                        <thead>
-                            <tr>
-                                <th>Table Names</th>
-                            </tr>
-                        </thead>    
-                        <tbody>
-                            {(this.props.tables).map((item, index) => this.renderItems(item, index))} */}
-                           
-                        {/* </tbody>
-                    </Table> */}
                 </div>
                 <div className='databaseTable'>
                     {this.state.componentShow ? <DatabaseTable tableData={this.state.table} tableName={this.state.tableName} /> : null}

@@ -18,6 +18,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import TableChartOutlinedIcon from '@material-ui/icons/TableChartOutlined';
 import SearchIcon from '@material-ui/icons/Search';
+import Button from '@material-ui/core/Button';
 const drawerWidth = 300;
 
 const useStyles = makeStyles((theme) => ({
@@ -99,6 +100,12 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  tag:{
+    color: 'white',
+    display: 'inline',
+    float: 'right'
+
+}
 }));
 
 
@@ -144,6 +151,11 @@ export default function PersistentDrawerLeft(props) {
           <Typography variant="h6" noWrap>
             Database Table
             </Typography>
+            <div style={{marginLeft:'auto', marginRight:'0'}}>
+              <Button color="inherit"><a href="/visualization" className={classes.tag}>visualization</a></Button>
+              <Button color="inherit"><a href="/modules" className={classes.tag}>Computations</a></Button>
+              <Button color="inherit"><a href="/register" className={classes.tag}>Register User</a></Button>
+            </div>
         </Toolbar>
       </AppBar>
       <Drawer

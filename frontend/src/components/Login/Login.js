@@ -118,8 +118,7 @@ class SimpleFormExample extends React.Component {
             return (
                 <div style={{ margin: 'auto' }}>
                     {this.renderForm()}
-                    <br />
-                    < Alert severity="error" style={{ width: "50%", margin: 'auto' }}> <AlertTitle>Error</AlertTitle>Incorrect Username/Password</Alert >
+                    < Alert severity="error" style={{ width: "50%", margin: '0 auto' }}> <AlertTitle>Error</AlertTitle>Incorrect Username/Password</Alert >
                 </div>
             )
         }

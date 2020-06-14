@@ -36,26 +36,7 @@ export class DataBaseModule extends Component {
             componentShow: false,
             tables: tables
         })
-        // axios.get('/data', this.state)
-        //     .then(response => {
-                // this.setState({
-                //     componentShow: false,
-                //     tables: response.data
-                // })
-        //     })
-        //     .catch(error => {
-        //         console.log('API-> ERROR');
-        //         console.log(error);
 
-
-        //         // How can we show it here?
-        //         // {<Error error={error}/>}
-
-        //         this.setState({
-        //             showError: true,
-        //             errorMessage: 'Status Code :500'
-        //         })
-        //     })
     }
 
     showSpinner = (l) => {
@@ -100,18 +81,35 @@ export class DataBaseModule extends Component {
 
         return (
             <div>
-                {/* <Header/> */}
-
                 <PersistentDrawerLeft tables={this.state.tables} goTo={this.goTo} databasetable={this.testVarible} />
 
                 {/* Display error page */}
                 {errorPage}
-
-
-                {/* <Footer/> */}
             </div>
         )
     }
 }
 
 export default DataBaseModule
+
+
+        // axios.get('/data', this.state)
+        //     .then(response => {
+                // this.setState({
+                //     componentShow: false,
+                //     tables: response.data
+                // })
+        //     })
+        //     .catch(error => {
+        //         console.log('API-> ERROR');
+        //         console.log(error);
+
+
+        //         // How can we show it here?
+        //         // {<Error error={error}/>}
+
+        //         this.setState({
+        //             showError: true,
+        //             errorMessage: 'Status Code :500'
+        //         })
+        //     })

@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const indexFunctions = require("./IndexFormulas")
-const Excel = require("./GenrateFccExcel")
+// const Excel = require("./GenrateFccExcel")
 const Helper = require("./Helper")
 const connection = require('../DataBaseModule/config');        //Data connection
 const FuelType = require("./FuelTypes").fuelType;
@@ -144,7 +144,7 @@ router.post("/", (req, res) => {
 
     }).then(() => {
         
-        Excel.createfccExcel(out)
+        // Excel.createfccExcel(out)
         
 
     }).then(()=>{

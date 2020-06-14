@@ -1,6 +1,5 @@
 const commercialParameters = require("./CommercialParameters").commercialParameters
 
-
 exports.getIndexValue = (commercialParameter, assumption, powerplant, rate) => {
     // const expectedAssumptions= commercialParameters[commercialParameter]
     // indexValues_3 =(assumption, ref_eco, ref_rate)
@@ -122,7 +121,6 @@ exports.getIndexValue = (commercialParameter, assumption, powerplant, rate) => {
 
 
 
-
 //Formula for variables with 3 parameters
 indexValues_3 = (assumption, ref_eco, ref_rate) => {
     const value = (assumption / ref_eco) * ref_rate;
@@ -144,7 +142,6 @@ indexValues_1 = (ref_rate) => {
 
     return value
 }
-
 
 intersestRateRMB = (dollar_parity, Ref_dollar) => {
     const value =(dollar_parity / Ref_dollar)
@@ -191,5 +188,5 @@ InterestLocalAnnual=(assumption, powerplant, ref_rate)=>{
        sum = interest + (outstanding * installed)
 
     })
-    return sum/4
-}
+   
+    return sum/4}

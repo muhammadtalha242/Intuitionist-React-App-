@@ -17,6 +17,4 @@ exports.getRefYear=(date_1, date_2)=> {
     }
     return refYear
 
-
 }
-
