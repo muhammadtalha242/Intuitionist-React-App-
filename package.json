@@ -40,5 +40,5 @@
         "nodemon": "^2.0.2",
         "sequelize": "^4.44.4",
         "util.promisify": "^1.0.1"
-    },
+    }
 }
