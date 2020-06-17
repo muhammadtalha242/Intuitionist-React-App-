@@ -42,7 +42,7 @@ class SimpleFormExample extends React.Component {
             password: this.state.password
         }
         login(user).then(res => {
-          
+          console.log(res)
             if (res['status']==200) {
                 console.log('Login')
                 this.setState({ submitted: true }, () => {

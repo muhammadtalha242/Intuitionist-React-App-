@@ -10,7 +10,7 @@ let sequelize;
 if (NODE_ENV === "production") {
     sequelize = new Sequelize(CLEARDB_DATABASE_URL);
 } else {
-    sequelize = new Sequelize("intuitionist", "root", "1234", {
+    sequelize = new Sequelize("intuitionist", "root", "root", {
         host: "localhost",
         dialect: "mysql",
         dialectOptions: {
