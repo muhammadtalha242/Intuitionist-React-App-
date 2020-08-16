@@ -35,9 +35,9 @@ module.exports = class PowerPlantService extends BaseService {
         // Restructured Results
         let filteredCollection = this.restructureOutput(updatedCollection)
         // After Indexation formulas
-        let finalResults = this.formulasService.getIndexValue(filteredCollection,assumptions)
+        // let finalResults = this.formulasService.getIndexValue(filteredCollection,assumptions)
         
-        return finalResults;
+        return filteredCollection;
     }
 
     fccParameter(fccCollection, collectionX){
@@ -55,36 +55,80 @@ module.exports = class PowerPlantService extends BaseService {
 
     }
 
+    // restructureOutput(filteredCollection) {
+    //     var restructuredOutput = [];
+    //     filteredCollection.forEach(collection => {
+    //         const plant_name = collection.plant_name
+    //         const years = collection.years
+    //         const plantYear = `${plant_name}+${years}`
+    //         if (plant_name in restructuredOutput) {
+    //             if (plantYear in restructuredOutput[plant_name]) {
+    //                 restructuredOutput[plant_name][plantYear].commercialparameters.push({ "commercial_parameter_name": collection.commercial_parameter_name, "rate": collection.rate })
+    //             }
+    //             else {
+    //                 const powerplant = { ...collection };
+    //                 delete powerplant.commercial_parameter_name;
+    //                 delete powerplant.paramCombineID;
+    //                 delete powerplant.rate;
+    //                 powerplant.commercialparameters = [
+    //                     {
+    //                         commercial_parameter_name: collection.commercial_parameter_name,
+    //                         rate: collection.rate,
+    //                     },
+    //                 ];
+    //                 restructuredOutput[plant_name][plantYear] = powerplant
+    //             }
+    //         }
+    //         else {
+    //             restructuredOutput[plant_name] = {}
+    //         }
+
+    //     })
+
+    //     return restructuredOutput
+    // }
     restructureOutput(filteredCollection) {
         var restructuredOutput = [];
         filteredCollection.forEach(collection => {
             const plant_name = collection.plant_name
             const years = collection.years
             const plantYear = `${plant_name}+${years}`
+            // console.log('plantYear: ', plantYear)
             if (plant_name in restructuredOutput) {
+                
                 if (plantYear in restructuredOutput[plant_name]) {
-                    restructuredOutput[plant_name][plantYear].commercialparameters.push({ "commercial_parameter_name": collection.commercial_parameter_name, "rate": collection.rate })
+                    // console.log('Third Step',restructuredOutput[plant_name])
+                    restructuredOutput[plant_name][plantYear].push({ "commercial_parameter_name": collection.commercial_parameter_name, "rate": collection.rate })
                 }
                 else {
-                    const powerplant = { ...collection };
-                    delete powerplant.commercial_parameter_name;
-                    delete powerplant.paramCombineID;
-                    delete powerplant.rate;
-                    powerplant.commercialparameters = [
+                    const p = {...collection}
+    
+                    p.commercialparameters = [
                         {
                             commercial_parameter_name: collection.commercial_parameter_name,
                             rate: collection.rate,
                         },
                     ];
-                    restructuredOutput[plant_name][plantYear] = powerplant
+                    restructuredOutput[plant_name][plantYear] = p.commercialparameters
+                    // console.log('second STEP,restructuredOutput[plant_name][plantYear]:   ' , restructuredOutput)
                 }
             }
             else {
-                restructuredOutput[plant_name] = {}
+                // restructuredOutput[plant_name] = {}
+                // console.log('FIRST STEP pre =>   ' , restructuredOutput)
+                const powerplant = { ...collection };
+                delete powerplant.commercial_parameter_name;
+                delete powerplant.paramCombineID;
+                delete powerplant.rate;
+    
+                restructuredOutput[plant_name] = powerplant
+                // console.log('FIRST STEP pre => ' , restructuredOutput)
+                // console.log('FIRST STEP post => ' , restructuredOutput)
+    
             }
-
+    
         })
-
+    
         return restructuredOutput
     }
     async getRefValues() {

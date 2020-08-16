@@ -62,7 +62,8 @@ module.exports = class PowerPlantRepository extends BaseRepository {
 
             commercialparameters_combine.year
             IN
-                (${assumptionDateArray});`;
+                (${assumptionDateArray}) 
+                ;`;
         // `SELECT 
         // commercialparameters_combine.commercial_parameter_name,
         // commercialparameters_combine.year AS years,
